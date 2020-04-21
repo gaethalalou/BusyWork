@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'home_widget.dart';
 import 'package:flutter/services.dart';
+import 'intro.dart';
 
 void main() { 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -16,7 +16,7 @@ class App extends StatelessWidget {
    return MaterialApp(
      title: 'Busy Work',
      theme: ThemeData.dark(),
-     home: Home(),
+     home: IntroScreen(),
    );
  }
 }
