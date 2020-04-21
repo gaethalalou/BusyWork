@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:projectbusywork/progress_widget.dart';
 import 'package:projectbusywork/settings_widget.dart';
 import 'overview_widget.dart';
-import 'placeholder_widget.dart';
 import 'myColors.dart';
 
 class Home extends StatefulWidget {
@@ -44,7 +43,8 @@ class _HomeState extends State<Home> {
             title: new Text('Progress'),
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings), title: Text('Settings'))
+            icon: Icon(Icons.settings), 
+            title: Text('Settings'))
         ],
       ),
     );
