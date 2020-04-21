@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'myColors.dart';
 
 class OverviewWidget extends StatelessWidget {
   final Color color;
@@ -8,10 +10,33 @@ class OverviewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(text)
-      ),
       backgroundColor: color,
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Container(
+                  //color: Colors.white,
+                  width: 320,
+                  height: 10,
+                ),
+                RawMaterialButton(
+                  onPressed: () {},
+                  child: new Icon(
+                    Icons.add,
+                    size: 35.0,
+                  ),
+                  shape: new CircleBorder(),
+                  elevation: 2.0,
+                  fillColor: hGreen,
+                ),
+              ],
+            ),
+            Center(child: Text(text)),
+          ],
+        ),
+      ),
     );
   }
 }
