@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:projectbusywork/progress_widget.dart';
+import 'package:projectbusywork/settings_widget.dart';
+import 'overview_widget.dart';
 import 'placeholder_widget.dart';
 import 'myColors.dart';
 
 class Home extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-      return _HomeState();
-    }
+    return _HomeState();
+  }
 }
 
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    PlaceholderWidget(bgGreen, "Overview"),
-    PlaceholderWidget(bgGreen, "Progress"),
-    PlaceholderWidget(bgGreen, "Settings")
+    OverviewWidget(bgGreen, "Overview"),
+    ProgressWidget(bgGreen, "Progress"),
+    SettingsWidget(bgGreen, "Settings")
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +30,8 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0.0, //to remove the border from the navigation bar
         backgroundColor: Colors.white,
-        selectedItemColor: lGreen,//light green
-        unselectedItemColor: lGrey,//grey
+        selectedItemColor: lGreen, //light green
+        unselectedItemColor: lGrey, //grey
         onTap: onTabTapped,
         currentIndex: _currentIndex,
         items: [
@@ -41,9 +44,7 @@ class _HomeState extends State<Home> {
             title: new Text('Progress'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings')
-          )
+              icon: Icon(Icons.settings), title: Text('Settings'))
         ],
       ),
     );
