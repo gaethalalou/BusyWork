@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'myColors.dart';
+import 'package:projectbusywork/newactivity_widget.dart';
 
 class OverviewWidget extends StatelessWidget {
   final Color color;
@@ -22,7 +23,14 @@ class OverviewWidget extends StatelessWidget {
                   height: 10,
                 ),
                 RawMaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              NewActivityWidget(lGreen, "New Activity")),
+                    );
+                  },
                   child: new Icon(
                     Icons.add,
                     size: 35.0,
