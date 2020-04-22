@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:projectbusywork/progress_widget.dart';
 import 'package:projectbusywork/settings_widget.dart';
@@ -26,25 +27,35 @@ class _HomeState extends State<Home> {
       //   title: Text('Busy Work'),
       // ),  commented to remove the app bar
       body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 0.0, //to remove the border from the navigation bar
-        backgroundColor: Colors.white,
-        selectedItemColor: lGreen, //light green
-        unselectedItemColor: lGrey, //grey
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: bgGreen,
+        color: Colors.white,
+        buttonBackgroundColor: Colors.white,
+        height: 50,
         onTap: onTabTapped,
-        currentIndex: _currentIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.home),
-            title: new Text('Overview'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.assessment),
-            title: new Text('Progress'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings), 
-            title: Text('Settings'))
+        index: _currentIndex,
+        animationDuration: Duration(
+          milliseconds: 350
+        ),
+        items: <Widget> [
+            Icon(
+              Icons.home, 
+              color: lGreen,
+              size: 25,
+            ),
+
+            Icon(
+              Icons.assessment,
+              color: lGreen,
+              size: 25,
+            ),
+
+            Icon(
+              Icons.settings,
+              color: lGreen,
+              size: 25,
+            ), 
+
         ],
       ),
     );
