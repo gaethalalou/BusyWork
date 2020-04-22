@@ -54,6 +54,11 @@ class IntroScreenState extends State<IntroScreen> {
     return new IntroSlider(
       slides: this.slides,
       onDonePress: this.onDonePress,
+
+      nameDoneBtn: "START",
+      isShowSkipBtn: false,
+      colorDoneBtn: lGrey,
+      colorSkipBtn: lGrey,
     );
   }
 }
