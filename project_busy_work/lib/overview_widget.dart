@@ -11,7 +11,7 @@ class OverviewWidget extends StatefulWidget {
 }
 
 class _OverviewState extends State<OverviewWidget> {
-  final List<ListItem> tasks = [MessageItem('task 1', 'sleep')];
+  final List<ListItem> tasks = [MessageItem('Task 1', 'sleep')];
   //List<String> tasks = ['task 1', 'task 2', 'task 3'];
   final TextEditingController eCtrl = new TextEditingController();
 
@@ -101,17 +101,14 @@ class _OverviewState extends State<OverviewWidget> {
               ),
             ),
             new Expanded(
-              child: Container(
-                decoration: new BoxDecoration(
-                    color: bgWhite,
-                    borderRadius: new BorderRadius.only(
-                      topLeft: const Radius.circular(40.0),
-                      topRight: const Radius.circular(40.0),
-                      bottomLeft: const Radius.circular(40.0),
-                      bottomRight: const Radius.circular(40.0),
-                    )),
+              child: 
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
                 margin: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, top: 50, bottom: 250),
+                    left: 13.0, right: 13.0, top: 5, bottom: 20),
                 child: new ListView.builder(
                     itemCount: tasks.length,
                     itemBuilder: (BuildContext context, int Index) {
@@ -146,13 +143,13 @@ class MessageItem implements ListItem {
   final String description;
 
   MessageItem(this.task, this.description);
-
+  
   Widget buildTitle(BuildContext context) => FloatingActionButton(
         onPressed: () {},
-        child: Text(task),
-        shape: RoundedRectangleBorder(side: BorderSide(width: 100)),
-        foregroundColor: lGreen,
-        backgroundColor: bgWhite,
+        child: Text(task,),
+        shape: RoundedRectangleBorder(side: BorderSide(width: 60),borderRadius: BorderRadius.circular(5.0)),
+        foregroundColor: Colors.white,
+        backgroundColor: lightGreen,
       );
 
   Widget buildSubtitle(BuildContext context) => Text(description);
