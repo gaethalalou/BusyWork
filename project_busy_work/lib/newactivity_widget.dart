@@ -19,12 +19,30 @@ class NewActivityWidget extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
+                  Container(
+                    width: 250,
+                    height: 10,
+                  ),
+                  RaisedButton(
+                    child: Text('Back'),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(18.0)),
+                    color: hGreen,
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Home()));
+                    },
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
                   Text('Title: ', style: TextStyle(fontSize: 24)),
                   Container(width: 20),
                   Container(
-                      color: Colors.black,
-                      child:
-                          Text('insert here', style: TextStyle(fontSize: 20)))
+                      color: Colors.white,
+                      child: Text('insert here',
+                          style: TextStyle(fontSize: 20, color: Colors.black)))
                 ],
               ),
               Row(
@@ -32,9 +50,9 @@ class NewActivityWidget extends StatelessWidget {
                   Text('Location: ', style: TextStyle(fontSize: 24)),
                   Container(width: 20),
                   Container(
-                      color: Colors.black,
-                      child:
-                          Text('insert here', style: TextStyle(fontSize: 20)))
+                      color: Colors.white,
+                      child: Text('insert here',
+                          style: TextStyle(fontSize: 20, color: Colors.black)))
                 ],
               ),
               Row(
@@ -42,9 +60,9 @@ class NewActivityWidget extends StatelessWidget {
                   Text('Description: ', style: TextStyle(fontSize: 24)),
                   Container(width: 20),
                   Container(
-                      color: Colors.black,
-                      child:
-                          Text('insert here', style: TextStyle(fontSize: 20)))
+                      color: Colors.white,
+                      child: Text('insert here',
+                          style: TextStyle(fontSize: 20, color: Colors.black)))
                 ],
               ),
               Row(
@@ -52,9 +70,9 @@ class NewActivityWidget extends StatelessWidget {
                   Text('Date: ', style: TextStyle(fontSize: 24)),
                   Container(width: 20),
                   Container(
-                      color: Colors.black,
-                      child:
-                          Text('insert here', style: TextStyle(fontSize: 20)))
+                      color: Colors.white,
+                      child: Text('insert here',
+                          style: TextStyle(fontSize: 20, color: Colors.black)))
                 ],
               ),
               Row(
@@ -62,9 +80,9 @@ class NewActivityWidget extends StatelessWidget {
                   Text('Time: ', style: TextStyle(fontSize: 24)),
                   Container(width: 20),
                   Container(
-                      color: Colors.black,
-                      child:
-                          Text('insert here', style: TextStyle(fontSize: 20)))
+                      color: Colors.white,
+                      child: Text('insert here',
+                          style: TextStyle(fontSize: 20, color: Colors.black)))
                 ],
               ),
               Row(
@@ -72,15 +90,16 @@ class NewActivityWidget extends StatelessWidget {
                   Text('Routine: ', style: TextStyle(fontSize: 24)),
                   Container(width: 20),
                   Container(
-                      color: Colors.black,
-                      child:
-                          Text('insert here', style: TextStyle(fontSize: 20)))
+                      color: Colors.white,
+                      child: Text('insert here',
+                          style: TextStyle(fontSize: 20, color: Colors.black)))
                 ],
               ),
               Center(
                 child: RaisedButton(
                   child: Text('New Activity'),
-                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(18.0)),
                   color: hGreen,
                   onPressed: () {
                     Navigator.push(context,
