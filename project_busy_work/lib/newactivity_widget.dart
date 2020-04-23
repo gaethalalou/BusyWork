@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projectbusywork/myColors.dart';
 import 'home_widget.dart';
 
 class NewActivityWidget extends StatelessWidget {
@@ -79,6 +80,8 @@ class NewActivityWidget extends StatelessWidget {
               Center(
                 child: RaisedButton(
                   child: Text('New Activity'),
+                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(18.0)),
+                  color: hGreen,
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Home()));

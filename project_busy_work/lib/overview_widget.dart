@@ -28,7 +28,7 @@ class OverviewWidget extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              NewActivityWidget(lGreen, "New Activity")),
+                              NewActivityWidget(bgGreen, "New Activity")),
                     );
                   },
                   child: new Icon(
