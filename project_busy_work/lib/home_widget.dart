@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    OverviewWidget(bgGreen, "Overview"),
+    OverviewWidget(),
     ProgressWidget(bgGreen, "Progress"),
     SettingsWidget(bgGreen, "Settings")
   ];
