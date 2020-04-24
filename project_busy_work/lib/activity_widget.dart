@@ -7,7 +7,11 @@ class ActivityWidget extends StatefulWidget {
 }
 
 class _ActivityState extends State<ActivityWidget> {
-  final List<ListItem> tasks = [MessageItem('task 1', 'sleep')];
+  final List<ListItem> tasks = [
+    MessageItem('task 1', 'sleep'),
+    MessageItem('task 2', 'take trash out'),
+    MessageItem('task 3', 'set alarm for workout')
+  ];
   //List<String> tasks = ['task 1', 'task 2', 'task 3'];
   final TextEditingController eCtrl = new TextEditingController();
   @override
@@ -33,7 +37,6 @@ class _ActivityState extends State<ActivityWidget> {
                     itemBuilder: (BuildContext context, int Index) {
                       return ListTile(
                         title: tasks[Index].buildTitle(context),
-                        subtitle: tasks[Index].buildSubtitle(context),
                       );
                     }
 
@@ -49,9 +52,6 @@ class _ActivityState extends State<ActivityWidget> {
 abstract class ListItem {
   /// The title line to show in a list item.
   Widget buildTitle(BuildContext context);
-
-  /// The subtitle line, if any, to show in a list item.
-  Widget buildSubtitle(BuildContext context);
 }
 
 /// A ListItem that contains data to display a message.
@@ -61,13 +61,15 @@ class MessageItem implements ListItem {
 
   MessageItem(this.task, this.description);
 
-  Widget buildTitle(BuildContext context) => FloatingActionButton(
-        onPressed: () {},
-        child: Text(task),
-        shape: RoundedRectangleBorder(side: BorderSide(width: 100)),
-        foregroundColor: lGreen,
-        backgroundColor: bgWhite,
+  Widget buildTitle(BuildContext context) => Card(
+        child: ListTile(
+          onTap: () {},
+          title: Text(task),
+          subtitle: Text(description),
+        ),
+        // shape: RoundedRectangleBorder(
+        //     side: BorderSide(width: 100)),
+        // foregroundColor: lGreen,
+        // backgroundColor: bgWhite,
       );
-
-  Widget buildSubtitle(BuildContext context) => Text(description);
 }
