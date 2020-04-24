@@ -11,7 +11,7 @@ class OverviewWidget extends StatefulWidget {
 }
 
 class _OverviewState extends State<OverviewWidget> {
-  final List<ListItem> tasks = [MessageItem('Task 1', 'sleep')];
+  final List<ListItem> tasks = [MessageItem('Task 1', 'sleep', "8 hours", ""), MessageItem('Task2', 'Eat', "10 mins", "20 mins")];
   //List<String> tasks = ['task 1', 'task 2', 'task 3'];
   final TextEditingController eCtrl = new TextEditingController();
 
@@ -114,11 +114,8 @@ class _OverviewState extends State<OverviewWidget> {
                     itemBuilder: (BuildContext context, int Index) {
                       return ListTile(
                         title: tasks[Index].buildTitle(context),
-                        subtitle: tasks[Index].buildSubtitle(context),
                       );
                     }
-
-                    //children: tasks.map((task) => Butt(task)).toList(),
                     ),
               ),
             ),
@@ -132,25 +129,32 @@ class _OverviewState extends State<OverviewWidget> {
 abstract class ListItem {
   /// The title line to show in a list item.
   Widget buildTitle(BuildContext context);
-
-  /// The subtitle line, if any, to show in a list item.
-  Widget buildSubtitle(BuildContext context);
 }
 
 /// A ListItem that contains data to display a message.
 class MessageItem implements ListItem {
   final String task;
   final String description;
+  final String expected;
+  final String actualTime;
+  MessageItem(this.task, this.description, this.expected, this.actualTime);
 
-  MessageItem(this.task, this.description);
-  
-  Widget buildTitle(BuildContext context) => FloatingActionButton(
-        onPressed: () {},
-        child: Text(task,),
-        shape: RoundedRectangleBorder(side: BorderSide(width: 60),borderRadius: BorderRadius.circular(5.0)),
-        foregroundColor: Colors.white,
-        backgroundColor: lightGreen,
+  Widget buildTitle(BuildContext context) => Card(
+        elevation: 2.0,
+        child: ListTile(
+          onTap: () {},
+          title: Text(task),         
+          subtitle: Text(description+ " • Expected: " + expected + (actualTime != "" ? " • Actual: "+actualTime : "")),
+        ),
+        color: lGreen,
+        margin: EdgeInsets.only(top: 5.0),
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: Colors.grey, ),
+          borderRadius: BorderRadius.circular(8.0)
+        ),
+        // shape: RoundedRectangleBorder(
+        //     side: BorderSide(width: 100)),
+        // foregroundColor: lGreen,
+        // backgroundColor: bgWhite,
       );
-
-  Widget buildSubtitle(BuildContext context) => Text(description);
 }
