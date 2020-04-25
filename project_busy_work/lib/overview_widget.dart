@@ -10,7 +10,10 @@ class OverviewWidget extends StatefulWidget {
 }
 
 class _OverviewState extends State<OverviewWidget> {
-  final List<ListItem> tasks = [MessageItem('Task 1', 'sleep', "8 hours", ""), MessageItem('Task2', 'Eat', "10 mins", "20 mins")];
+  final List<ListItem> tasks = [
+    MessageItem('Task 1', 'sleep', "8 hours", ""),
+    MessageItem('Task2', 'Eat', "10 mins", "20 mins")
+  ];
   //List<String> tasks = ['task 1', 'task 2', 'task 3'];
   final TextEditingController eCtrl = new TextEditingController();
 
@@ -31,10 +34,13 @@ class _OverviewState extends State<OverviewWidget> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                  width: 320,
-                  height: 10,
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text("Today's Tasks",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20)),
                 ),
                 RawMaterialButton(
                   onPressed: () {
@@ -100,12 +106,11 @@ class _OverviewState extends State<OverviewWidget> {
               ),
             ),
             new Expanded(
-              child: 
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
                 margin: const EdgeInsets.only(
                     left: 13.0, right: 13.0, top: 5, bottom: 20),
                 child: new ListView.builder(
@@ -114,8 +119,7 @@ class _OverviewState extends State<OverviewWidget> {
                       return ListTile(
                         title: tasks[Index].buildTitle(context),
                       );
-                    }
-                    ),
+                    }),
               ),
             ),
           ],
@@ -142,15 +146,19 @@ class MessageItem implements ListItem {
         elevation: 2.0,
         child: ListTile(
           onTap: () {},
-          title: Text(task),         
-          subtitle: Text(description+ " • Expected: " + expected + (actualTime != "" ? " • Actual: "+actualTime : "")),
+          title: Text(task),
+          subtitle: Text(description +
+              " • Expected: " +
+              expected +
+              (actualTime != "" ? " • Actual: " + actualTime : "")),
         ),
         color: lGreen,
         margin: EdgeInsets.only(top: 5.0),
         shape: RoundedRectangleBorder(
-          side: BorderSide(color: Colors.grey, ),
-          borderRadius: BorderRadius.circular(8.0)
-        ),
+            side: BorderSide(
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.circular(8.0)),
         // shape: RoundedRectangleBorder(
         //     side: BorderSide(width: 100)),
         // foregroundColor: lGreen,
