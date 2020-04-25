@@ -1,6 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:projectbusywork/activity_widget.dart';
 import 'package:projectbusywork/progress_widget.dart';
 import 'package:projectbusywork/settings_widget.dart';
 import 'overview_widget.dart';

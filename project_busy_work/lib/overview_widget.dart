@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'myColors.dart';
-import 'activity_widget.dart';
 import 'package:projectbusywork/newactivity_widget.dart';
 
 class OverviewWidget extends StatefulWidget {
