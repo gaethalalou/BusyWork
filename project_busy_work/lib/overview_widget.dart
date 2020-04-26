@@ -145,7 +145,12 @@ class MessageItem implements ListItem {
   Widget buildTitle(BuildContext context) => Card(
         elevation: 2.0,
         child: ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DescriptionPage()),
+            );
+          },
           title: Text(task),
           subtitle: Text(description +
               " • Expected: " +
@@ -164,4 +169,63 @@ class MessageItem implements ListItem {
         // foregroundColor: lGreen,
         // backgroundColor: bgWhite,
       );
+}
+
+class DescriptionPage extends StatefulWidget {
+  @override
+  _DescriptionPage createState() => _DescriptionPage();
+}
+
+class _DescriptionPage extends State<DescriptionPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: bgGreen,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
+              height: 50,
+              width: 50,
+              child: IconButton(
+                alignment: Alignment.topLeft,
+                icon: Icon(Icons.arrow_back),
+                onPressed: (){Navigator.pop(context);})
+
+
+            ),
+            Container(
+              height: 300,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              margin: const EdgeInsets.only(
+                  left: 13.0, right: 13.0, top: 5, bottom: 10),
+            ),
+            Container(
+              height: 330,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              margin: const EdgeInsets.only(
+                  left: 13.0, right: 13.0, top: 5, bottom: 10),
+              child: Container(
+                child: TextField(
+                  style: TextStyle(height: 3),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'enter decription',
+                      labelText: 'description'),
+                  enabled: true,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
