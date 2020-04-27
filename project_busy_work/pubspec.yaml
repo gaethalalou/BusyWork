@@ -29,6 +29,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  path_provider: "^1.6.7"
+  intl: "^0.16.1"
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -38,6 +41,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+    - json_files/tasks.json
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
