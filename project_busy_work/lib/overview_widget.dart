@@ -47,8 +47,7 @@ class _OverviewState extends State<OverviewWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              NewActivityWidget(bgGreen, "New Activity")),
+                          builder: (context) => NewActivityWidget()),
                     );
                   },
                   child: new Icon(
@@ -186,15 +185,14 @@ class _DescriptionPage extends State<DescriptionPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              height: 50,
-              width: 50,
-              child: IconButton(
-                alignment: Alignment.topLeft,
-                icon: Icon(Icons.arrow_back),
-                onPressed: (){Navigator.pop(context);})
-
-
-            ),
+                height: 50,
+                width: 50,
+                child: IconButton(
+                    alignment: Alignment.topLeft,
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })),
             Container(
               height: 300,
               decoration: BoxDecoration(
