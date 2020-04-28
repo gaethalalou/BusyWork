@@ -20,7 +20,8 @@ class _DescriptionPage extends State<DescriptionPage> {
                 children: <Widget>[
                   IconButton(
                     alignment: Alignment.topLeft,
-                    icon: Icon(Icons.arrow_back),
+                    icon: Icon(Icons.arrow_back_ios),
+                    color: hGreen,
                     onPressed: () {
                       Navigator.pop(context);
                     }),

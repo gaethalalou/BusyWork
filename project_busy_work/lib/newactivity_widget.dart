@@ -59,21 +59,21 @@ class NewActivityState extends State<NewActivityWidget> {
       body: SafeArea(
         child: ListView(
           primary: false,
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(15),
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("New Activity", style: TextStyle(fontSize: 24)),
-                RaisedButton(
-                  child: Text('Back'),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(18.0)),
+                IconButton(
+                  icon: Icon(Icons.arrow_back_ios),
                   color: hGreen,
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Home()));
                   },
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 80),
+                  child: Text("New Activity", style: TextStyle(fontSize: 24)),
                 ),
               ],
             ),
@@ -184,7 +184,7 @@ class NewActivityState extends State<NewActivityWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('Date: ', style: TextStyle(fontSize: 22)),
-                Container(width: 20),
+                Container(width: 90),
                 Column(
                   children: <Widget>[
                     Text(dated.format(selectedDate)),
@@ -217,7 +217,7 @@ class NewActivityState extends State<NewActivityWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('Time: ', style: TextStyle(fontSize: 22)),
-                Container(width: 50),
+                Container(width: 100),
                 Column(
                   children: <Widget>[
                     Text(timed.format(selectedTime1)),
@@ -244,7 +244,6 @@ class NewActivityState extends State<NewActivityWidget> {
                     ),
                   ],
                 ),
-                Container(width: 10),
                 Column(
                   children: <Widget>[
                     Text(timed.format(selectedTime2)),
@@ -281,7 +280,7 @@ class NewActivityState extends State<NewActivityWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('Routine: ', style: TextStyle(fontSize: 22)),
-                Container(width: 20),
+                Container(width: 75),
                 DropdownButton(
                   value: selectedRoutine,
                   items: dropdownMenuItems,
