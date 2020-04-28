@@ -189,6 +189,8 @@ class NewActivityState extends State<NewActivityWidget> {
                   children: <Widget>[
                     Text(dated.format(selectedDate)),
                     RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(18.0)),
                       child: Text("Select Date"),
                       color: hGreen,
                       onPressed: () async {
@@ -205,7 +207,7 @@ class NewActivityState extends State<NewActivityWidget> {
                     ),
                   ],
                 ),
-                Container(width: 20),
+                Container(width: 35),
               ],
             ),
             Container(
@@ -215,12 +217,14 @@ class NewActivityState extends State<NewActivityWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('Time: ', style: TextStyle(fontSize: 22)),
-                Container(width: 20),
+                Container(width: 50),
                 Column(
                   children: <Widget>[
                     Text(timed.format(selectedTime1)),
                     RaisedButton(
-                      child: Text("Select Start \nTime"),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(18.0)),
+                      child: Text("Start At"),
                       color: hGreen,
                       onPressed: () async {
                         final selectedTime1 = await selectTime(context);
@@ -240,12 +244,14 @@ class NewActivityState extends State<NewActivityWidget> {
                     ),
                   ],
                 ),
-                Container(width: 20),
+                Container(width: 10),
                 Column(
                   children: <Widget>[
                     Text(timed.format(selectedTime2)),
                     RaisedButton(
-                      child: Text("Select Finish\nTime"),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(18.0)),
+                      child: Text("Finish At"),
                       color: hGreen,
                       onPressed: () async {
                         final secondSelectedTime = await selectTime(context);
@@ -281,6 +287,7 @@ class NewActivityState extends State<NewActivityWidget> {
                   items: dropdownMenuItems,
                   onChanged: onChangeDropdownItem,
                 ),
+                Container(width: 30,)
               ],
             ),
             Container(
