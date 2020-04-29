@@ -19,9 +19,9 @@ class _OverviewState extends State<OverviewWidget> {
   static var message = MessageItem.fromJson(userMap);
 
   final List<ListItem> tasks = [
-    message
-    //MessageItem('Task 1', 'sleep', "8 hours", ""),
-    //MessageItem('Task2', 'Eat', "10 mins", "20 mins"),
+    message,
+    MessageItem('Task 1', 'sleep', "8 hours", ""),
+    MessageItem('Task2', 'Eat', "10 mins", "20 mins"),
   ];
   //List<String> tasks = ['task 1', 'task 2', 'task 3'];
   final TextEditingController eCtrl = new TextEditingController();
