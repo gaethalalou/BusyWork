@@ -14,7 +14,21 @@ class MessageItem implements ListItem {
   final String description;
   final String expected;
   final String actualTime;
+
   MessageItem(this.task, this.description, this.expected, this.actualTime);
+
+  MessageItem.fromJson(Map<String, dynamic> json)
+      : task = json['task'],
+        description = json['description'],
+        expected = json['expected'],
+        actualTime = json['actualTime'];
+
+  Map<String, dynamic> toJson() => {
+        'task': task,
+        'description': description,
+        'expected': expected,
+        'actualTime': actualTime
+      };
 
   Widget buildTitle(BuildContext context) => Card(
         elevation: 2.0,
