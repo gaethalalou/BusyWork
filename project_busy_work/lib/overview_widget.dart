@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'DescriptionPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -128,114 +128,6 @@ class _OverviewState extends State<OverviewWidget> {
                         title: tasks[Index].buildTitle(context),
                       );
                     }),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-abstract class ListItem {
-  /// The title line to show in a list item.
-  Widget buildTitle(BuildContext context);
-}
-
-/// A ListItem that contains data to display a message.
-class MessageItem implements ListItem {
-  final String task;
-  final String description;
-  final String expected;
-  final String actualTime;
-
-  MessageItem(this.task, this.description, this.expected, this.actualTime);
-
-  MessageItem.fromJson(Map<String, dynamic> json)
-      : task = json['task'],
-        description = json['description'],
-        expected = json['expected'],
-        actualTime = json['actualTime'];
-
-  Map<String, dynamic> toJson() => {
-        'task': task,
-        'description': description,
-        'expected': expected,
-        'actualTime': actualTime
-      };
-
-  Widget buildTitle(BuildContext context) => Card(
-        elevation: 2.0,
-        child: ListTile(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DescriptionPage()),
-            );
-          },
-          title: Text(task),
-          subtitle: Text(description +
-              " • Expected: " +
-              expected +
-              (actualTime != "" ? " • Actual: " + actualTime : "")),
-        ),
-        color: lGreen,
-        margin: EdgeInsets.only(top: 5.0),
-        shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: Colors.grey,
-            ),
-            borderRadius: BorderRadius.circular(8.0)),
-        // shape: RoundedRectangleBorder(
-        //     side: BorderSide(width: 100)),
-        // foregroundColor: lGreen,
-        // backgroundColor: bgWhite,
-      );
-}
-
-class DescriptionPage extends StatefulWidget {
-  @override
-  _DescriptionPage createState() => _DescriptionPage();
-}
-
-class _DescriptionPage extends State<DescriptionPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: bgGreen,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-                height: 50,
-                width: 50,
-                child: IconButton(
-                    alignment: Alignment.topLeft,
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    })),
-            Container(
-              height: 300,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              margin: const EdgeInsets.only(
-                  left: 13.0, right: 13.0, top: 5, bottom: 10),
-            ),
-            Container(
-              height: 330,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              margin: const EdgeInsets.only(
-                  left: 13.0, right: 13.0, top: 5, bottom: 10),
-              child: Text(
-                "Description:",
-                style: TextStyle(color: bgGreen, fontSize: 20),
               ),
             ),
           ],

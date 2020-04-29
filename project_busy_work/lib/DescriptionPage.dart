@@ -17,20 +17,22 @@ class _DescriptionPage extends State<DescriptionPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Row(
-                children: <Widget>[
-                  IconButton(
+              children: <Widget>[
+                IconButton(
                     alignment: Alignment.topLeft,
                     icon: Icon(Icons.arrow_back_ios),
                     color: hGreen,
                     onPressed: () {
                       Navigator.pop(context);
                     }),
-                  Container(
+                Container(
                     margin: EdgeInsets.only(bottom: 10),
-                    child: Text("Task 1 ", style: TextStyle(fontSize: 20),textAlign: TextAlign.center,)
-                  ),
-                  
-                ], 
+                    child: Text(
+                      "Task 1 ",
+                      style: TextStyle(fontSize: 20),
+                      textAlign: TextAlign.center,
+                    )),
+              ],
             ),
             Container(
               height: 320,
@@ -50,9 +52,15 @@ class _DescriptionPage extends State<DescriptionPage> {
               margin: const EdgeInsets.only(
                   left: 13.0, right: 13.0, top: 5, bottom: 10),
               child: Container(
-                margin: EdgeInsets.only(top:9.0, left: 9.0),
-                child: Text("Description:", textAlign: TextAlign.left, style: TextStyle(color: lGreen, fontWeight: FontWeight.w500, fontSize: 20),)
-              ),
+                  margin: EdgeInsets.only(top: 9.0, left: 9.0),
+                  child: Text(
+                    "Description:",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: lGreen,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20),
+                  )),
             ),
           ],
         ),
