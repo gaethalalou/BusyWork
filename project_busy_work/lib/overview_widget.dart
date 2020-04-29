@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'myColors.dart';
 import 'package:projectbusywork/newactivity_widget.dart';
+import 'ListItem.dart';
 
 class OverviewWidget extends StatefulWidget {
   @override
@@ -10,9 +13,15 @@ class OverviewWidget extends StatefulWidget {
 }
 
 class _OverviewState extends State<OverviewWidget> {
+  static String jst =
+      '{"task": "task1","description": "description1","expected": "expected1","actualTime": "actualTime1"}';
+  static Map userMap = jsonDecode(jst);
+  static var message = MessageItem.fromJson(userMap);
+
   final List<ListItem> tasks = [
-    MessageItem('Task 1', 'sleep', "8 hours", ""),
-    MessageItem('Task2', 'Eat', "10 mins", "20 mins")
+    message
+    //MessageItem('Task 1', 'sleep', "8 hours", ""),
+    //MessageItem('Task2', 'Eat', "10 mins", "20 mins"),
   ];
   //List<String> tasks = ['task 1', 'task 2', 'task 3'];
   final TextEditingController eCtrl = new TextEditingController();
@@ -139,7 +148,21 @@ class MessageItem implements ListItem {
   final String description;
   final String expected;
   final String actualTime;
+
   MessageItem(this.task, this.description, this.expected, this.actualTime);
+
+  MessageItem.fromJson(Map<String, dynamic> json)
+      : task = json['task'],
+        description = json['description'],
+        expected = json['expected'],
+        actualTime = json['actualTime'];
+
+  Map<String, dynamic> toJson() => {
+        'task': task,
+        'description': description,
+        'expected': expected,
+        'actualTime': actualTime
+      };
 
   Widget buildTitle(BuildContext context) => Card(
         elevation: 2.0,
@@ -210,15 +233,9 @@ class _DescriptionPage extends State<DescriptionPage> {
               ),
               margin: const EdgeInsets.only(
                   left: 13.0, right: 13.0, top: 5, bottom: 10),
-              child: Container(
-                child: TextField(
-                  style: TextStyle(height: 3),
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'enter decription',
-                      labelText: 'description'),
-                  enabled: true,
-                ),
+              child: Text(
+                "Description:",
+                style: TextStyle(color: bgGreen, fontSize: 20),
               ),
             ),
           ],

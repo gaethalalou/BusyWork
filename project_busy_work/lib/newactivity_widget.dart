@@ -28,6 +28,29 @@ class NewActivityState extends State<NewActivityWidget> {
   DateTime selectedTime2 = DateTime.now().add(Duration(minutes: 30));
   final DateFormat dated = DateFormat('yyyy-MM-dd');
   final DateFormat timed = DateFormat('HH : mm');
+  List<Routines> routines = Routines.getRoutines();
+  List<DropdownMenuItem<Routines>> dropdownMenuItems;
+  Routines selectedRoutine;
+
+  @override
+  void initState() {
+    dropdownMenuItems = buildDropdownMenuItems(routines);
+    selectedRoutine = dropdownMenuItems[0].value;
+    super.initState();
+  }
+
+  List<DropdownMenuItem<Routines>> buildDropdownMenuItems(List routines) {
+    List<DropdownMenuItem<Routines>> items = List();
+    for (Routines routine in routines) {
+      items.add(
+        DropdownMenuItem(
+          value: routine,
+          child: Text(routine.name),
+        ),
+      );
+    }
+    return items;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,21 +59,21 @@ class NewActivityState extends State<NewActivityWidget> {
       body: SafeArea(
         child: ListView(
           primary: false,
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(15),
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("New Activity", style: TextStyle(fontSize: 24)),
-                RaisedButton(
-                  child: Text('Back'),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(18.0)),
+                IconButton(
+                  icon: Icon(Icons.arrow_back_ios),
                   color: hGreen,
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Home()));
                   },
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 80),
+                  child: Text("New Activity", style: TextStyle(fontSize: 24)),
                 ),
               ],
             ),
@@ -161,11 +184,13 @@ class NewActivityState extends State<NewActivityWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('Date: ', style: TextStyle(fontSize: 22)),
-                Container(width: 20),
+                Container(width: 90),
                 Column(
                   children: <Widget>[
                     Text(dated.format(selectedDate)),
                     RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(18.0)),
                       child: Text("Select Date"),
                       color: hGreen,
                       onPressed: () async {
@@ -182,7 +207,7 @@ class NewActivityState extends State<NewActivityWidget> {
                     ),
                   ],
                 ),
-                Container(width: 20),
+                Container(width: 35),
               ],
             ),
             Container(
@@ -192,12 +217,14 @@ class NewActivityState extends State<NewActivityWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('Time: ', style: TextStyle(fontSize: 22)),
-                Container(width: 20),
+                Container(width: 100),
                 Column(
                   children: <Widget>[
                     Text(timed.format(selectedTime1)),
                     RaisedButton(
-                      child: Text("Select Start \nTime"),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(18.0)),
+                      child: Text("Start At"),
                       color: hGreen,
                       onPressed: () async {
                         final selectedTime1 = await selectTime(context);
@@ -206,19 +233,24 @@ class NewActivityState extends State<NewActivityWidget> {
                         setState(
                           () {
                             this.selectedTime1 = DateTime(
-                                selectedTime1.hour, selectedTime1.minute);
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day,
+                                selectedTime1.hour,
+                                selectedTime1.minute);
                           },
                         );
                       },
                     ),
                   ],
                 ),
-                Container(width: 20),
                 Column(
                   children: <Widget>[
                     Text(timed.format(selectedTime2)),
                     RaisedButton(
-                      child: Text("Select Finish\nTime"),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(18.0)),
+                      child: Text("Finish At"),
                       color: hGreen,
                       onPressed: () async {
                         final secondSelectedTime = await selectTime(context);
@@ -226,7 +258,11 @@ class NewActivityState extends State<NewActivityWidget> {
 
                         setState(
                           () {
-                            selectedTime2 = DateTime(secondSelectedTime.hour,
+                            selectedTime2 = DateTime(
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day,
+                                secondSelectedTime.hour,
                                 secondSelectedTime.minute);
                           },
                         );
@@ -244,27 +280,13 @@ class NewActivityState extends State<NewActivityWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('Routine: ', style: TextStyle(fontSize: 22)),
-                Container(width: 20),
-                Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Form(
-                      key: routineKey,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          SizedBox(
-                            width: 200.0,
-                            height: 30.0,
-                            child: TextFormField(
-                              cursorColor: hGreen,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                Container(width: 75),
+                DropdownButton(
+                  value: selectedRoutine,
+                  items: dropdownMenuItems,
+                  onChanged: onChangeDropdownItem,
                 ),
+                Container(width: 30,)
               ],
             ),
             Container(
@@ -306,6 +328,12 @@ class NewActivityState extends State<NewActivityWidget> {
         initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
   }
 
+  onChangeDropdownItem(Routines selectedRoutine2) {
+    setState(() {
+      selectedRoutine = selectedRoutine2;
+    });
+  }
+
   void submit() {
     if (titleKey.currentState.validate() &&
         locationKey.currentState.validate() &&
@@ -316,5 +344,21 @@ class NewActivityState extends State<NewActivityWidget> {
       check = true;
       print(title);
     }
+  }
+}
+
+class Routines {
+  int id;
+  String name;
+
+  Routines(this.id, this.name);
+
+  static List<Routines> getRoutines() {
+    return <Routines>[
+      Routines(1, 'Do Not Repeat'),
+      Routines(2, 'Daily'),
+      Routines(3, 'Weekly'),
+      Routines(4, 'Monthly'),
+    ];
   }
 }
