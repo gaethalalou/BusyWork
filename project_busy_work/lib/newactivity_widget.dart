@@ -32,11 +32,26 @@ class NewActivityState extends State<NewActivityWidget> {
   List<DropdownMenuItem<Routines>> dropdownMenuItems;
   Routines selectedRoutine;
 
+  File jsonFile;
+  Directory dir;
+  String fileName = "tasks.json";
+  bool fileExists = false;
+  Map<String, dynamic> fileContent;
+
   @override
   void initState() {
     dropdownMenuItems = buildDropdownMenuItems(routines);
     selectedRoutine = dropdownMenuItems[0].value;
     super.initState();
+
+    getApplicationDocumentsDirectory().then((Directory directory) {
+      dir = directory;
+      jsonFile = new File(dir.path + "/" + fileName);
+      fileExists = jsonFile.existsSync();
+      if (fileExists)
+        this.setState(
+            () => fileContent = json.decode(jsonFile.readAsStringSync()));
+    });
   }
 
   List<DropdownMenuItem<Routines>> buildDropdownMenuItems(List routines) {
@@ -190,7 +205,7 @@ class NewActivityState extends State<NewActivityWidget> {
                     Text(dated.format(selectedDate)),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(18.0)),
+                          borderRadius: new BorderRadius.circular(18.0)),
                       child: Text("Select Date"),
                       color: hGreen,
                       onPressed: () async {
@@ -223,7 +238,7 @@ class NewActivityState extends State<NewActivityWidget> {
                     Text(timed.format(selectedTime1)),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(18.0)),
+                          borderRadius: new BorderRadius.circular(18.0)),
                       child: Text("Start At"),
                       color: hGreen,
                       onPressed: () async {
@@ -249,7 +264,7 @@ class NewActivityState extends State<NewActivityWidget> {
                     Text(timed.format(selectedTime2)),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(18.0)),
+                          borderRadius: new BorderRadius.circular(18.0)),
                       child: Text("Finish At"),
                       color: hGreen,
                       onPressed: () async {
@@ -286,7 +301,9 @@ class NewActivityState extends State<NewActivityWidget> {
                   items: dropdownMenuItems,
                   onChanged: onChangeDropdownItem,
                 ),
-                Container(width: 30,)
+                Container(
+                  width: 30,
+                )
               ],
             ),
             Container(
@@ -342,8 +359,43 @@ class NewActivityState extends State<NewActivityWidget> {
       locationKey.currentState.save();
       descriptionKey.currentState.save();
       check = true;
-      print(title);
+      Task sub = new Task(
+        title: title,
+        location: location,
+        description: description,
+        date: dated.format(selectedDate),
+        startTime: timed.format(selectedTime1),
+        endTime: timed.format(selectedTime2),
+        routine: selectedRoutine.name,
+      );
+      writeToFile(titleKey.toString(), sub);
     }
+  }
+
+  void createFile(
+      Map<String, dynamic> content, Directory dir, String fileName) {
+    print("Creating file!");
+    File file = new File(dir.path + "/" + fileName);
+    file.createSync();
+    fileExists = true;
+    file.writeAsStringSync(json.encode(content));
+  }
+
+  void writeToFile(String key, dynamic value) {
+    print("Writing to file!");
+    Map<String, dynamic> content = {key: value};
+    if (fileExists) {
+      print("File exists");
+      Map<String, dynamic> jsonFileContent =
+          json.decode(jsonFile.readAsStringSync());
+      jsonFileContent.addAll(content);
+      jsonFile.writeAsStringSync(json.encode(jsonFileContent));
+    } else {
+      print("File does not exist!");
+      createFile(content, dir, fileName);
+    }
+    this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
+    print(fileContent);
   }
 }
 
