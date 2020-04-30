@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'DescriptionPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -13,15 +12,14 @@ class OverviewWidget extends StatefulWidget {
 }
 
 class _OverviewState extends State<OverviewWidget> {
-  static String jst =
-      '{"task": "task1","description": "description1","expected": "expected1","actualTime": "actualTime1"}';
+  static String jst = '{"title": "task1", "subTitle":"task1 subtitle", "location":"location1", "description": "description1","expected": "expected1","actualTime": "actualTime1"}';
   static Map userMap = jsonDecode(jst);
   static var message = MessageItem.fromJson(userMap);
 
   final List<ListItem> tasks = [
     message,
-    MessageItem('Task 1', 'sleep', "8 hours", ""),
-    MessageItem('Task2', 'Eat', "10 mins", "20 mins"),
+    MessageItem('Nap Time', 'sleep', 'take a nap', "bedroom","1 hours", ""),
+    MessageItem('prepare lunch', 'pasta', 'etc', "kitchen", "2 hours", ""),
   ];
   //List<String> tasks = ['task 1', 'task 2', 'task 3'];
   final TextEditingController eCtrl = new TextEditingController();
