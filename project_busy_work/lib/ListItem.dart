@@ -10,21 +10,30 @@ abstract class ListItem {
 
 /// A ListItem that contains data to display a message.
 class MessageItem implements ListItem {
-  final String task;
+  final String title;
+  final String subTitle;
+  final String location;
   final String description;
+  // final String startAt;
+  // final String expectedEnds;
+  // final String actualEnds; will use these later for new activity creation 
   final String expected;
   final String actualTime;
 
-  MessageItem(this.task, this.description, this.expected, this.actualTime);
+  MessageItem(this.title, this.subTitle, this.location, this.description,this.expected, this.actualTime);
 
-  MessageItem.fromJson(Map<String, dynamic> json)
-      : task = json['task'],
+  MessageItem.fromJson(Map<String, dynamic> json): 
+        title = json['title'],
+        subTitle = json['subTitle'],
+        location = json['location'],
         description = json['description'],
         expected = json['expected'],
         actualTime = json['actualTime'];
 
   Map<String, dynamic> toJson() => {
-        'task': task,
+        'title': title,
+        'subTitle': subTitle,
+        'location': location,
         'description': description,
         'expected': expected,
         'actualTime': actualTime
@@ -39,7 +48,7 @@ class MessageItem implements ListItem {
               MaterialPageRoute(builder: (context) => DescriptionPage()),
             );
           },
-          title: Text(task),
+          title: Text(title),
           subtitle: Text(description +
               " • Expected: " +
               expected +
