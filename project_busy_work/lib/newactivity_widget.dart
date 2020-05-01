@@ -368,13 +368,12 @@ class NewActivityState extends State<NewActivityWidget> {
         endTime: timed.format(selectedTime2),
         routine: selectedRoutine.name,
       );
-      writeToFile(titleKey.toString(), sub);
+      writeToFile(title, sub);
     }
   }
 
   void createFile(
       Map<String, dynamic> content, Directory dir, String fileName) {
-    print("Creating file!");
     File file = new File(dir.path + "/" + fileName);
     file.createSync();
     fileExists = true;
@@ -382,16 +381,13 @@ class NewActivityState extends State<NewActivityWidget> {
   }
 
   void writeToFile(String key, dynamic value) {
-    print("Writing to file!");
     Map<String, dynamic> content = {key: value};
     if (fileExists) {
-      print("File exists");
       Map<String, dynamic> jsonFileContent =
           json.decode(jsonFile.readAsStringSync());
       jsonFileContent.addAll(content);
       jsonFile.writeAsStringSync(json.encode(jsonFileContent));
     } else {
-      print("File does not exist!");
       createFile(content, dir, fileName);
     }
     this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
