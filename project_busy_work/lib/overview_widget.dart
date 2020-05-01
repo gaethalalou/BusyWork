@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'myColors.dart';
 import 'package:projectbusywork/newactivity_widget.dart';
 import 'ListItem.dart';
+import 'newactivity_widget.dart';
+import 'package:path_provider/path_provider.dart';
 
 class OverviewWidget extends StatefulWidget {
   @override
@@ -12,13 +15,20 @@ class OverviewWidget extends StatefulWidget {
 }
 
 class _OverviewState extends State<OverviewWidget> {
-  static String jst = '{"title": "task1", "subTitle":"task1 subtitle", "location":"location1", "description": "description1","expected": "expected1","actualTime": "actualTime1"}';
+  static String jst =
+      '{"title": "task1", "subTitle":"task1 subtitle", "location":"location1", "description": "description1","expected": "expected1","actualTime": "actualTime1"}';
   static Map userMap = jsonDecode(jst);
   static var message = MessageItem.fromJson(userMap);
 
+  File jsonFile;
+  Directory dir;
+  String fileName = "tasks.json";
+  bool fileExists = false;
+  Map<String, dynamic> fileContent;
+
   final List<ListItem> tasks = [
     message,
-    MessageItem('Nap Time', 'sleep', 'take a nap', "bedroom","1 hours", ""),
+    MessageItem('Nap Time', 'sleep', 'take a nap', "bedroom", "1 hours", ""),
     MessageItem('prepare lunch', 'pasta', 'etc', "kitchen", "2 hours", ""),
   ];
   //List<String> tasks = ['task 1', 'task 2', 'task 3'];
@@ -28,6 +38,21 @@ class _OverviewState extends State<OverviewWidget> {
   void initState() {
     super.initState();
     _controller = CalendarController();
+
+    getApplicationDocumentsDirectory().then((Directory directory) {
+      dir = directory;
+      jsonFile = new File(dir.path + "/" + fileName);
+      fileExists = jsonFile.existsSync();
+      if (!fileExists) {
+        File file = new File(dir.path + "/" + fileName);
+        file.createSync();
+        fileExists = true;
+        file.writeAsStringSync("{}");
+      }
+      if (fileExists)
+        this.setState(
+            () => fileContent = json.decode(jsonFile.readAsStringSync()));
+    });
   }
 
   CalendarController _controller;
