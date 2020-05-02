@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projectbusywork/tasks.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'myColors.dart';
 import 'package:projectbusywork/newactivity_widget.dart';
@@ -24,7 +25,9 @@ class _OverviewState extends State<OverviewWidget> {
   Directory dir;
   String fileName = "tasks.json";
   bool fileExists = false;
-  Map<String, dynamic> fileContent;
+  List<dynamic> fileContent;
+
+  final List<Task> allTasks = List<Task>();
 
   final List<ListItem> tasks = [
     message,
@@ -47,11 +50,16 @@ class _OverviewState extends State<OverviewWidget> {
         File file = new File(dir.path + "/" + fileName);
         file.createSync();
         fileExists = true;
-        file.writeAsStringSync("{}");
+        file.writeAsStringSync("[]");
       }
-      if (fileExists)
-        this.setState(
-            () => fileContent = json.decode(jsonFile.readAsStringSync()));
+      this.setState(
+          () => fileContent = json.decode(jsonFile.readAsStringSync()));
+
+      getTasks().then((value) {
+        setState(() {
+          allTasks.addAll(value);
+        });
+      });
     });
   }
 
@@ -145,10 +153,10 @@ class _OverviewState extends State<OverviewWidget> {
                 margin: const EdgeInsets.only(
                     left: 13.0, right: 13.0, top: 5, bottom: 20),
                 child: new ListView.builder(
-                    itemCount: tasks.length,
+                    itemCount: allTasks.length,
                     itemBuilder: (BuildContext context, int Index) {
                       return ListTile(
-                        title: tasks[Index].buildTitle(context),
+                        title: allTasks[Index].buildTitle(context),
                       );
                     }),
               ),
@@ -157,5 +165,14 @@ class _OverviewState extends State<OverviewWidget> {
         ),
       ),
     );
+  }
+
+  Future<List<Task>> getTasks() async {
+    var addTasks = List<Task>();
+    var tasksJson = json.decode(jsonFile.readAsStringSync());
+    for (var taskJson in tasksJson) {
+      addTasks.add(Task.fromJson(taskJson));
+    }
+    return addTasks;
   }
 }
