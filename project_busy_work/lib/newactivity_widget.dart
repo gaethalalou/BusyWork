@@ -36,7 +36,7 @@ class NewActivityState extends State<NewActivityWidget> {
   Directory dir;
   String fileName = "tasks.json";
   bool fileExists = false;
-  Map<String, dynamic> fileContent;
+  List<dynamic> fileContent;
 
   @override
   void initState() {
@@ -367,6 +367,8 @@ class NewActivityState extends State<NewActivityWidget> {
         startTime: timed.format(selectedTime1),
         endTime: timed.format(selectedTime2),
         routine: selectedRoutine.name,
+        actualStart: "TBD",
+        actualEnd: "TBD",
       );
       writeToFile(title, sub);
     }
@@ -381,14 +383,11 @@ class NewActivityState extends State<NewActivityWidget> {
   }
 
   void writeToFile(String key, dynamic value) {
-    Map<String, dynamic> content = {key: value};
+    //Map<String, dynamic> content = {key: value};
     if (fileExists) {
-      Map<String, dynamic> jsonFileContent =
-          json.decode(jsonFile.readAsStringSync());
-      jsonFileContent.addAll(content);
+      List<dynamic> jsonFileContent = json.decode(jsonFile.readAsStringSync());
+      jsonFileContent.add(value);
       jsonFile.writeAsStringSync(json.encode(jsonFileContent));
-    } else {
-      createFile(content, dir, fileName);
     }
     this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
     print(fileContent);
