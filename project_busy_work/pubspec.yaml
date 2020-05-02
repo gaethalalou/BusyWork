@@ -41,7 +41,6 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
-    - json_files/tasks.json
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
