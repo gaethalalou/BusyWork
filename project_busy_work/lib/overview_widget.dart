@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:projectbusywork/tasks.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'myColors.dart';
@@ -9,6 +10,7 @@ import 'package:projectbusywork/newactivity_widget.dart';
 import 'ListItem.dart';
 import 'newactivity_widget.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:grouped_list/grouped_list.dart';
 
 class OverviewWidget extends StatefulWidget {
   @override
@@ -152,11 +154,23 @@ class _OverviewState extends State<OverviewWidget> {
                 ),
                 margin: const EdgeInsets.only(
                     left: 13.0, right: 13.0, top: 5, bottom: 20),
-                child: new ListView.builder(
-                    itemCount: allTasks.length,
-                    itemBuilder: (BuildContext context, int Index) {
+                child: new GroupedListView<dynamic, String>(
+                    groupBy: (element) => element.date,
+                    elements: allTasks,
+                    sort: true,
+                    //itemCount: allTasks.length,
+                    groupSeparatorBuilder: (dynamic value) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                              child: Text(
+                            value,
+                            style: TextStyle(
+                                fontSize: 10, fontWeight: FontWeight.bold),
+                          )),
+                        ),
+                    itemBuilder: (c, element) {
                       return ListTile(
-                        title: allTasks[Index].buildTitle(context),
+                        title: element.buildTitle(context),
                       );
                     }),
               ),

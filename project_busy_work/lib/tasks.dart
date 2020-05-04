@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'DescriptionPage.dart';
 import 'myColors.dart';
+import 'package:grouped_list/grouped_list.dart';
+import 'package:projectbusywork/overview_widget.dart';
 
 Task userFromJson(String str) => Task.fromJson(json.decode(str));
 
@@ -72,7 +74,7 @@ class Task {
               (actualStart != "" ? " • Actual: " + actualStart : "")),
         ),
         color: lGreen,
-        margin: EdgeInsets.only(top: 5.0),
+        margin: EdgeInsets.only(top: 0.0),
         shape: RoundedRectangleBorder(
             side: BorderSide(
               color: Colors.grey,
