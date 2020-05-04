@@ -159,11 +159,11 @@ class _OverviewState extends State<OverviewWidget> {
                     elements: allTasks,
                     sort: true,
                     //itemCount: allTasks.length,
-                    groupSeparatorBuilder: (dynamic value) => Padding(
-                          padding: const EdgeInsets.all(8.0),
+                    groupSeparatorBuilder: (dynamic date) => Padding(
+                          padding: const EdgeInsets.all(5.0),
                           child: Center(
                               child: Text(
-                            value,
+                            date,
                             style: TextStyle(
                                 fontSize: 10, fontWeight: FontWeight.bold),
                           )),
