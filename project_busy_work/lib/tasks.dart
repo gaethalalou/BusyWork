@@ -61,7 +61,8 @@ class Task {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DescriptionPage()),
+              MaterialPageRoute(
+                  builder: (context) => DescriptionPage(desc: description)),
             );
           },
           title: Text(title),

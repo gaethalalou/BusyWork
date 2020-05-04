@@ -16,10 +16,10 @@ class OverviewWidget extends StatefulWidget {
 }
 
 class _OverviewState extends State<OverviewWidget> {
-  static String jst =
-      '{"title": "task1", "subTitle":"task1 subtitle", "location":"location1", "description": "description1","expected": "expected1","actualTime": "actualTime1"}';
-  static Map userMap = jsonDecode(jst);
-  static var message = MessageItem.fromJson(userMap);
+  // static String jst =
+  //     '{"title": "task1", "subTitle":"task1 subtitle", "location":"location1", "description": "description1","expected": "expected1","actualTime": "actualTime1"}';
+  // static Map userMap = jsonDecode(jst);
+  // static var message = MessageItem.fromJson(userMap);
 
   File jsonFile;
   Directory dir;
@@ -29,11 +29,11 @@ class _OverviewState extends State<OverviewWidget> {
 
   final List<Task> allTasks = List<Task>();
 
-  final List<ListItem> tasks = [
-    message,
-    MessageItem('Nap Time', 'sleep', 'take a nap', "bedroom", "1 hours", ""),
-    MessageItem('prepare lunch', 'pasta', 'etc', "kitchen", "2 hours", ""),
-  ];
+  // final List<ListItem> tasks = [
+  //   message,
+  //   MessageItem('Nap Time', 'sleep', 'take a nap', "bedroom", "1 hours", ""),
+  //   MessageItem('prepare lunch', 'pasta', 'etc', "kitchen", "2 hours", ""),
+  // ];
   //List<String> tasks = ['task 1', 'task 2', 'task 3'];
   final TextEditingController eCtrl = new TextEditingController();
 
