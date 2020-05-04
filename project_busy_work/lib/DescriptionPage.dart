@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'myColors.dart';
 
 class DescriptionPage extends StatefulWidget {
+  final String desc;
+
+  const DescriptionPage({Key key, this.desc}) : super(key: key);
   @override
   _DescriptionPage createState() => _DescriptionPage();
 }
@@ -54,7 +57,7 @@ class _DescriptionPage extends State<DescriptionPage> {
               child: Container(
                   margin: EdgeInsets.only(top: 9.0, left: 9.0),
                   child: Text(
-                    "Description:",
+                    "Description: ${widget.desc}",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         color: lGreen,
