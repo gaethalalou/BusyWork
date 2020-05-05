@@ -7,7 +7,6 @@ import 'package:projectbusywork/tasks.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'myColors.dart';
 import 'package:projectbusywork/newactivity_widget.dart';
-import 'ListItem.dart';
 import 'newactivity_widget.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -17,11 +16,6 @@ class OverviewWidget extends StatefulWidget {
 }
 
 class _OverviewState extends State<OverviewWidget> {
-  // static String jst =
-  //     '{"title": "task1", "subTitle":"task1 subtitle", "location":"location1", "description": "description1","expected": "expected1","actualTime": "actualTime1"}';
-  // static Map userMap = jsonDecode(jst);
-  // static var message = MessageItem.fromJson(userMap);
-
   File jsonFile;
   Directory dir;
   String fileName = "tasks.json";
@@ -29,13 +23,6 @@ class _OverviewState extends State<OverviewWidget> {
   List<dynamic> fileContent;
 
   final List<Task> allTasks = List<Task>();
-
-  // final List<ListItem> tasks = [
-  //   message,
-  //   MessageItem('Nap Time', 'sleep', 'take a nap', "bedroom", "1 hours", ""),
-  //   MessageItem('prepare lunch', 'pasta', 'etc', "kitchen", "2 hours", ""),
-  // ];
-  //List<String> tasks = ['task 1', 'task 2', 'task 3'];
   final TextEditingController eCtrl = new TextEditingController();
 
   @override
