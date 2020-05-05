@@ -4,8 +4,9 @@ import 'myColors.dart';
 
 class DescriptionPage extends StatefulWidget {
   final String desc;
+  final String title;
 
-  const DescriptionPage({Key key, this.desc}) : super(key: key);
+  const DescriptionPage({Key key, this.desc, this.title}) : super(key: key);
   @override
   _DescriptionPage createState() => _DescriptionPage();
 }
@@ -31,7 +32,7 @@ class _DescriptionPage extends State<DescriptionPage> {
                 Container(
                     margin: EdgeInsets.only(bottom: 10),
                     child: Text(
-                      "Task 1 ",
+                      "${widget.title}",
                       style: TextStyle(fontSize: 20),
                       textAlign: TextAlign.center,
                     )),

@@ -64,7 +64,8 @@ class Task {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => DescriptionPage(desc: description)),
+                  builder: (context) =>
+                      DescriptionPage(desc: description, title: title)),
             );
           },
           title: Text(title),
