@@ -10,7 +10,6 @@ import 'package:projectbusywork/newactivity_widget.dart';
 import 'ListItem.dart';
 import 'newactivity_widget.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:grouped_list/grouped_list.dart';
 
 class OverviewWidget extends StatefulWidget {
   @override
@@ -165,7 +164,9 @@ class _OverviewState extends State<OverviewWidget> {
                               child: Text(
                             date,
                             style: TextStyle(
-                                fontSize: 10, fontWeight: FontWeight.bold),
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: lGreen),
                           )),
                         ),
                     itemBuilder: (c, element) {
