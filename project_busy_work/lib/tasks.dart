@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'DescriptionPage.dart';
 import 'myColors.dart';
-import 'package:grouped_list/grouped_list.dart';
-import 'package:projectbusywork/overview_widget.dart';
 
 Task userFromJson(String str) => Task.fromJson(json.decode(str));
 
@@ -20,6 +18,7 @@ class Task {
   String routine;
   String actualStart;
   String actualEnd;
+  String expected;
 
   Task({
     this.title,
@@ -31,6 +30,7 @@ class Task {
     this.routine,
     this.actualStart,
     this.actualEnd,
+    this.expected,
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
@@ -43,6 +43,7 @@ class Task {
         routine: json["routine"],
         actualStart: json["actualStart"],
         actualEnd: json["actualEnd"],
+        expected: json["expected"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -55,6 +56,7 @@ class Task {
         "routine": routine,
         "actualStart": actualStart,
         "actualEnd": actualEnd,
+        "expected": expected,
       };
 
   Widget buildTitle(BuildContext context) => Card(
@@ -64,14 +66,12 @@ class Task {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => DescriptionPage(desc: description)),
+                  builder: (context) =>
+                      DescriptionPage(desc: description, title: title, location: location, startTime: startTime, endTime: endTime,)),
             );
           },
           title: Text(title),
-          subtitle: Text(description +
-              " • Expected: " +
-              startTime +
-              (actualStart != "" ? " • Actual: " + actualStart : "")),
+          subtitle: Text(description + " • Expected (HH:MM): " + expected + (actualStart != "TBD" ? " • Actual: " + actualStart : "")),
         ),
         color: lGreen,
         margin: EdgeInsets.only(top: 0.0),
@@ -80,9 +80,5 @@ class Task {
               color: Colors.grey,
             ),
             borderRadius: BorderRadius.circular(8.0)),
-        // shape: RoundedRectangleBorder(
-        //     side: BorderSide(width: 100)),
-        // foregroundColor: lGreen,
-        // backgroundColor: bgWhite,
       );
 }

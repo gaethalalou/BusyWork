@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectbusywork/myColors.dart';
@@ -242,7 +241,7 @@ class NewActivityState extends State<NewActivityWidget> {
                       child: Text("Start At"),
                       color: hGreen,
                       onPressed: () async {
-                        final selectedTime1 = await selectTime(context);
+                        final selectedTime1 = await selectTime(context, TimeOfDay.now().hour, TimeOfDay.now().minute);
                         if (selectedTime1 == null) return;
 
                         setState(
@@ -268,7 +267,7 @@ class NewActivityState extends State<NewActivityWidget> {
                       child: Text("Finish At"),
                       color: hGreen,
                       onPressed: () async {
-                        final secondSelectedTime = await selectTime(context);
+                        final secondSelectedTime = await selectTime(context, selectedTime1.hour, selectedTime1.minute);
                         if (secondSelectedTime == null) return;
 
                         setState(
@@ -338,11 +337,11 @@ class NewActivityState extends State<NewActivityWidget> {
         lastDate: DateTime(2050),
       );
 
-  Future<TimeOfDay> selectTime(BuildContext context) {
+  Future<TimeOfDay> selectTime(BuildContext context, int  hour, int minutes) {
     final now = DateTime.now();
     return showTimePicker(
         context: context,
-        initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
+        initialTime: TimeOfDay(hour: hour, minute: minutes));
   }
 
   onChangeDropdownItem(Routines selectedRoutine2) {
@@ -350,7 +349,7 @@ class NewActivityState extends State<NewActivityWidget> {
       selectedRoutine = selectedRoutine2;
     });
   }
-
+  
   void submit() {
     if (titleKey.currentState.validate() &&
         locationKey.currentState.validate() &&
@@ -359,6 +358,11 @@ class NewActivityState extends State<NewActivityWidget> {
       locationKey.currentState.save();
       descriptionKey.currentState.save();
       check = true;
+      int expectedMinutes = selectedTime2.difference(selectedTime1).inMinutes;
+      final int hour = expectedMinutes ~/ 60;
+      final int minutes = expectedMinutes % 60;
+      String expected= '${hour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}';
+   
       Task sub = new Task(
         title: title,
         location: location,
@@ -369,6 +373,7 @@ class NewActivityState extends State<NewActivityWidget> {
         routine: selectedRoutine.name,
         actualStart: "TBD",
         actualEnd: "TBD",
+        expected: expected,
       );
       writeToFile(title, sub);
     }
