@@ -92,6 +92,7 @@ class _DescriptionPage extends State<DescriptionPage> {
                         child: Text(
                           "Description: \n", //+ "\nLocation: "+widget.location,
                           style: TextStyle(
+                            fontWeight: FontWeight.w500,
                             color: lGreen,
                             fontSize: 21),
                         ),
@@ -114,6 +115,7 @@ class _DescriptionPage extends State<DescriptionPage> {
                         child: Text(
                           "Location: \n", //+ "\nLocation: "+widget.location,
                           style: TextStyle(
+                            fontWeight: FontWeight.w500,
                             color: lGreen,
                             fontSize: 21),
                         ),
