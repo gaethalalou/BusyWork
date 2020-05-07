@@ -71,13 +71,16 @@ class Task {
                         title: title,
                         location: location,
                         startTime: startTime,
+                        date: date,
+                        routine: routine,
                         endTime: endTime,
+                        expected: expected,
                       )),
             );
           },
           title: Text(title),
           subtitle: Text(description +
-              " • Expected (HH:MM): " +
+              " • Expected: " +
               expected +
               (actualStart != "TBD" ? " • Actual: " + actualStart : "")),
         ),
