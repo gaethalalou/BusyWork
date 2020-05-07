@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'myColors.dart';
 import 'dart:math' as math;
 
@@ -25,12 +24,21 @@ class DescriptionPage extends StatefulWidget {
 class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMixin{
   AnimationController controller;
 
+  Stopwatch stopwatch = new Stopwatch();
   bool isPlaying = false;
   String hours ="";
-  String get timerString {
+
+  String timerString (bool isElapsed) {
     Duration duration = controller.duration * controller.value;
     hours = duration.inHours ==0 ? "" : '${duration.inMinutes}:' ; 
-    return hours+'${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+    String remaining = hours+'${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+    if (!controller.isAnimating){
+      stopwatch.reset();
+    }
+    Duration elapsedDuration = stopwatch.elapsed;
+
+    String elapsed = controller.isAnimating ? '${elapsedDuration.inMinutes}:${(elapsedDuration.inSeconds % 60).toString().padLeft(2, '0')}' :"00:00";
+    return isElapsed ? elapsed: remaining;
   }
 
   @override
@@ -38,7 +46,7 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 15, minutes: 4, ),
+      duration: Duration(seconds: 20, minutes: 0, ),
     );
   }
 
@@ -72,7 +80,7 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
             Container(
               height: 360,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(10.0),
               ),
               margin: const EdgeInsets.only(
@@ -85,8 +93,8 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
                       child: Text(
                         widget.startTime+" - "+widget.endTime,
                         style: TextStyle(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
                           fontSize: 15),
                       ),
                     ),
@@ -107,8 +115,8 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
                                     return new CustomPaint(
                                       painter: TimerPainter(
                                         animation: controller,
-                                        color: hGreen,
-                                        backgroundColor: Colors.black45,
+                                        color: lGreen,
+                                        backgroundColor: Colors.white10,
                                       ),
                                     );
                                   },
@@ -124,7 +132,7 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
                                     Text(
                                       "Elapsed Time", 
                                       style: TextStyle(
-                                        color: lGreen, 
+                                        color: Colors.white, 
                                         fontSize: 15, 
                                         fontWeight: FontWeight.w600),
                                     ),
@@ -132,8 +140,8 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
                                       animation: controller, 
                                       builder: (BuildContext context, Widget child){
                                         return new Text(
-                                          timerString,
-                                          style: TextStyle(color: lGreen, fontSize: 70, fontWeight: FontWeight.w200),
+                                          timerString(true),
+                                          style: TextStyle(color: Colors.white, fontSize: 70, fontWeight: FontWeight.w200),
                                         );
                                       }
                                     ),
@@ -141,16 +149,16 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
                                     Text(
                                       "Remaining Time", 
                                       style: TextStyle(
-                                        color: lGreen, 
-                                        fontSize: 10, 
-                                        fontWeight: FontWeight.w600),
+                                        color: Colors.white, 
+                                        fontSize: 12, 
+                                        fontWeight: FontWeight.w400),
                                     ),
                                     AnimatedBuilder(
                                       animation: controller, 
                                       builder: (BuildContext context, Widget child){
                                         return new Text(
-                                          timerString,
-                                          style: TextStyle(color: lGreen, fontSize: 30, fontWeight: FontWeight.w300),
+                                          timerString(false),
+                                          style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w300),
                                         );
                                       }
                                     ),
@@ -168,6 +176,8 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
+                          // Text("percentage"),
+
                           FloatingActionButton(
                             backgroundColor: lightGreen,
                             focusColor: Colors.white,
@@ -180,13 +190,19 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
                               },
                             ),
                             onPressed: (){
-                              if(controller.isAnimating)
+                              if(controller.isAnimating){
                                 controller.stop();
+                                stopwatch.stop();
+                              }
                               else{
                                 controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
+                                stopwatch.start();
                               }
                             },
-                          )
+                          ),
+
+                          // Text("percentage")
+
                         ],
                       ),
                     )
@@ -196,7 +212,7 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
             Container(
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(10.0),
               ),
               margin: const EdgeInsets.only(
@@ -213,7 +229,7 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
                           "Description: \n", //+ "\nLocation: "+widget.location,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            color: lGreen,
+                            color: hGreen,
                             fontSize: 21),
                         ),
                       ),
@@ -223,7 +239,7 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
                         child: Text(
                           widget.desc,
                           style: TextStyle(
-                            color: Colors.black54,
+                            color: Colors.white,
                             fontWeight: FontWeight.w400,
                             fontSize: 18),
                         ),
@@ -236,7 +252,7 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
                           "Location: \n", //+ "\nLocation: "+widget.location,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            color: lGreen,
+                            color: hGreen,
                             fontSize: 21),
                         ),
                       ),
@@ -246,7 +262,7 @@ class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMi
                         child: Text(
                           widget.location,
                           style: TextStyle(
-                            color: Colors.black54,
+                            color: Colors.white,
                             fontWeight: FontWeight.w400,
                             fontSize: 18),
                         ),
