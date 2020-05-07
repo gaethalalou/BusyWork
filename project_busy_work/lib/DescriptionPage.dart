@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'myColors.dart';
+import 'dart:math' as math;
 
 class DescriptionPage extends StatefulWidget {
   final String desc;
@@ -14,14 +14,42 @@ class DescriptionPage extends StatefulWidget {
   @override
   _DescriptionPage createState() => _DescriptionPage();
   
-  String timeHeader(){
-    DateTime start = DateTime.parse(startTime);
-    DateTime end = DateTime.parse(endTime);
-    return (new DateFormat.jm().format(start)).toString() + " - " + (new DateFormat.jm().format(end)).toString();
-  }
+  // String timeHeader(){
+  //   DateTime start = DateTime.parse(startTime);
+  //   DateTime end = DateTime.parse(endTime);
+  //   return (new DateFormat.jm().format(start)).toString() + " - " + (new DateFormat.jm().format(end)).toString();
+  // }
 }
 
-class _DescriptionPage extends State<DescriptionPage> {
+class _DescriptionPage extends State<DescriptionPage> with TickerProviderStateMixin{
+  AnimationController controller;
+
+  Stopwatch stopwatch = new Stopwatch();
+  bool isPlaying = false;
+  String hours ="";
+
+  String timerString (bool isElapsed) {
+    Duration duration = controller.duration * controller.value;
+    hours = duration.inHours ==0 ? "" : '${duration.inMinutes}:' ; 
+    String remaining = hours+'${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+    if (!controller.isAnimating){
+      stopwatch.reset();
+    }
+    Duration elapsedDuration = stopwatch.elapsed;
+
+    String elapsed = controller.isAnimating ? '${elapsedDuration.inMinutes}:${(elapsedDuration.inSeconds % 60).toString().padLeft(2, '0')}' :"00:00";
+    return isElapsed ? elapsed: remaining;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 20, minutes: 0, ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +80,7 @@ class _DescriptionPage extends State<DescriptionPage> {
             Container(
               height: 360,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(10.0),
               ),
               margin: const EdgeInsets.only(
@@ -65,18 +93,126 @@ class _DescriptionPage extends State<DescriptionPage> {
                       child: Text(
                         widget.startTime+" - "+widget.endTime,
                         style: TextStyle(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
                           fontSize: 15),
                       ),
                     ),
+                    Container(
+                      height: 10,
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: FractionalOffset.center,
+                        child: AspectRatio(
+                          aspectRatio: 1.0,
+                          child: Stack(
+                            children: <Widget>[
+                              Positioned.fill(
+                                child: AnimatedBuilder(
+                                  animation: controller,
+                                  builder: (BuildContext context, Widget child){
+                                    return new CustomPaint(
+                                      painter: TimerPainter(
+                                        animation: controller,
+                                        color: lGreen,
+                                        backgroundColor: Colors.white10,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Align(
+                                alignment: FractionalOffset.center,
+                                child: Column(
+                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Container(height: 45,),
+                                    Text(
+                                      "Elapsed Time", 
+                                      style: TextStyle(
+                                        color: Colors.white, 
+                                        fontSize: 15, 
+                                        fontWeight: FontWeight.w600),
+                                    ),
+                                    AnimatedBuilder(
+                                      animation: controller, 
+                                      builder: (BuildContext context, Widget child){
+                                        return new Text(
+                                          timerString(true),
+                                          style: TextStyle(color: Colors.white, fontSize: 70, fontWeight: FontWeight.w200),
+                                        );
+                                      }
+                                    ),
+                                    Container(height: 10,),
+                                    Text(
+                                      "Remaining Time", 
+                                      style: TextStyle(
+                                        color: Colors.white, 
+                                        fontSize: 12, 
+                                        fontWeight: FontWeight.w400),
+                                    ),
+                                    AnimatedBuilder(
+                                      animation: controller, 
+                                      builder: (BuildContext context, Widget child){
+                                        return new Text(
+                                          timerString(false),
+                                          style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w300),
+                                        );
+                                      }
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ),
+                    Container(height: 20,),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          // Text("percentage"),
+
+                          FloatingActionButton(
+                            backgroundColor: lightGreen,
+                            focusColor: Colors.white,
+                            foregroundColor: Colors.white,
+                            splashColor: hGreen,
+                            child: AnimatedBuilder(
+                              animation: controller,
+                              builder: (BuildContext context, Widget child){
+                                return  Icon(controller.isAnimating ? Icons.pause : Icons.play_arrow);
+                              },
+                            ),
+                            onPressed: (){
+                              if(controller.isAnimating){
+                                controller.stop();
+                                stopwatch.stop();
+                              }
+                              else{
+                                controller.reverse(from: controller.value == 0.0 ? 1.0 : controller.value);
+                                stopwatch.start();
+                              }
+                            },
+                          ),
+
+                          // Text("percentage")
+
+                        ],
+                      ),
+                    )
                 ],                
               ),
             ),
             Container(
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(10.0),
               ),
               margin: const EdgeInsets.only(
@@ -92,7 +228,8 @@ class _DescriptionPage extends State<DescriptionPage> {
                         child: Text(
                           "Description: \n", //+ "\nLocation: "+widget.location,
                           style: TextStyle(
-                            color: lGreen,
+                            fontWeight: FontWeight.w500,
+                            color: hGreen,
                             fontSize: 21),
                         ),
                       ),
@@ -102,7 +239,7 @@ class _DescriptionPage extends State<DescriptionPage> {
                         child: Text(
                           widget.desc,
                           style: TextStyle(
-                            color: Colors.black54,
+                            color: Colors.white,
                             fontWeight: FontWeight.w400,
                             fontSize: 18),
                         ),
@@ -114,7 +251,8 @@ class _DescriptionPage extends State<DescriptionPage> {
                         child: Text(
                           "Location: \n", //+ "\nLocation: "+widget.location,
                           style: TextStyle(
-                            color: lGreen,
+                            fontWeight: FontWeight.w500,
+                            color: hGreen,
                             fontSize: 21),
                         ),
                       ),
@@ -124,7 +262,7 @@ class _DescriptionPage extends State<DescriptionPage> {
                         child: Text(
                           widget.location,
                           style: TextStyle(
-                            color: Colors.black54,
+                            color: Colors.white,
                             fontWeight: FontWeight.w400,
                             fontSize: 18),
                         ),
@@ -137,5 +275,37 @@ class _DescriptionPage extends State<DescriptionPage> {
         ),
       ),
     );
+  }
+}
+
+class TimerPainter extends CustomPainter {
+  TimerPainter({
+    this.animation,
+    this.backgroundColor,
+    this.color,
+  }) : super(repaint: animation);
+
+  final Animation<double> animation;
+  final Color backgroundColor, color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = backgroundColor
+      ..strokeWidth = 10.0
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke;
+    
+    canvas.drawCircle(size.center(Offset.zero), size.width / 2.0, paint);
+    paint.color = color;
+    double progress = (1.0 - animation.value) * 2 * math.pi;
+    canvas.drawArc(Offset.zero & size, math.pi * 1.5, -progress, false, paint);
+  }
+
+  @override
+  bool shouldRepaint(TimerPainter old) {
+    return animation.value != old.animation.value ||
+        color != old.color ||
+        backgroundColor != old.backgroundColor;
   }
 }
