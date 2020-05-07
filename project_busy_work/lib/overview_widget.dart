@@ -157,8 +157,37 @@ class _OverviewState extends State<OverviewWidget> {
                           )),
                         ),
                     itemBuilder: (c, element) {
-                      return ListTile(
-                        title: element.buildTitle(context),
+                      return Dismissible(
+                        // Each Dismissible must contain a Key. Keys allow Flutter to
+                        // uniquely identify widgets.
+                        key: Key(element.title),
+                        // Provide a function that tells the app
+                        // what to do after an item has been swiped away.
+                        onDismissed: (direction) {
+                          // Remove the item from the data source.
+                          setState(() {
+                            allTasks.remove(element);
+                          });
+
+                          // Then show a snackbar.
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                "${element.title} dismissed",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
+                              ),
+                              backgroundColor: Colors.black));
+                        },
+                        // Show a red background as the item is swiped away.
+                        background: Container(
+                            color: Colors.red,
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "deleting",
+                                  style: TextStyle(fontSize: 20),
+                                ))),
+                        child: ListTile(title: element.buildTitle(context)),
                       );
                     }),
               ),
