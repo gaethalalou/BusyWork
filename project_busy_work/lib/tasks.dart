@@ -76,7 +76,10 @@ class Task {
             );
           },
           title: Text(title),
-          // subtitle: Text(description + " • Expected (HH:MM): " + expected + (actualStart != "TBD" ? " • Actual: " + actualStart : "")),
+          subtitle: Text(description +
+              " • Expected (HH:MM): " +
+              expected +
+              (actualStart != "TBD" ? " • Actual: " + actualStart : "")),
         ),
         color: lGreen,
         margin: EdgeInsets.only(top: 0.0),
