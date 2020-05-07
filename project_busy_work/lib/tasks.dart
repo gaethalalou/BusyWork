@@ -66,12 +66,17 @@ class Task {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      DescriptionPage(desc: description, title: title, location: location, startTime: startTime, endTime: endTime,)),
+                  builder: (context) => DescriptionPage(
+                        desc: description,
+                        title: title,
+                        location: location,
+                        startTime: startTime,
+                        endTime: endTime,
+                      )),
             );
           },
           title: Text(title),
-          subtitle: Text(description + " • Expected (HH:MM): " + expected + (actualStart != "TBD" ? " • Actual: " + actualStart : "")),
+          // subtitle: Text(description + " • Expected (HH:MM): " + expected + (actualStart != "TBD" ? " • Actual: " + actualStart : "")),
         ),
         color: lGreen,
         margin: EdgeInsets.only(top: 0.0),
