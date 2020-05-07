@@ -30,6 +30,8 @@ class NewActivityState extends State<NewActivityWidget> {
   List<Routines> routines = Routines.getRoutines();
   List<DropdownMenuItem<Routines>> dropdownMenuItems;
   Routines selectedRoutine;
+  String period1;
+  String period2;
 
   File jsonFile;
   Directory dir;
@@ -39,6 +41,33 @@ class NewActivityState extends State<NewActivityWidget> {
 
   @override
   void initState() {
+    noonCheck1(selectedTime1);
+    noonCheck2(selectedTime2);
+    setState(() {
+      if (TimeOfDay.fromDateTime(selectedTime1).hourOfPeriod != 0) {
+        selectedTime1 = DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            DateTime.now().day,
+            TimeOfDay.fromDateTime(selectedTime1).hourOfPeriod,
+            selectedTime1.minute);
+      } else {
+        selectedTime1 = DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 12, selectedTime1.minute);
+      }
+
+      if (TimeOfDay.fromDateTime(selectedTime2).hourOfPeriod != 0) {
+        selectedTime2 = DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            DateTime.now().day,
+            TimeOfDay.fromDateTime(selectedTime2).hourOfPeriod,
+            selectedTime2.minute);
+      } else {
+        selectedTime2 = DateTime(DateTime.now().year, DateTime.now().month,
+            DateTime.now().day, 12, selectedTime2.minute);
+      }
+    });
     dropdownMenuItems = buildDropdownMenuItems(routines);
     selectedRoutine = dropdownMenuItems[0].value;
     super.initState();
@@ -234,52 +263,76 @@ class NewActivityState extends State<NewActivityWidget> {
                 Container(width: 100),
                 Column(
                   children: <Widget>[
-                    Text(timed.format(selectedTime1)),
+                    Text(timed.format(selectedTime1) + period1),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(18.0)),
                       child: Text("Start At"),
                       color: hGreen,
                       onPressed: () async {
-                        final selectedTime1 = await selectTime(context, TimeOfDay.now().hour, TimeOfDay.now().minute);
+                        final selectedTime1 = await selectTime(context,
+                            TimeOfDay.now().hour, TimeOfDay.now().minute);
                         if (selectedTime1 == null) return;
-
-                        setState(
-                          () {
+                        if (selectedTime1.period == DayPeriod.am) {
+                          period1 = "am";
+                        } else {
+                          period1 = "pm";
+                        }
+                        setState(() {
+                          if (selectedTime1.hourOfPeriod != 0) {
                             this.selectedTime1 = DateTime(
                                 DateTime.now().year,
                                 DateTime.now().month,
                                 DateTime.now().day,
-                                selectedTime1.hour,
+                                selectedTime1.hourOfPeriod,
                                 selectedTime1.minute);
-                          },
-                        );
+                          } else {
+                            this.selectedTime1 = DateTime(
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day,
+                                12,
+                                selectedTime1.minute);
+                          }
+                        });
                       },
                     ),
                   ],
                 ),
                 Column(
                   children: <Widget>[
-                    Text(timed.format(selectedTime2)),
+                    Text(timed.format(selectedTime2) + period2),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(18.0)),
                       child: Text("Finish At"),
                       color: hGreen,
                       onPressed: () async {
-                        final secondSelectedTime = await selectTime(context, selectedTime1.hour, selectedTime1.minute);
-                        if (secondSelectedTime == null) return;
-
-                        setState(
-                          () {
-                            selectedTime2 = DateTime(
+                        final selectedTime2 = await selectTime(
+                            context, selectedTime1.hour, selectedTime1.minute);
+                        if (selectedTime2 == null) return;
+                        if (selectedTime2.period == DayPeriod.am) {
+                          period2 = "am";
+                        } else {
+                          period2 = "pm";
+                        }
+                        setState(() {
+                          if (selectedTime2.hourOfPeriod != 0) {
+                            this.selectedTime2 = DateTime(
                                 DateTime.now().year,
                                 DateTime.now().month,
                                 DateTime.now().day,
-                                secondSelectedTime.hour,
-                                secondSelectedTime.minute);
-                          },
-                        );
+                                selectedTime2.hourOfPeriod,
+                                selectedTime2.minute);
+                          } else {
+                            this.selectedTime2 = DateTime(
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day,
+                                12,
+                                selectedTime2.minute);
+                          }
+                        });
                       },
                     ),
                   ],
@@ -337,11 +390,10 @@ class NewActivityState extends State<NewActivityWidget> {
         lastDate: DateTime(2050),
       );
 
-  Future<TimeOfDay> selectTime(BuildContext context, int  hour, int minutes) {
+  Future<TimeOfDay> selectTime(BuildContext context, int hour, int minutes) {
     final now = DateTime.now();
     return showTimePicker(
-        context: context,
-        initialTime: TimeOfDay(hour: hour, minute: minutes));
+        context: context, initialTime: TimeOfDay(hour: hour, minute: minutes));
   }
 
   onChangeDropdownItem(Routines selectedRoutine2) {
@@ -349,7 +401,7 @@ class NewActivityState extends State<NewActivityWidget> {
       selectedRoutine = selectedRoutine2;
     });
   }
-  
+
   void submit() {
     if (titleKey.currentState.validate() &&
         locationKey.currentState.validate() &&
@@ -361,15 +413,15 @@ class NewActivityState extends State<NewActivityWidget> {
       int expectedMinutes = selectedTime2.difference(selectedTime1).inMinutes;
       final int hour = expectedMinutes ~/ 60;
       final int minutes = expectedMinutes % 60;
-      String expected= '${hour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}';
-   
+      String expected =
+          '${hour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}';
       Task sub = new Task(
         title: title,
         location: location,
         description: description,
         date: dated.format(selectedDate),
-        startTime: timed.format(selectedTime1),
-        endTime: timed.format(selectedTime2),
+        startTime: timed.format(selectedTime1) + period1,
+        endTime: timed.format(selectedTime2) + period1,
         routine: selectedRoutine.name,
         actualStart: "TBD",
         actualEnd: "TBD",
@@ -379,16 +431,7 @@ class NewActivityState extends State<NewActivityWidget> {
     }
   }
 
-  void createFile(
-      Map<String, dynamic> content, Directory dir, String fileName) {
-    File file = new File(dir.path + "/" + fileName);
-    file.createSync();
-    fileExists = true;
-    file.writeAsStringSync(json.encode(content));
-  }
-
   void writeToFile(String key, dynamic value) {
-    //Map<String, dynamic> content = {key: value};
     if (fileExists) {
       List<dynamic> jsonFileContent = json.decode(jsonFile.readAsStringSync());
       jsonFileContent.add(value);
@@ -396,6 +439,22 @@ class NewActivityState extends State<NewActivityWidget> {
     }
     this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
     print(fileContent);
+  }
+
+  void noonCheck1(DateTime dateTime) {
+    if (TimeOfDay.fromDateTime(dateTime).period == DayPeriod.am) {
+      period1 = "am";
+    } else {
+      period1 = "pm";
+    }
+  }
+
+  void noonCheck2(DateTime dateTime) {
+    if (TimeOfDay.fromDateTime(dateTime).period == DayPeriod.am) {
+      period2 = "am";
+    } else {
+      period2 = "pm";
+    }
   }
 }
 
