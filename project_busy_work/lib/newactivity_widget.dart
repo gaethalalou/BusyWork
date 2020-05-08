@@ -25,7 +25,7 @@ class NewActivityState extends State<NewActivityWidget> {
   DateTime selectedDate = DateTime.now();
   DateTime selectedTime1 = DateTime.now();
   DateTime selectedTime2 = DateTime.now().add(Duration(minutes: 30));
-  final DateFormat dated = DateFormat('yyyy-MM-dd');
+  final DateFormat dated = DateFormat.yMMMd();
   final DateFormat timed = DateFormat('HH : mm');
   List<Routines> routines = Routines.getRoutines();
   List<DropdownMenuItem<Routines>> dropdownMenuItems;
