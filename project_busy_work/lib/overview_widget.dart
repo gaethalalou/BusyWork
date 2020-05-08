@@ -158,13 +158,28 @@ class _OverviewState extends State<OverviewWidget> {
                         ),
                     itemBuilder: (c, element) {
                       return Dismissible(
-                        // Each Dismissible must contain a Key. Keys allow Flutter to
-                        // uniquely identify widgets.
                         key: Key(element.title),
-                        // Provide a function that tells the app
-                        // what to do after an item has been swiped away.
+
                         onDismissed: (direction) {
                           // Remove the item from the data source.
+
+                          List<dynamic> jsonFileContent =
+                              json.decode(jsonFile.readAsStringSync());
+                          for (var i = 0; i < jsonFileContent.length; i++) {
+                            if (jsonFileContent[i]["title"] ==
+                                element.title.toString()) {
+                              jsonFileContent.removeAt(i);
+                            }
+                          }
+                          // var index = jsonFileContent.indexOf(element);
+                          // jsonFileContent.removeAt(index);
+                          // jsonFileContent.remove(element);
+                          jsonFile
+                              .writeAsStringSync(json.encode(jsonFileContent));
+
+                          this.setState(() => fileContent =
+                              json.decode(jsonFile.readAsStringSync()));
+
                           setState(() {
                             allTasks.remove(element);
                           });
@@ -176,17 +191,14 @@ class _OverviewState extends State<OverviewWidget> {
                                 style: TextStyle(
                                     fontSize: 20, color: Colors.white),
                               ),
-                              backgroundColor: Colors.black));
+                              backgroundColor: bgGreen));
                         },
                         // Show a red background as the item is swiped away.
                         background: Container(
                             color: Colors.red,
                             child: Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "deleting",
-                                  style: TextStyle(fontSize: 20),
-                                ))),
+                                child: Icon(Icons.delete_forever))),
                         child: ListTile(title: element.buildTitle(context)),
                       );
                     }),

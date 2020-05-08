@@ -426,6 +426,7 @@ class NewActivityState extends State<NewActivityWidget> {
         actualStart: "TBD",
         actualEnd: "TBD",
         expected: expected,
+        completed: "false",
       );
       writeToFile(title, sub);
     }
