@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:projectbusywork/tasks.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'DescriptionPage.dart';
 import 'myColors.dart';
 import 'package:projectbusywork/newactivity_widget.dart';
 import 'newactivity_widget.dart';
@@ -199,7 +200,64 @@ class _OverviewState extends State<OverviewWidget> {
                             child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Icon(Icons.delete_forever))),
-                        child: ListTile(title: element.buildTitle(context)),
+                        child: Card(
+                          elevation: 2.0,
+                          child: ListTile(
+                            trailing: IconButton(
+                              onPressed: () {
+                                if (element.completed == "false") {
+                                  element.completed = "true";
+                                  writeToFileComp(element.title, "true");
+                                  setState(() {
+                                    element.completed = "true";
+                                  });
+                                } else {
+                                  element.completed = "false";
+                                  writeToFileComp(element.title, "false");
+                                  setState(() {
+                                    element.completed = "false";
+                                  });
+                                }
+                              },
+                              icon: Icon(Icons.check_circle_outline),
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DescriptionPage(
+                                          desc: element.description,
+                                          title: element.title,
+                                          location: element.location,
+                                          startTime: element.startTime,
+                                          date: element.date,
+                                          routine: element.routine,
+                                          endTime: element.endTime,
+                                          expected: element.expected,
+                                        )),
+                              );
+                            },
+                            title: element.completed == "false"
+                                ? Text(element.title)
+                                : Text(element.title,
+                                    style: TextStyle(
+                                        decoration:
+                                            TextDecoration.lineThrough)),
+                            subtitle: Text(element.description +
+                                " • Expected: " +
+                                element.expected +
+                                (element.actualStart != "TBD"
+                                    ? " • Actual: " + element.actualStart
+                                    : "")),
+                          ),
+                          color: lGreen,
+                          margin: EdgeInsets.only(top: 0.0),
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                color: Colors.grey,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0)),
+                        ),
                       );
                     }),
               ),
@@ -217,5 +275,17 @@ class _OverviewState extends State<OverviewWidget> {
       addTasks.add(Task.fromJson(taskJson));
     }
     return addTasks;
+  }
+
+  void writeToFileComp(dynamic title, dynamic value) {
+    List<dynamic> jsonFileContent = json.decode(jsonFile.readAsStringSync());
+    for (var i = 0; i < jsonFileContent.length; i++) {
+      if (jsonFileContent[i]["title"] == title.toString()) {
+        jsonFileContent[i]["completed"] = value;
+      }
+      jsonFile.writeAsStringSync(json.encode(jsonFileContent));
+      this.setState(
+          () => fileContent = json.decode(jsonFile.readAsStringSync()));
+    }
   }
 }
