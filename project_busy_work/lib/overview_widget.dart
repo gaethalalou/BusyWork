@@ -10,6 +10,7 @@ import 'myColors.dart';
 import 'package:projectbusywork/newactivity_widget.dart';
 import 'newactivity_widget.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:intl/intl.dart';
 
 class OverviewWidget extends StatefulWidget {
   @override
@@ -150,11 +151,11 @@ class _OverviewState extends State<OverviewWidget> {
                           padding: const EdgeInsets.all(5.0),
                           child: Center(
                               child: Text(
-                            date,
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: lGreen),
+                                        date,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: lGreen),
                           )),
                         ),
                     itemBuilder: (c, element) {
@@ -187,22 +188,45 @@ class _OverviewState extends State<OverviewWidget> {
 
                           // Then show a snackbar.
                           Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text(
-                                "${element.title} dismissed",
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
+                              content: Container(
+                                child: Text(
+                                  "${element.title} deleted",
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white, fontWeight: FontWeight.w300),
+                                  textAlign: TextAlign.center,
+                                ),
+                                // width: 5.0,
+                                // color: Colors.red,
+                                padding: const EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                            color: hGreen, 
+                                            borderRadius: BorderRadius.circular(20), 
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.grey.withOpacity(0.5),
+                                                  spreadRadius: 5,
+                                                  blurRadius: 7,
+                                                  offset: Offset(0, 3), // changes position of shadow
+                                                ),
+                                              ],
+                                            ),
+                                margin: EdgeInsets.only(bottom: 10.0),
                               ),
-                              backgroundColor: bgGreen));
+                              elevation: 0.0,
+                              backgroundColor: Colors.transparent));
                         },
                         // Show a red background as the item is swiped away.
                         background: Container(
-                            color: Colors.red,
+                            margin: EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(8.0)),
                             child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Icon(Icons.delete_forever))),
+                                alignment: Alignment.center,
+                                child: Icon(Icons.delete_forever,)
+
+                            )),
                         child: Card(
                           elevation: 2.0,
-                          child: ListTile(
+                          child: ListTile( 
                             trailing: IconButton(
                               onPressed: () {
                                 if (element.completed == "false") {
@@ -242,7 +266,7 @@ class _OverviewState extends State<OverviewWidget> {
                                 : Text(element.title,
                                     style: TextStyle(
                                         decoration:
-                                            TextDecoration.lineThrough)),
+                                            TextDecoration.lineThrough,)),
                             subtitle: Text(element.description +
                                 " • Expected: " +
                                 element.expected +
@@ -251,7 +275,7 @@ class _OverviewState extends State<OverviewWidget> {
                                     : "")),
                           ),
                           color: lGreen,
-                          margin: EdgeInsets.only(top: 0.0),
+                          margin: EdgeInsets.all(8.0),
                           shape: RoundedRectangleBorder(
                               side: BorderSide(
                                 color: Colors.grey,
