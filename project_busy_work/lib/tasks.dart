@@ -1,29 +1,15 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:projectbusywork/overview_widget.dart';
-import 'DescriptionPage.dart';
-import 'myColors.dart';
-import 'package:path_provider/path_provider.dart';
+// import 'dart:io';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+// import 'package:projectbusywork/overview_widget.dart';
+// import 'DescriptionPage.dart';
+// import 'myColors.dart';
+// import 'package:path_provider/path_provider.dart';
 
 Task userFromJson(String str) => Task.fromJson(json.decode(str));
 
 String userToJson(Task data) => json.encode(data.toJson());
-
-// File jsonFile;
-// Directory dir;
-// String fileName = "tasks.json";
-// bool fileExists = false;
-// List<dynamic> fileContent;
-// @override
-// void initState() {
-//   getApplicationDocumentsDirectory().then((Directory directory) {
-//     dir = directory;
-//     jsonFile = new File(dir.path + "/" + fileName);
-//     fileExists = jsonFile.existsSync();
-//   });
-// }
 
 class Task {
   String title;
@@ -79,5 +65,3 @@ class Task {
         "completed": completed,
       };
 }
-
-//this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
