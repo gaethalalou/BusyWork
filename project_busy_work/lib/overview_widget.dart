@@ -25,8 +25,9 @@ class _OverviewState extends State<OverviewWidget> {
   List<dynamic> fileContent;
 
   final List<Task> allTasks = List<Task>();
+  List<Task> sTasks = List<Task>();
   final TextEditingController eCtrl = new TextEditingController();
-
+  dynamic selectedDate;
   @override
   void initState() {
     super.initState();
@@ -95,6 +96,7 @@ class _OverviewState extends State<OverviewWidget> {
               //child: Text("OverView",)
             ),
             TableCalendar(
+              onDaySelected: _onDaySelected,
               calendarController: _controller,
               initialCalendarFormat: CalendarFormat.week,
               headerVisible: false,
@@ -144,7 +146,7 @@ class _OverviewState extends State<OverviewWidget> {
                     left: 13.0, right: 13.0, top: 5, bottom: 20),
                 child: new GroupedListView<dynamic, String>(
                     groupBy: (element) => element.date,
-                    elements: allTasks,
+                    elements: getTaskByDate(allTasks, sTasks, selectedDate),
                     sort: true,
                     //itemCount: allTasks.length,
                     groupSeparatorBuilder: (dynamic date) => Padding(
@@ -331,5 +333,25 @@ class _OverviewState extends State<OverviewWidget> {
       this.setState(
           () => fileContent = json.decode(jsonFile.readAsStringSync()));
     }
+  }
+
+  List<Task> getTaskByDate(List<Task> tasks, List<Task> tasks1, dynamic date) {
+    setState(() {
+      tasks1.clear();
+      for (var i = 0; i < tasks.length; i++) {
+        if (tasks[i].date == date) {
+          print(tasks[i].date);
+          tasks1.add(tasks[i]);
+        }
+      }
+    });
+    return tasks1;
+  }
+
+  void _onDaySelected(DateTime day, List events) {
+    print(new DateFormat.yMMMd().format(day));
+    setState(() {
+      selectedDate = new DateFormat.yMMMd().format(day);
+    });
   }
 }
