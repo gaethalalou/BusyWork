@@ -55,6 +55,8 @@ class _DescriptionPage extends State<DescriptionPage>
   List<dynamic> fileContent;
   DateTime first;
   DateTime second;
+  bool timeOpen;
+  int timeOpenCount;
 
   String timerString(bool isElapsed) {
     Duration duration = controller.duration * controller.value;
@@ -64,6 +66,15 @@ class _DescriptionPage extends State<DescriptionPage>
     if (!controller.isAnimating) {
       stopwatch.reset();
     }
+    if (timeOpen == true && isElapsed == false) {
+      if (hm[0] != "00")
+        remaining = hm[0] + ":" + hm[1] + ":00";
+      else
+        remaining = hm[1] + ":00";
+      timeOpenCount = timeOpenCount + 1;
+      if (timeOpenCount == 2) timeOpen = false;
+    }
+
     Duration elapsedDuration = stopwatch.elapsed;
 
     String elapsed = controller.isAnimating
@@ -82,6 +93,9 @@ class _DescriptionPage extends State<DescriptionPage>
         minutes: minute,
       ),
     );
+
+    timeOpen = true;
+    timeOpenCount = 0;
 
     getApplicationDocumentsDirectory().then((Directory directory) {
       dir = directory;
@@ -252,7 +266,7 @@ class _DescriptionPage extends State<DescriptionPage>
                               stopwatch.stop();
                               second = DateTime.now();
                               int expectedMinutes =
-                                  first.difference(second).inMinutes;
+                                  second.difference(first).inMinutes;
                               final int hourly = expectedMinutes ~/ 60;
                               final int minutely = expectedMinutes % 60;
                               String actual =
@@ -268,8 +282,9 @@ class _DescriptionPage extends State<DescriptionPage>
                                 expected: widget.expected,
                                 actualEnd: "TBD",
                                 actualStart: actual,
+                                completed: "true",
                               );
-                              //writeToFile(widget.title, replace);
+                              writeToFile(widget.title, replace);
                               Navigator.pop(context);
                             } else {
                               controller.reverse(
@@ -358,16 +373,13 @@ class _DescriptionPage extends State<DescriptionPage>
   }
 
   void writeToFile(String key, dynamic value) {
-    if (fileExists) {
-      int count = 0;
-      List<dynamic> jsonFileContent = json.decode(jsonFile.readAsStringSync());
-      for (Task jsonTask in jsonFileContent) {
-        if (jsonTask.title == widget.title) jsonFileContent.removeAt(count);
-        count++;
-      }
-      jsonFileContent.add(value);
-      jsonFile.writeAsStringSync(json.encode(jsonFileContent));
+    List<dynamic> jsonFileContent = json.decode(jsonFile.readAsStringSync());
+    for (var i = 0; i < jsonFileContent.length; i++) {
+      print(key);
+      if (jsonFileContent[i]["title"] == key) jsonFileContent.removeAt(i);
     }
+    jsonFileContent.add(value);
+    jsonFile.writeAsStringSync(json.encode(jsonFileContent));
     this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
     print(fileContent);
   }

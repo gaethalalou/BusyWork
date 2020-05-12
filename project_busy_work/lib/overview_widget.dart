@@ -277,18 +277,20 @@ class _OverviewState extends State<OverviewWidget> {
                                       decoration: TextDecoration.lineThrough,
                                     )),
                             subtitle: element.completed == "false"
-                                ? Text(element.description +
-                                    " • Expected: " +
-                                    element.expected +
+                                ? Text(" • Expected Time: " +
+                                    element.startTime +
+                                    " - " +
+                                    element.endTime +
                                     (element.actualStart != "TBD"
-                                        ? " • Actual: " + element.actualStart
+                                        ? "\n• Actual: " + element.actualStart
                                         : ""))
                                 : Text(
-                                    element.description +
-                                        " • Expected: " +
-                                        element.expected +
+                                    " • Expected Time: " +
+                                        element.startTime +
+                                        " - " +
+                                        element.endTime +
                                         (element.actualStart != "TBD"
-                                            ? " • Actual: " +
+                                            ? "\n• Actual: " +
                                                 element.actualStart
                                             : ""),
                                     style: TextStyle(
