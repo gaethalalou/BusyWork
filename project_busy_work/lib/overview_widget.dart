@@ -188,6 +188,7 @@ class _OverviewState extends State<OverviewWidget> {
 
                           setState(() {
                             allTasks.remove(element);
+                            sTasks.remove(element);
                           });
 
                           // Then show a snackbar.
