@@ -31,6 +31,7 @@ class _OverviewState extends State<OverviewWidget> {
   @override
   void initState() {
     super.initState();
+    selectedDate = new DateFormat.yMMMd().format(new DateTime.now());
     _controller = CalendarController();
 
     getApplicationDocumentsDirectory().then((Directory directory) {
@@ -49,6 +50,7 @@ class _OverviewState extends State<OverviewWidget> {
       getTasks().then((value) {
         setState(() {
           allTasks.addAll(value);
+          sTasks = getTaskByDate(allTasks, sTasks, selectedDate);
         });
       });
     });
@@ -146,7 +148,7 @@ class _OverviewState extends State<OverviewWidget> {
                     left: 13.0, right: 13.0, top: 5, bottom: 20),
                 child: new GroupedListView<dynamic, String>(
                     groupBy: (element) => element.date,
-                    elements: getTaskByDate(allTasks, sTasks, selectedDate),
+                    elements: sTasks,
                     sort: true,
                     //itemCount: allTasks.length,
                     groupSeparatorBuilder: (dynamic date) => Padding(
@@ -338,15 +340,12 @@ class _OverviewState extends State<OverviewWidget> {
   }
 
   List<Task> getTaskByDate(List<Task> tasks, List<Task> tasks1, dynamic date) {
-    setState(() {
-      tasks1.clear();
-      for (var i = 0; i < tasks.length; i++) {
-        if (tasks[i].date == date) {
-          print(tasks[i].date);
-          tasks1.add(tasks[i]);
-        }
+    tasks1.clear();
+    for (var i = 0; i < tasks.length; i++) {
+      if (tasks[i].date == date) {
+        tasks1.add(tasks[i]);
       }
-    });
+    }
     return tasks1;
   }
 
@@ -354,6 +353,7 @@ class _OverviewState extends State<OverviewWidget> {
     print(new DateFormat.yMMMd().format(day));
     setState(() {
       selectedDate = new DateFormat.yMMMd().format(day);
+      sTasks = getTaskByDate(allTasks, sTasks, selectedDate);
     });
   }
 }
