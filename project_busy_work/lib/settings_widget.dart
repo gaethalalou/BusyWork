@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'myColors.dart';
 
 class SettingsWidget extends StatelessWidget {
   final Color color;
@@ -9,7 +11,32 @@ class SettingsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(text)
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            RaisedButton(
+              child: Text('Import'),
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0)),
+              color: hGreen,
+              onPressed: () {},
+            ),
+            RaisedButton(
+              child: Text('Export'),
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0)),
+              color: hGreen,
+              onPressed: () {},
+            ),
+            RaisedButton(
+              child: Text('Credits'),
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0)),
+              color: hGreen,
+              onPressed: () {},
+            ),
+          ],
+        ),
       ),
       backgroundColor: color,
     );
