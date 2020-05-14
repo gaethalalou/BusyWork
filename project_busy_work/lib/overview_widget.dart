@@ -206,7 +206,7 @@ class _OverviewState extends State<OverviewWidget> {
                                 // color: Colors.red,
                                 padding: const EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
-                                  color: hGreen,
+                                  color: Colors.grey.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(20),
                                   boxShadow: [
                                     BoxShadow(
