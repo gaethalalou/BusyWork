@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'myColors.dart';
+import 'credits_widget.dart';
 
 class SettingsWidget extends StatelessWidget {
   final Color color;
@@ -14,7 +15,7 @@ class SettingsWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
+            /*RaisedButton(
               child: Text('Import'),
               shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(18.0)),
@@ -28,12 +29,18 @@ class SettingsWidget extends StatelessWidget {
               color: hGreen,
               onPressed: () {},
             ),
+             */
             RaisedButton(
               child: Text('Credits'),
               shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(18.0)),
               color: hGreen,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CreditsWidget(bgGreen)));
+              },
             ),
           ],
         ),
