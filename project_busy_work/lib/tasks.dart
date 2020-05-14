@@ -1,17 +1,11 @@
 import 'dart:convert';
-// import 'dart:io';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:projectbusywork/overview_widget.dart';
-// import 'DescriptionPage.dart';
-// import 'myColors.dart';
-// import 'package:path_provider/path_provider.dart';
 
 Task userFromJson(String str) => Task.fromJson(json.decode(str));
 
 String userToJson(Task data) => json.encode(data.toJson());
 
 class Task {
+  String id;
   String title;
   String location;
   String description;
@@ -25,6 +19,7 @@ class Task {
   String completed;
 
   Task({
+    this.id,
     this.title,
     this.location,
     this.description,
@@ -39,6 +34,7 @@ class Task {
   });
 
   factory Task.fromJson(Map<String, dynamic> json) => Task(
+      id: json["id"],
       title: json["title"],
       location: json["location"],
       description: json["description"],
@@ -52,6 +48,7 @@ class Task {
       completed: json["completed"]);
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "title": title,
         "location": location,
         "description": description,

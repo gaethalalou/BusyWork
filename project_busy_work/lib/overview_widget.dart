@@ -71,7 +71,7 @@ class _OverviewState extends State<OverviewWidget> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text("Today's Tasks",
+                  child: Text("Upcoming Tasks",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20)),
                 ),
@@ -164,7 +164,7 @@ class _OverviewState extends State<OverviewWidget> {
                         ),
                     itemBuilder: (c, element) {
                       return Dismissible(
-                        key: Key(element.title),
+                        key: Key(element.id),
 
                         onDismissed: (direction) {
                           // Remove the item from the data source.
@@ -172,8 +172,8 @@ class _OverviewState extends State<OverviewWidget> {
                           List<dynamic> jsonFileContent =
                               json.decode(jsonFile.readAsStringSync());
                           for (var i = 0; i < jsonFileContent.length; i++) {
-                            if (jsonFileContent[i]["title"] ==
-                                element.title.toString()) {
+                            if (jsonFileContent[i]["id"] ==
+                                element.id.toString()) {
                               jsonFileContent.removeAt(i);
                             }
                           }
@@ -241,13 +241,13 @@ class _OverviewState extends State<OverviewWidget> {
                               onPressed: () {
                                 if (element.completed == "false") {
                                   element.completed = "true";
-                                  writeToFileComp(element.title, "true");
+                                  writeToFileComp(element.id, "true");
                                   setState(() {
                                     element.completed = "true";
                                   });
                                 } else {
                                   element.completed = "false";
-                                  writeToFileComp(element.title, "false");
+                                  writeToFileComp(element.id, "false");
                                   setState(() {
                                     element.completed = "false";
                                   });
@@ -270,6 +270,7 @@ class _OverviewState extends State<OverviewWidget> {
                                           routine: element.routine,
                                           endTime: element.endTime,
                                           expected: element.expected,
+                                          id: element.id,
                                         )),
                               );
                             },
@@ -328,10 +329,10 @@ class _OverviewState extends State<OverviewWidget> {
     return addTasks;
   }
 
-  void writeToFileComp(dynamic title, dynamic value) {
+  void writeToFileComp(dynamic id, dynamic value) {
     List<dynamic> jsonFileContent = json.decode(jsonFile.readAsStringSync());
     for (var i = 0; i < jsonFileContent.length; i++) {
-      if (jsonFileContent[i]["title"] == title.toString()) {
+      if (jsonFileContent[i]["id"] == id.toString()) {
         jsonFileContent[i]["completed"] = value;
       }
       jsonFile.writeAsStringSync(json.encode(jsonFileContent));

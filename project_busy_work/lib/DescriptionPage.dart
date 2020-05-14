@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'home_widget.dart';
 import 'myColors.dart';
 import 'dart:math' as math;
 import 'dart:convert';
@@ -17,6 +18,8 @@ class DescriptionPage extends StatefulWidget {
   final String endTime;
   final String routine;
   final String expected;
+  final String id;
+
   DescriptionPage(
       {Key key,
       this.desc,
@@ -26,7 +29,8 @@ class DescriptionPage extends StatefulWidget {
       this.startTime,
       this.endTime,
       this.routine,
-      this.expected})
+      this.expected,
+      this.id})
       : super(key: key);
 
   @override
@@ -272,6 +276,7 @@ class _DescriptionPage extends State<DescriptionPage>
                               String actual =
                                   '${hourly.toString().padLeft(2, "0")}:${minutely.toString().padLeft(2, "0")}';
                               Task replace = new Task(
+                                id: widget.id,
                                 title: widget.title,
                                 description: widget.desc,
                                 location: widget.location,
@@ -284,8 +289,11 @@ class _DescriptionPage extends State<DescriptionPage>
                                 actualStart: actual,
                                 completed: "true",
                               );
-                              writeToFile(widget.title, replace);
-                              Navigator.pop(context);
+                              writeToFile(widget.id, replace);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()));
                             } else {
                               controller.reverse(
                                   from: controller.value == 0.0
@@ -376,7 +384,7 @@ class _DescriptionPage extends State<DescriptionPage>
     List<dynamic> jsonFileContent = json.decode(jsonFile.readAsStringSync());
     for (var i = 0; i < jsonFileContent.length; i++) {
       print(key);
-      if (jsonFileContent[i]["title"] == key) jsonFileContent.removeAt(i);
+      if (jsonFileContent[i]["id"] == key) jsonFileContent.removeAt(i);
     }
     jsonFileContent.add(value);
     jsonFile.writeAsStringSync(json.encode(jsonFileContent));
