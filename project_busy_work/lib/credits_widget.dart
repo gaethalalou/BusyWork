@@ -14,7 +14,6 @@ class CreditsWidget extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 IconButton(
                     alignment: Alignment.topLeft,
@@ -24,7 +23,7 @@ class CreditsWidget extends StatelessWidget {
                       Navigator.pop(context);
                     }),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text("Credits", style: TextStyle(fontSize: 24)),
                 ),
               ],
