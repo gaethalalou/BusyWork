@@ -1,12 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:projectbusywork/myColors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'intro.dart';
-import 'package:path_provider/path_provider.dart';
 import 'home_widget.dart';
-import 'placeholder_widget.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -24,22 +20,22 @@ class App extends StatefulWidget {
 
 class AppState extends State<App> {
   Widget first;
-  File jsonFile;
-  Directory dir;
-  String fileName = "tasks.json";
-  bool fileExists = false;
-  List<dynamic> fileContent;
 
   @override
   void initState() {
-    first = Home();
-    getApplicationDocumentsDirectory().then((Directory directory) {
-      dir = directory;
-      jsonFile = new File(dir.path + "/" + fileName);
-      fileExists = jsonFile.existsSync();
-      if (!fileExists) first = IntroScreen();
-    });
+    boolChecker();
     super.initState();
+  }
+
+  Future<void> boolChecker() async {
+    first = Home();
+    final prefs = await SharedPreferences.getInstance();
+    final startupBool = prefs.getBool('startupBool');
+    print("startupBool: " + startupBool.toString());
+    if (startupBool == null) {
+      first = IntroScreen();
+      await prefs.setBool('startupBool', true);
+    }
   }
 
   Widget build(BuildContext context) {

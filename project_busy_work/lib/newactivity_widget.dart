@@ -416,6 +416,7 @@ class NewActivityState extends State<NewActivityWidget> {
       String expected =
           '${hour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}';
       Task sub = new Task(
+        id: dated.format(selectedDate) + title + timed.format(selectedTime1),
         title: title,
         location: location,
         description: description,
@@ -444,17 +445,17 @@ class NewActivityState extends State<NewActivityWidget> {
 
   void noonCheck1(DateTime dateTime) {
     if (TimeOfDay.fromDateTime(dateTime).period == DayPeriod.am) {
-      period1 = "am";
+      period1 = "AM";
     } else {
-      period1 = "pm";
+      period1 = "PM";
     }
   }
 
   void noonCheck2(DateTime dateTime) {
     if (TimeOfDay.fromDateTime(dateTime).period == DayPeriod.am) {
-      period2 = "am";
+      period2 = "AM";
     } else {
-      period2 = "pm";
+      period2 = "PM";
     }
   }
 }
