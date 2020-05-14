@@ -8,7 +8,9 @@ class ProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text(text)),
+      body: Center(
+          child: Text("Currently in development!",
+              style: TextStyle(fontSize: 16))),
       backgroundColor: color,
     );
   }

@@ -274,9 +274,9 @@ class NewActivityState extends State<NewActivityWidget> {
                             TimeOfDay.now().hour, TimeOfDay.now().minute);
                         if (selectedTime1 == null) return;
                         if (selectedTime1.period == DayPeriod.am) {
-                          period1 = "am";
+                          period1 = "AM";
                         } else {
-                          period1 = "pm";
+                          period1 = "PM";
                         }
                         setState(() {
                           if (selectedTime1.hourOfPeriod != 0) {
@@ -312,9 +312,9 @@ class NewActivityState extends State<NewActivityWidget> {
                             context, selectedTime1.hour, selectedTime1.minute);
                         if (selectedTime2 == null) return;
                         if (selectedTime2.period == DayPeriod.am) {
-                          period2 = "am";
+                          period2 = "AM";
                         } else {
-                          period2 = "pm";
+                          period2 = "PM";
                         }
                         setState(() {
                           if (selectedTime2.hourOfPeriod != 0) {
