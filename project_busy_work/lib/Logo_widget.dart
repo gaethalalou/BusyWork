@@ -6,6 +6,7 @@ import 'home_widget.dart';
 
 class LogoWidget extends StatefulWidget {
   final Color color;
+
   @override
   State<StatefulWidget> createState() {
     return LogoWidgetState();
