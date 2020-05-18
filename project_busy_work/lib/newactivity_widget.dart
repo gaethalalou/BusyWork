@@ -340,7 +340,7 @@ class NewActivityState extends State<NewActivityWidget> {
             Container(
               height: 20,
             ),
-            /*Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('Routine: ', style: TextStyle(fontSize: 22)),
@@ -354,7 +354,7 @@ class NewActivityState extends State<NewActivityWidget> {
                   width: 30,
                 )
               ],
-            ),*/
+            ),
             Container(
               height: 20,
             ),
@@ -419,7 +419,7 @@ class NewActivityState extends State<NewActivityWidget> {
         date: dated.format(selectedDate),
         startTime: timed.format(selectedTime1) + period1,
         endTime: timed.format(selectedTime2) + period1,
-        routine: /*selectedRoutine.name*/ "Do Not Repeat",
+        routine: selectedRoutine.name,
         actualStart: "TBD",
         actualEnd: "TBD",
         expected: expected,
