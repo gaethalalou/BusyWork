@@ -24,7 +24,7 @@ class _OverviewState extends State<OverviewWidget> {
   bool fileExists = false;
   List<dynamic> fileContent;
 
-  final List<Task> allTasks = List<Task>();
+  List<Task> allTasks = List<Task>();
   List<Task> sTasks = List<Task>();
   final TextEditingController eCtrl = new TextEditingController();
   dynamic selectedDate;
@@ -81,7 +81,19 @@ class _OverviewState extends State<OverviewWidget> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => NewActivityWidget()),
-                    );
+                    ).then((directory) {
+                      this.setState(() => fileContent =
+                          json.decode(jsonFile.readAsStringSync()));
+
+                      getTasks().then((value) {
+                        setState(() {
+                          allTasks = List<Task>();
+                          allTasks.addAll(value);
+                          sTasks =
+                              getTaskByDate(allTasks, sTasks, selectedDate);
+                        });
+                      });
+                    });
                   },
                   child: new Icon(
                     Icons.add,
@@ -206,7 +218,7 @@ class _OverviewState extends State<OverviewWidget> {
                                 // color: Colors.red,
                                 padding: const EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
-                                  color: hGreen,
+                                  color: Colors.grey.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(20),
                                   boxShadow: [
                                     BoxShadow(
@@ -272,7 +284,19 @@ class _OverviewState extends State<OverviewWidget> {
                                           expected: element.expected,
                                           id: element.id,
                                         )),
-                              );
+                              ).then((directory) {
+                                this.setState(() => fileContent =
+                                    json.decode(jsonFile.readAsStringSync()));
+
+                                getTasks().then((value) {
+                                  setState(() {
+                                    allTasks = List<Task>();
+                                    allTasks.addAll(value);
+                                    sTasks = getTaskByDate(
+                                        allTasks, sTasks, selectedDate);
+                                  });
+                                });
+                              });
                             },
                             title: element.completed == "false"
                                 ? Text(element.title)

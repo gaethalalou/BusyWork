@@ -138,7 +138,7 @@ class _DescriptionPage extends State<DescriptionPage>
               ],
             ),
             Container(
-              height: 360,
+              height: 335,
               decoration: BoxDecoration(
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(10.0),
@@ -197,7 +197,7 @@ class _DescriptionPage extends State<DescriptionPage>
                                   "Elapsed Time",
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 15,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 AnimatedBuilder(
@@ -208,7 +208,7 @@ class _DescriptionPage extends State<DescriptionPage>
                                         timerString(true),
                                         style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 70,
+                                            fontSize: 60,
                                             fontWeight: FontWeight.w200),
                                       );
                                     }),
@@ -290,10 +290,7 @@ class _DescriptionPage extends State<DescriptionPage>
                                 completed: "true",
                               );
                               writeToFile(widget.id, replace);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()));
+                              Navigator.pop(context);
                             } else {
                               controller.reverse(
                                   from: controller.value == 0.0
@@ -329,7 +326,7 @@ class _DescriptionPage extends State<DescriptionPage>
                       height: 30,
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Description: \n", //+ "\nLocation: "+widget.location,
+                        "Description: ", //+ "\nLocation: "+widget.location,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: hGreen,
@@ -352,7 +349,7 @@ class _DescriptionPage extends State<DescriptionPage>
                       height: 30,
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Location: \n", //+ "\nLocation: "+widget.location,
+                        "Location: ", //+ "\nLocation: "+widget.location,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: hGreen,

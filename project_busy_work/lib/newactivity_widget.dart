@@ -114,8 +114,8 @@ class NewActivityState extends State<NewActivityWidget> {
                         MaterialPageRoute(builder: (context) => Home()));
                   },
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 80),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text("New Activity", style: TextStyle(fontSize: 24)),
                 ),
               ],
@@ -126,7 +126,7 @@ class NewActivityState extends State<NewActivityWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('Title: ', style: TextStyle(fontSize: 22)),
+                Text('Title: ', style: TextStyle(fontSize: 18)),
                 Card(
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
@@ -159,7 +159,7 @@ class NewActivityState extends State<NewActivityWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('Location: ', style: TextStyle(fontSize: 22)),
+                Text('Location: ', style: TextStyle(fontSize: 18)),
                 Card(
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
@@ -192,8 +192,7 @@ class NewActivityState extends State<NewActivityWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('Description: ', style: TextStyle(fontSize: 22)),
-                Container(width: 20),
+                Text('Description: ', style: TextStyle(fontSize: 18)),
                 Card(
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
@@ -226,8 +225,7 @@ class NewActivityState extends State<NewActivityWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('Date: ', style: TextStyle(fontSize: 22)),
-                Container(width: 90),
+                Text('Date: ', style: TextStyle(fontSize: 18)),
                 Column(
                   children: <Widget>[
                     Text(dated.format(selectedDate)),
@@ -259,8 +257,7 @@ class NewActivityState extends State<NewActivityWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('Time: ', style: TextStyle(fontSize: 22)),
-                Container(width: 100),
+                Text('Time: ', style: TextStyle(fontSize: 18)),
                 Column(
                   children: <Widget>[
                     Text(timed.format(selectedTime1) + period1),
@@ -274,9 +271,9 @@ class NewActivityState extends State<NewActivityWidget> {
                             TimeOfDay.now().hour, TimeOfDay.now().minute);
                         if (selectedTime1 == null) return;
                         if (selectedTime1.period == DayPeriod.am) {
-                          period1 = "am";
+                          period1 = "AM";
                         } else {
-                          period1 = "pm";
+                          period1 = "PM";
                         }
                         setState(() {
                           if (selectedTime1.hourOfPeriod != 0) {
@@ -312,9 +309,9 @@ class NewActivityState extends State<NewActivityWidget> {
                             context, selectedTime1.hour, selectedTime1.minute);
                         if (selectedTime2 == null) return;
                         if (selectedTime2.period == DayPeriod.am) {
-                          period2 = "am";
+                          period2 = "AM";
                         } else {
-                          period2 = "pm";
+                          period2 = "PM";
                         }
                         setState(() {
                           if (selectedTime2.hourOfPeriod != 0) {
@@ -343,7 +340,7 @@ class NewActivityState extends State<NewActivityWidget> {
             Container(
               height: 20,
             ),
-            Row(
+            /*Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text('Routine: ', style: TextStyle(fontSize: 22)),
@@ -357,7 +354,7 @@ class NewActivityState extends State<NewActivityWidget> {
                   width: 30,
                 )
               ],
-            ),
+            ),*/
             Container(
               height: 20,
             ),
@@ -370,8 +367,7 @@ class NewActivityState extends State<NewActivityWidget> {
                 onPressed: () {
                   submit();
                   if (check) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Home()));
+                    Navigator.pop(context);
                     check = false;
                   }
                 },
@@ -423,7 +419,7 @@ class NewActivityState extends State<NewActivityWidget> {
         date: dated.format(selectedDate),
         startTime: timed.format(selectedTime1) + period1,
         endTime: timed.format(selectedTime2) + period1,
-        routine: selectedRoutine.name,
+        routine: /*selectedRoutine.name*/ "Do Not Repeat",
         actualStart: "TBD",
         actualEnd: "TBD",
         expected: expected,
