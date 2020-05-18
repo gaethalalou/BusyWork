@@ -22,6 +22,7 @@ class ProgressWidgetState extends State<ProgressWidget> {
   String fileName = "tasks.json";
   List<dynamic> fileContent;
   List<Task> allTasks = List<Task>();
+  List<charts.Series<Info, String>> seriesData;
 
   void initState() {
     getApplicationDocumentsDirectory().then((Directory directory) {
@@ -37,15 +38,35 @@ class ProgressWidgetState extends State<ProgressWidget> {
       });
     });
 
+    seriesData = List<charts.Series<Info, String>>();
+    generateData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Text("Currently in development!",
-              style: TextStyle(fontSize: 16))),
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Text(
+                'Tasks Comparison',
+                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+              ),
+              Expanded(
+                child: charts.BarChart(
+                  seriesData,
+                  animate: true,
+                  barGroupingType: charts.BarGroupingType.grouped,
+                  //behaviors: [new charts.SeriesLegend()],
+                  animationDuration: Duration(seconds: 5),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       backgroundColor: widget.color,
     );
   }
@@ -58,4 +79,37 @@ class ProgressWidgetState extends State<ProgressWidget> {
     }
     return addTasks;
   }
+
+  void generateData() {
+    for (var task in allTasks) {
+      print("I exist!");
+
+      if (task.completed == "true") {
+        print("We did it!");
+        var data = [
+          new Info(task.title, "expected", 20),
+          new Info(task.title, "actual", 30),
+        ];
+
+        seriesData.add(
+          charts.Series(
+            domainFn: (Info info, _) => info.title,
+            measureFn: (Info info, _) => info.time,
+            id: task.title + task.date + task.expected,
+            data: data,
+            fillPatternFn: (_, __) => charts.FillPatternType.solid,
+            fillColorFn: (Info info, _) =>
+                charts.ColorUtil.fromDartColor(Color(0xff990099)),
+          ),
+        );
+      }
+    }
+  }
+}
+
+class Info {
+  String title;
+  String actual;
+  int time;
+  Info(this.title, this.actual, this.time);
 }
