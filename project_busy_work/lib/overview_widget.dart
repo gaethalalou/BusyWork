@@ -32,6 +32,7 @@ class _OverviewState extends State<OverviewWidget> {
   void initState() {
     super.initState();
     selectedDate = new DateFormat.yMMMd().format(new DateTime.now());
+
     _controller = CalendarController();
 
     getApplicationDocumentsDirectory().then((Directory directory) {
@@ -371,15 +372,92 @@ class _OverviewState extends State<OverviewWidget> {
       if (tasks[i].date == date) {
         tasks1.add(tasks[i]);
       }
+      DateFormat fdate = new DateFormat.yMMMd();
+      DateTime tdate = fdate.parse(tasks[i].date);
+      DateTime sdate = fdate.parse(date.toString());
+      Duration difference = sdate.difference(tdate);
+      print("sdate$sdate");
+      print("date $date");
+      print("tdate $tdate");
+      print("difference ${difference.inDays}");
+      print(tasks[i].routine);
+
+      if (difference.inDays > 0) {
+        if (tasks[i].routine == "Daily") {
+          Task t = new Task(
+            id: tdate.toString() + tasks[i].title + tasks[i].actualStart,
+            title: tasks[i].title,
+            description: tasks[i].description,
+            location: tasks[i].location,
+            date: date,
+            startTime: tasks[i].startTime,
+            endTime: tasks[i].endTime,
+            routine: tasks[i].routine,
+            expected: tasks[i].expected,
+            actualEnd: tasks[i].actualEnd,
+            actualStart: tasks[i].actualStart,
+            completed: "false",
+          );
+          tasks1.add(t);
+          writeToFile(t);
+        }
+        if (tasks[i].routine == "Weekly" && difference.inDays % 7 == 0 ||
+            difference.inDays % 7 == 7) {
+          Task t = new Task(
+            id: tdate.toString() + tasks[i].title + tasks[i].actualStart,
+            title: tasks[i].title,
+            description: tasks[i].description,
+            location: tasks[i].location,
+            date: date,
+            startTime: tasks[i].startTime,
+            endTime: tasks[i].endTime,
+            routine: tasks[i].routine,
+            expected: tasks[i].expected,
+            actualEnd: tasks[i].actualEnd,
+            actualStart: tasks[i].actualStart,
+            completed: "false",
+          );
+          tasks1.add(t);
+          writeToFile(t);
+        }
+        if (tasks[i].routine == "Monthly" && difference.inDays % 30 == 0 ||
+            difference.inDays % 30 == 30) {
+          Task t = new Task(
+            id: tdate.toString() + tasks[i].title + tasks[i].actualStart,
+            title: tasks[i].title,
+            description: tasks[i].description,
+            location: tasks[i].location,
+            date: date,
+            startTime: tasks[i].startTime,
+            endTime: tasks[i].endTime,
+            routine: tasks[i].routine,
+            expected: tasks[i].expected,
+            actualEnd: tasks[i].actualEnd,
+            actualStart: tasks[i].actualStart,
+            completed: "false",
+          );
+          tasks1.add(t);
+          writeToFile(t);
+        }
+      }
     }
     return tasks1;
   }
 
   void _onDaySelected(DateTime day, List events) {
-    print(new DateFormat.yMMMd().format(day));
     setState(() {
       selectedDate = new DateFormat.yMMMd().format(day);
       sTasks = getTaskByDate(allTasks, sTasks, selectedDate);
     });
+  }
+
+  void writeToFile(dynamic value) {
+    if (fileExists) {
+      List<dynamic> jsonFileContent = json.decode(jsonFile.readAsStringSync());
+      jsonFileContent.add(value);
+      jsonFile.writeAsStringSync(json.encode(jsonFileContent));
+    }
+    this.setState(() => fileContent = json.decode(jsonFile.readAsStringSync()));
+    print(fileContent);
   }
 }
