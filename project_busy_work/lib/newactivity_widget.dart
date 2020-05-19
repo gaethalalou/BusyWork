@@ -7,6 +7,7 @@ import 'package:projectbusywork/myColors.dart';
 import 'home_widget.dart';
 import 'tasks.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class NewActivityWidget extends StatefulWidget {
   @override
@@ -409,10 +410,13 @@ class NewActivityState extends State<NewActivityWidget> {
       int expectedMinutes = selectedTime2.difference(selectedTime1).inMinutes;
       final int hour = expectedMinutes ~/ 60;
       final int minutes = expectedMinutes % 60;
+      var uuid = new Uuid();
       String expected =
           '${hour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}';
       Task sub = new Task(
-        id: dated.format(selectedDate) + title + timed.format(selectedTime1),
+        // id: dated.format(selectedDate) + title + timed.format(selectedTime1),
+        id: uuid.v5(Uuid.NAMESPACE_OID,
+            dated.format(selectedDate) + title + timed.format(selectedTime1)),
         title: title,
         location: location,
         description: description,

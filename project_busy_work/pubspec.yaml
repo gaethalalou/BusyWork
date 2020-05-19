@@ -17,6 +17,10 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  path_provider: "^1.6.7"
+
+  csv: ^4.0.3
+  uuid: ^2.0.4
   flutter:
     sdk: flutter
   intro_slider: ^2.2.9
