@@ -17,7 +17,8 @@ class _HomeState extends State<Home> {
   final List<Widget> _children = [
     OverviewWidget(),
     ProgressWidget(bgGreen),
-    SettingsWidget(bgGreen, "Settings"),
+    SettingsWidget(),
+    //SettingsWidget(bgGreen, "Settings"),
     //ActivityWidget()
   ];
 

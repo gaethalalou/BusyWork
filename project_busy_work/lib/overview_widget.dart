@@ -11,6 +11,8 @@ import 'package:projectbusywork/newactivity_widget.dart';
 import 'newactivity_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
+import 'package:uuid/uuid_util.dart';
 
 class OverviewWidget extends StatefulWidget {
   @override
@@ -368,8 +370,12 @@ class _OverviewState extends State<OverviewWidget> {
 
   List<Task> getTaskByDate(List<Task> tasks, List<Task> tasks1, dynamic date) {
     tasks1.clear();
+
     for (var i = 0; i < tasks.length; i++) {
-      if (tasks[i].date == date) {
+      if (tasks[i].date == date &&
+          tasks1.firstWhere((itemToCheck) => itemToCheck.id == tasks[i].id,
+                  orElse: () => null) ==
+              null) {
         tasks1.add(tasks[i]);
       }
       DateFormat fdate = new DateFormat.yMMMd();
@@ -383,9 +389,11 @@ class _OverviewState extends State<OverviewWidget> {
       print(tasks[i].routine);
 
       if (difference.inDays > 0) {
+        var uuid = new Uuid();
         if (tasks[i].routine == "Daily") {
           Task t = new Task(
-            id: tdate.toString() + tasks[i].title + tasks[i].actualStart,
+            id: uuid.v5(Uuid.NAMESPACE_OID,
+                date.toString() + tasks[i].title + tasks[i].startTime),
             title: tasks[i].title,
             description: tasks[i].description,
             location: tasks[i].location,
@@ -398,13 +406,19 @@ class _OverviewState extends State<OverviewWidget> {
             actualStart: tasks[i].actualStart,
             completed: "false",
           );
-          tasks1.add(t);
-          writeToFile(t);
+
+          if (tasks1.firstWhere((itemToCheck) => itemToCheck.id == t.id,
+                  orElse: () => null) ==
+              null) {
+            tasks1.add(t);
+            writeToFile(t);
+          }
         }
         if (tasks[i].routine == "Weekly" && difference.inDays % 7 == 0 ||
             difference.inDays % 7 == 7) {
           Task t = new Task(
-            id: tdate.toString() + tasks[i].title + tasks[i].actualStart,
+            id: uuid.v5(Uuid.NAMESPACE_OID,
+                date.toString() + tasks[i].title + tasks[i].startTime),
             title: tasks[i].title,
             description: tasks[i].description,
             location: tasks[i].location,
@@ -417,13 +431,18 @@ class _OverviewState extends State<OverviewWidget> {
             actualStart: tasks[i].actualStart,
             completed: "false",
           );
-          tasks1.add(t);
-          writeToFile(t);
+          if (tasks1.firstWhere((itemToCheck) => itemToCheck.id == t.id,
+                  orElse: () => null) ==
+              null) {
+            tasks1.add(t);
+            writeToFile(t);
+          }
         }
         if (tasks[i].routine == "Monthly" && difference.inDays % 30 == 0 ||
             difference.inDays % 30 == 30) {
           Task t = new Task(
-            id: tdate.toString() + tasks[i].title + tasks[i].actualStart,
+            id: uuid.v5(Uuid.NAMESPACE_OID,
+                date.toString() + tasks[i].title + tasks[i].startTime),
             title: tasks[i].title,
             description: tasks[i].description,
             location: tasks[i].location,
@@ -436,8 +455,12 @@ class _OverviewState extends State<OverviewWidget> {
             actualStart: tasks[i].actualStart,
             completed: "false",
           );
-          tasks1.add(t);
-          writeToFile(t);
+          if (tasks1.firstWhere((itemToCheck) => itemToCheck.id == t.id,
+                  orElse: () => null) ==
+              null) {
+            tasks1.add(t);
+            writeToFile(t);
+          }
         }
       }
     }
