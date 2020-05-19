@@ -12,7 +12,6 @@ import 'newactivity_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
-import 'package:uuid/uuid_util.dart';
 
 class OverviewWidget extends StatefulWidget {
   @override
@@ -182,8 +181,6 @@ class _OverviewState extends State<OverviewWidget> {
                         key: Key(element.id),
 
                         onDismissed: (direction) {
-                          // Remove the item from the data source.
-
                           List<dynamic> jsonFileContent =
                               json.decode(jsonFile.readAsStringSync());
                           for (var i = 0; i < jsonFileContent.length; i++) {
@@ -309,22 +306,10 @@ class _OverviewState extends State<OverviewWidget> {
                                       decoration: TextDecoration.lineThrough,
                                     )),
                             subtitle: element.completed == "false"
-                                ? Text(" • Expected Time: " +
-                                    element.startTime +
-                                    " - " +
-                                    element.endTime +
-                                    (element.actualStart != "TBD"
-                                        ? "\n• Actual: " + element.actualStart
-                                        : ""))
+                                ? Text("• Expected Time: " +  element.startTime +" - " + element.endTime + (element.actualStart != "TBD" ? "\n• Actual: " + element.actualStart: ""), 
+                                style: TextStyle(color: Colors.white),)
                                 : Text(
-                                    " • Expected Time: " +
-                                        element.startTime +
-                                        " - " +
-                                        element.endTime +
-                                        (element.actualStart != "TBD"
-                                            ? "\n• Actual: " +
-                                                element.actualStart
-                                            : ""),
+                                    "• Expected Time: " + element.startTime + " - " + element.endTime + (element.actualStart != "TBD" ? "\n• Actual: " + element.actualStart: ""),
                                     style: TextStyle(
                                       decoration: TextDecoration.lineThrough,
                                     )),
