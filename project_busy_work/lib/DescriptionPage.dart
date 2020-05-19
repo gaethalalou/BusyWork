@@ -152,6 +152,7 @@ class _DescriptionPage extends State<DescriptionPage>
                   Container(
                     margin: EdgeInsets.only(
                       top: 12.0,
+                      bottom: 5,
                     ),
                     alignment: Alignment.topCenter,
                     child: Text(
@@ -313,14 +314,18 @@ class _DescriptionPage extends State<DescriptionPage>
               ),
             ),
             Container(
+              height: 20,
+            ),
+            Container(
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(13.0),
               ),
               margin: const EdgeInsets.only(
                   left: 13.0, right: 13.0, top: 5, bottom: 10),
               child: Container(
+                
                 margin: EdgeInsets.only(left: 9.0),
                 child: Column(
                   children: <Widget>[
@@ -329,10 +334,10 @@ class _DescriptionPage extends State<DescriptionPage>
                       height: 30,
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Description: ", //+ "\nLocation: "+widget.location,
+                        "Description ", //+ "\nLocation: "+widget.location,
                         style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: hGreen,
+                            fontWeight: FontWeight.w600,
+                            color: lGreen,
                             fontSize: 21),
                       ),
                     ),
@@ -342,8 +347,7 @@ class _DescriptionPage extends State<DescriptionPage>
                       child: Text(
                         widget.desc,
                         style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
+                            color: Colors.grey,
                             fontSize: 18),
                       ),
                     ),
@@ -352,10 +356,10 @@ class _DescriptionPage extends State<DescriptionPage>
                       height: 30,
                       alignment: Alignment.topLeft,
                       child: Text(
-                        "Location: ", //+ "\nLocation: "+widget.location,
+                        "Location ", //+ "\nLocation: "+widget.location,
                         style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: hGreen,
+                            fontWeight: FontWeight.w600,
+                            color: lGreen,
                             fontSize: 21),
                       ),
                     ),
@@ -365,8 +369,7 @@ class _DescriptionPage extends State<DescriptionPage>
                       child: Text(
                         widget.location,
                         style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
+                            color: Colors.grey,
                             fontSize: 18),
                       ),
                     ),
