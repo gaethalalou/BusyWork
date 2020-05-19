@@ -282,6 +282,7 @@ class _OverviewState extends State<OverviewWidget> {
                                           location: element.location,
                                           startTime: element.startTime,
                                           date: element.date,
+                                          weekDay: element.weekDay,
                                           routine: element.routine,
                                           endTime: element.endTime,
                                           expected: element.expected,

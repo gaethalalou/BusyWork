@@ -33,6 +33,7 @@ class NewActivityState extends State<NewActivityWidget> {
   Routines selectedRoutine;
   String period1;
   String period2;
+  String realWeekDay;
 
   File jsonFile;
   Directory dir;
@@ -241,8 +242,11 @@ class NewActivityState extends State<NewActivityWidget> {
 
                         setState(
                           () {
-                            this.selectedDate = DateTime(selectedDate.year,
-                                selectedDate.month, selectedDate.day);
+                            this.selectedDate = DateTime(
+                                selectedDate.year,
+                                selectedDate.month,
+                                selectedDate.day,
+                                selectedDate.weekday);
                           },
                         );
                       },
@@ -413,6 +417,7 @@ class NewActivityState extends State<NewActivityWidget> {
       var uuid = new Uuid();
       String expected =
           '${hour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}';
+      weekDayMaker();
       Task sub = new Task(
         // id: dated.format(selectedDate) + title + timed.format(selectedTime1),
         id: uuid.v5(Uuid.NAMESPACE_OID,
@@ -421,6 +426,7 @@ class NewActivityState extends State<NewActivityWidget> {
         location: location,
         description: description,
         date: dated.format(selectedDate),
+        weekDay: realWeekDay,
         startTime: timed.format(selectedTime1) + period1,
         endTime: timed.format(selectedTime2) + period1,
         routine: selectedRoutine.name,
@@ -457,6 +463,16 @@ class NewActivityState extends State<NewActivityWidget> {
     } else {
       period2 = "PM";
     }
+  }
+
+  void weekDayMaker() {
+    if (selectedDate.weekday == 0) realWeekDay = "Monday";
+    if (selectedDate.weekday == 1) realWeekDay = "Tuesday";
+    if (selectedDate.weekday == 2) realWeekDay = "Wednesday";
+    if (selectedDate.weekday == 3) realWeekDay = "Thursday";
+    if (selectedDate.weekday == 4) realWeekDay = "Friday";
+    if (selectedDate.weekday == 5) realWeekDay = "Saturday";
+    if (selectedDate.weekday == 6) realWeekDay = "Sunday";
   }
 }
 

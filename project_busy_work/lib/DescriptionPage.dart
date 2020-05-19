@@ -14,6 +14,7 @@ class DescriptionPage extends StatefulWidget {
   final String title;
   final String location;
   final String date;
+  final String weekDay;
   final String startTime;
   final String endTime;
   final String routine;
@@ -26,6 +27,7 @@ class DescriptionPage extends StatefulWidget {
       this.title,
       this.location,
       this.date,
+      this.weekDay,
       this.startTime,
       this.endTime,
       this.routine,
@@ -281,6 +283,7 @@ class _DescriptionPage extends State<DescriptionPage>
                                 description: widget.desc,
                                 location: widget.location,
                                 date: widget.date,
+                                weekDay: widget.weekDay,
                                 startTime: widget.startTime,
                                 endTime: widget.endTime,
                                 routine: widget.routine,

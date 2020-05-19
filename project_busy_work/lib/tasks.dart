@@ -10,6 +10,7 @@ class Task {
   String location;
   String description;
   String date;
+  String weekDay;
   String startTime;
   String endTime;
   String routine;
@@ -24,6 +25,7 @@ class Task {
     this.location,
     this.description,
     this.date,
+    this.weekDay,
     this.startTime,
     this.endTime,
     this.routine,
@@ -39,6 +41,7 @@ class Task {
       location: json["location"],
       description: json["description"],
       date: json["date"],
+      weekDay: json["weekDay"],
       startTime: json["startTime"],
       endTime: json["endTime"],
       routine: json["routine"],
@@ -53,6 +56,7 @@ class Task {
         "location": location,
         "description": description,
         "date": date,
+        "weekDay": weekDay,
         "startTime": startTime,
         "endTime": endTime,
         "routine": routine,
