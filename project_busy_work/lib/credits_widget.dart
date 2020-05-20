@@ -57,7 +57,7 @@ class CreditsWidget extends StatelessWidget {
                       Container(height:15),
                       Text("Art Assets", style: TextStyle(fontSize: 24, color: lGreen, fontWeight: FontWeight.w500)),
                       Container(height:10),
-                      Text("Underaw: Introduction Page ", style: TextStyle(fontSize: 24, color: Colors.grey)),
+                      Text("Undraw: Introduction Page ", style: TextStyle(fontSize: 24, color: Colors.grey)),
                     ],
               )),
             ),
