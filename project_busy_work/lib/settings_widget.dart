@@ -108,6 +108,22 @@ class _SettingsState extends State<SettingsWidget> {
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
               child: FlatButton(
                       child: Row(children: <Widget>[
+                              Icon(Icons.delete, color: lGreen,),
+                              Text(' Reset All Tasks', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: lGreen), ),
+                              ],
+                            ),
+                      onPressed: () {
+
+                      },
+                      splashColor: Colors.grey[500],
+                  ),
+              margin: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+            ),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+              child: FlatButton(
+                      child: Row(children: <Widget>[
                               Icon(Icons.info_outline, color: lGreen),
                               Text(' About Us', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: lGreen),),
                               ],
@@ -122,22 +138,7 @@ class _SettingsState extends State<SettingsWidget> {
                   ),
               margin: EdgeInsets.only(left: 10, right: 10, bottom: 15),
             ),
-            Container(
-              height: 50,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
-              child: FlatButton(
-                      child: Row(children: <Widget>[
-                              Icon(Icons.delete, color: lGreen,),
-                              Text(' Reset All Tasks', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: lGreen), ),
-                              ],
-                            ),
-                      onPressed: () {
 
-                      },
-                      splashColor: Colors.grey[500],
-                  ),
-              margin: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-            ),
 
           ],
         ),

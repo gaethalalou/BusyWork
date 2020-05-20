@@ -63,14 +63,18 @@ class ProgressWidgetState extends State<ProgressWidget> {
               ),
               Container(height: 10),
               Container(
-                width: 400.0,
-                height: 150.0,
-                color: bgWhite,
+                margin: EdgeInsets.only(left: 10, right: 10),
+                height: 200.0,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
                 child: charts.BarChart(
                   seriesData,
                   animate: true,
                   barGroupingType: charts.BarGroupingType.grouped,
-                  behaviors: [new charts.SeriesLegend()],
+                  behaviors: [new charts.SeriesLegend(
+                    entryTextStyle: charts.TextStyleSpec(
+                      color: charts.ColorUtil.fromDartColor(Colors.black87),
+                      )
+                  )],
                   animationDuration: Duration(seconds: 1),
                 ),
               ),
@@ -159,38 +163,38 @@ class ProgressWidgetState extends State<ProgressWidget> {
     }
     var expData = [
       new Info("Sun", "expected", expSunday,
-          charts.ColorUtil.fromDartColor(Colors.blue)),
+          charts.ColorUtil.fromDartColor(lGreen)),
       new Info("Mon", "expected", expMonday,
-          charts.ColorUtil.fromDartColor(Colors.blue)),
+          charts.ColorUtil.fromDartColor(lGreen)),
       new Info("Tues", "expected", expTuesday,
-          charts.ColorUtil.fromDartColor(Colors.blue)),
+          charts.ColorUtil.fromDartColor(lGreen)),
       new Info("Wed", "expected", expWednesday,
-          charts.ColorUtil.fromDartColor(Colors.blue)),
+          charts.ColorUtil.fromDartColor(lGreen)),
       new Info("Thurs", "expected", expThursday,
-          charts.ColorUtil.fromDartColor(Colors.blue)),
+          charts.ColorUtil.fromDartColor(lGreen)),
       new Info("Fri", "expected", expFriday,
-          charts.ColorUtil.fromDartColor(Colors.blue)),
+          charts.ColorUtil.fromDartColor(lGreen)),
       new Info("Sat", "expected", expSaturday,
-          charts.ColorUtil.fromDartColor(Colors.blue)),
+          charts.ColorUtil.fromDartColor(lGreen)),
     ];
 
     var actData = [
       new Info("Sun", "actual", actSunday,
-          charts.ColorUtil.fromDartColor(Colors.red)),
+          charts.ColorUtil.fromDartColor(Colors.grey)),
       new Info("Mon", "actual", actMonday,
-          charts.ColorUtil.fromDartColor(Colors.red)),
+          charts.ColorUtil.fromDartColor(Colors.grey)),
       new Info("Mon", "actual", actMonday,
-          charts.ColorUtil.fromDartColor(Colors.red)),
+          charts.ColorUtil.fromDartColor(Colors.grey)),
       new Info("Tues", "actual", actTuesday,
-          charts.ColorUtil.fromDartColor(Colors.red)),
+          charts.ColorUtil.fromDartColor(Colors.grey)),
       new Info("Wed", "actual", actWednesday,
-          charts.ColorUtil.fromDartColor(Colors.red)),
+          charts.ColorUtil.fromDartColor(Colors.grey)),
       new Info("Thurs", "actual", actThursday,
-          charts.ColorUtil.fromDartColor(Colors.red)),
+          charts.ColorUtil.fromDartColor(Colors.grey)),
       new Info("Fri", "actual", actFriday,
-          charts.ColorUtil.fromDartColor(Colors.red)),
+          charts.ColorUtil.fromDartColor(Colors.grey)),
       new Info("Sat", "actual", actSaturday,
-          charts.ColorUtil.fromDartColor(Colors.red)),
+          charts.ColorUtil.fromDartColor(Colors.grey)),
     ];
 
     seriesData.add(
@@ -200,6 +204,7 @@ class ProgressWidgetState extends State<ProgressWidget> {
         colorFn: (Info info, _) => info.color,
         id: "Expected",
         data: expData,
+        displayName: "Expected",
         //labelAccessorFn: (Info info, _) => info.actual,
       ),
     );
@@ -211,6 +216,7 @@ class ProgressWidgetState extends State<ProgressWidget> {
         colorFn: (Info info, _) => info.color,
         id: "Actual",
         data: actData,
+        displayName: "Actual",
         //labelAccessorFn: (Info info, _) => info.actual,
       ),
     );
