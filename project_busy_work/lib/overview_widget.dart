@@ -24,7 +24,7 @@ class _OverviewState extends State<OverviewWidget> {
   String fileName = "tasks.json";
   bool fileExists = false;
   List<dynamic> fileContent;
-
+  String title="Upcoming Tasks";
   List<Task> allTasks = List<Task>();
   List<Task> sTasks = List<Task>();
   final TextEditingController eCtrl = new TextEditingController();
@@ -33,7 +33,7 @@ class _OverviewState extends State<OverviewWidget> {
   void initState() {
     super.initState();
     selectedDate = new DateFormat.yMMMd().format(new DateTime.now());
-
+    title=selectedDate.toString();
     _controller = CalendarController();
 
     getApplicationDocumentsDirectory().then((Directory directory) {
@@ -73,7 +73,7 @@ class _OverviewState extends State<OverviewWidget> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text("Upcoming Tasks",
+                  child: Text(title,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20)),
                 ),
@@ -120,7 +120,7 @@ class _OverviewState extends State<OverviewWidget> {
               daysOfWeekStyle: DaysOfWeekStyle(
                 weekdayStyle: TextStyle(color: Colors.white),
                 weekendStyle:
-                    TextStyle(color: hGreen, fontWeight: FontWeight.bold),
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
               builders: CalendarBuilders(
                 selectedDayBuilder: (context, date, events) => Container(
@@ -457,6 +457,7 @@ class _OverviewState extends State<OverviewWidget> {
     setState(() {
       selectedDate = new DateFormat.yMMMd().format(day);
       sTasks = getTaskByDate(allTasks, sTasks, selectedDate);
+      title=selectedDate.toString();
     });
   }
 

@@ -24,7 +24,7 @@ class CreditsWidget extends StatelessWidget {
                     }),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text("Credits", style: TextStyle(fontSize: 24)),
+                  child: Text("About Us", style: TextStyle(fontSize: 24)),
                 ),
               ],
             ),

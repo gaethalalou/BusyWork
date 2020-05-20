@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:projectbusywork/intro.dart';
+import 'package:projectbusywork/myColors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
 import 'tasks.dart';
@@ -56,8 +57,15 @@ class LogoWidgetState extends State<LogoWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Text("Insert Logo Here", style: TextStyle(fontSize: 16))),
+      body: Column(
+        children: <Widget>[
+          Container(
+          margin: EdgeInsets.only(top: 200, bottom: 300),
+          child: Text("Insert Logo Here", style: TextStyle(fontSize: 16,))
+          ),
+          LinearProgressIndicator(backgroundColor: Colors.transparent,),
+        ],
+      ),
       backgroundColor: widget.color,
     );
   }
@@ -67,6 +75,7 @@ class LogoWidgetState extends State<LogoWidget> {
     final startupBool = prefs.getBool('startupBool');
     print("startupBool: " + startupBool.toString());
     if (allTasks.length == 0) {
+      await Future.delayed(Duration(seconds: 10));
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
