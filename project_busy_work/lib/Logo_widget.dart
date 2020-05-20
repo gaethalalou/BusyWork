@@ -60,10 +60,15 @@ class LogoWidgetState extends State<LogoWidget> {
       body: Column(
         children: <Widget>[
           Container(
-          margin: EdgeInsets.only(top: 200, bottom: 300),
-          child: Text("Insert Logo Here", style: TextStyle(fontSize: 16,))
+          margin: EdgeInsets.only(top: 100, bottom: 250),
+          child:            
+          new Image.asset(
+              'assets/images/appLogo.png',
+              height: 200.0,
+              fit: BoxFit.cover,
+            ),
           ),
-          LinearProgressIndicator(backgroundColor: Colors.transparent,),
+          LinearProgressIndicator(backgroundColor: Colors.transparent, valueColor: new AlwaysStoppedAnimation<Color>(hGreen),),
         ],
       ),
       backgroundColor: widget.color,
