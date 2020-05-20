@@ -59,39 +59,86 @@ class _SettingsState extends State<SettingsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            /*RaisedButton(
-              child: Text('Import'),
-              shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(18.0)),
-              color: hGreen,
-              onPressed: () {},
+            Container(
+              margin: EdgeInsets.only(top:24, bottom: 10),
+              child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text("Settings",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20)),
+                ),
             ),
-            */
-            RaisedButton(
-              child: Text('Export'),
-              shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(18.0)),
-              color: hGreen,
-              onPressed: () {
-                _showDialog();
-              },
+            Container(
+              height: 50,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+              child: FlatButton(
+                        child: Row(children: <Widget>[
+                                Icon(Icons.import_export, size: 25,color: lGreen),
+                                Text(' Import', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: lGreen), ),
+                                ],
+                              ),
+                          onPressed: () {
+                          },
+                        splashColor: Colors.grey[500],
+                        ),
+              margin: EdgeInsets.only(left: 10, right: 10, bottom: 15),
             ),
-            RaisedButton(
-              child: Text('Credits'),
-              shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(18.0)),
-              color: hGreen,
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CreditsWidget(bgGreen)));
-              },
+            Container(
+              height: 50,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+              child: FlatButton(
+                        child: Row(children: <Widget>[
+                                Icon(Icons.import_export, size: 25,color: lGreen),
+                                Text(' Export', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: lGreen), ),
+                                ],
+                              ),
+                          onPressed: () {
+                            _showDialog();
+                          },
+                        splashColor: Colors.grey[500],
+                        ),
+              margin: EdgeInsets.only(left: 10, right: 10, bottom: 15),
             ),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+              child: FlatButton(
+                      child: Row(children: <Widget>[
+                              Icon(Icons.info_outline, color: lGreen),
+                              Text(' About Us', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: lGreen),),
+                              ],
+                            ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreditsWidget(bgGreen)));
+                      },
+                      splashColor: Colors.grey[500],
+                  ),
+              margin: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+            ),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+              child: FlatButton(
+                      child: Row(children: <Widget>[
+                              Icon(Icons.delete, color: lGreen,),
+                              Text(' Reset All Tasks', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: lGreen), ),
+                              ],
+                            ),
+                      onPressed: () {
+
+                      },
+                      splashColor: Colors.grey[500],
+                  ),
+              margin: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+            ),
+
           ],
         ),
       ),
@@ -141,7 +188,7 @@ class _SettingsState extends State<SettingsWidget> {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Export"),
-          content: new Text("Export CSV to SDcard>Android>busywork>files"),
+          content: new Text("Would you like to export your tasks as a CSV? \nThe path for the CSV will be: \nSDcard>Android>busywork>files"),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(

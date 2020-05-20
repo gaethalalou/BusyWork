@@ -430,8 +430,8 @@ class NewActivityState extends State<NewActivityWidget> {
         startTime: timed.format(selectedTime1) + period1,
         endTime: timed.format(selectedTime2) + period1,
         routine: selectedRoutine.name,
-        actualStart: "TBD",
-        actualEnd: "TBD",
+        actualStart: "00:00",
+        actualEnd: "00:00",
         expected: expected,
         completed: "false",
       );
@@ -466,13 +466,13 @@ class NewActivityState extends State<NewActivityWidget> {
   }
 
   void weekDayMaker() {
-    if (selectedDate.weekday == 0) realWeekDay = "Monday";
-    if (selectedDate.weekday == 1) realWeekDay = "Tuesday";
-    if (selectedDate.weekday == 2) realWeekDay = "Wednesday";
-    if (selectedDate.weekday == 3) realWeekDay = "Thursday";
-    if (selectedDate.weekday == 4) realWeekDay = "Friday";
-    if (selectedDate.weekday == 5) realWeekDay = "Saturday";
-    if (selectedDate.weekday == 6) realWeekDay = "Sunday";
+    if (selectedDate.weekday == 1) realWeekDay = "Monday";
+    if (selectedDate.weekday == 2) realWeekDay = "Tuesday";
+    if (selectedDate.weekday == 3) realWeekDay = "Wednesday";
+    if (selectedDate.weekday == 4) realWeekDay = "Thursday";
+    if (selectedDate.weekday == 5) realWeekDay = "Friday";
+    if (selectedDate.weekday == 6) realWeekDay = "Saturday";
+    if (selectedDate.weekday == 7) realWeekDay = "Sunday";
   }
 }
 

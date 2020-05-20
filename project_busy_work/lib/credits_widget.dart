@@ -28,21 +28,59 @@ class CreditsWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(96.0),
+            Container(height: 15,),
+            Container(
+              height: 180,
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(15)),
               child: Center(
                   child: Column(
-                children: <Widget>[
-                  Text("Developers:", style: TextStyle(fontSize: 24)),
-                  Container(padding: EdgeInsets.all(32)),
-                  Text("Arturo", style: TextStyle(fontSize: 24)),
-                  Container(padding: EdgeInsets.all(8)),
-                  Text("Abraham", style: TextStyle(fontSize: 24)),
-                  Container(padding: EdgeInsets.all(8)),
-                  Text("Gaeth", style: TextStyle(fontSize: 24)),
-                ],
+                    children: <Widget>[
+                      Container(height:15),
+                      Text("Developers", style: TextStyle(fontSize: 24, color: lGreen, fontWeight: FontWeight.w500)),
+                      Container(height:10),
+                      Text("Arturo", style: TextStyle(fontSize: 24, color: Colors.grey)),
+                      Container(height:10),
+                      Text("Abraham", style: TextStyle(fontSize: 24, color: Colors.grey)),
+                      Container(height:10),
+                      Text("Gaeth", style: TextStyle(fontSize: 24, color: Colors.grey)),
+                    ],
               )),
-            )
+            ),
+            Container(
+              height: 110,
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(15)),
+              child: Center(
+                  child: Column(
+                    children: <Widget>[
+                      Container(height:15),
+                      Text("Art Assets", style: TextStyle(fontSize: 24, color: lGreen, fontWeight: FontWeight.w500)),
+                      Container(height:10),
+                      Text("Underaw: Introduction Page ", style: TextStyle(fontSize: 24, color: Colors.grey)),
+                    ],
+              )),
+            ),
+            Container(
+              height: 220,
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(15)),
+              child: Center(
+                  child: Column(
+                    children: <Widget>[
+                      Container(height:15),
+                      Text("Tech", style: TextStyle(fontSize: 24, color: lGreen, fontWeight: FontWeight.w500)),
+                      Container(height:10),
+                      Text("Flutter & Dart", style: TextStyle(fontSize: 24, color: Colors.grey)),
+                      Container(height:10),
+                      Text("JSON", style: TextStyle(fontSize: 24, color: Colors.grey)),
+                      Container(height:10),
+                      Text("Android Studio", style: TextStyle(fontSize: 24, color: Colors.grey)),
+                      Container(height:10),
+                      Text("Visual Studio Code", style: TextStyle(fontSize: 24, color: Colors.grey)),
+                    ],
+              )),
+            ),
           ],
         ),
       ),
