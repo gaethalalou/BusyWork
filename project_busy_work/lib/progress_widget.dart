@@ -69,8 +69,8 @@ class ProgressWidgetState extends State<ProgressWidget> {
                 child: charts.BarChart(
                   seriesData,
                   animate: true,
-                  barGroupingType: charts.BarGroupingType.groupedStacked,
-                  //behaviors: [new charts.SeriesLegend()],
+                  barGroupingType: charts.BarGroupingType.grouped,
+                  behaviors: [new charts.SeriesLegend()],
                   animationDuration: Duration(seconds: 1),
                 ),
               ),
@@ -157,64 +157,50 @@ class ProgressWidgetState extends State<ProgressWidget> {
         }
       }
     }
-    var sunData = [
-      new Info("Sunday", "expected", expSunday,
+    var expData = [
+      new Info("Sun", "expected", expSunday,
           charts.ColorUtil.fromDartColor(Colors.blue)),
-      new Info("Sunday", "actual", actSunday,
-          charts.ColorUtil.fromDartColor(Colors.red)),
-    ];
-    var monData = [
-      new Info("Monday", "expected", expMonday,
+      new Info("Mon", "expected", expMonday,
           charts.ColorUtil.fromDartColor(Colors.blue)),
-      new Info("Monday", "actual", actMonday,
-          charts.ColorUtil.fromDartColor(Colors.red)),
-    ];
-    var tuesData = [
       new Info("Tues", "expected", expTuesday,
           charts.ColorUtil.fromDartColor(Colors.blue)),
+      new Info("Wed", "expected", expWednesday,
+          charts.ColorUtil.fromDartColor(Colors.blue)),
+      new Info("Thurs", "expected", expThursday,
+          charts.ColorUtil.fromDartColor(Colors.blue)),
+      new Info("Fri", "expected", expFriday,
+          charts.ColorUtil.fromDartColor(Colors.blue)),
+      new Info("Sat", "expected", expSaturday,
+          charts.ColorUtil.fromDartColor(Colors.blue)),
+    ];
+
+    var actData = [
+      new Info("Sun", "actual", actSunday,
+          charts.ColorUtil.fromDartColor(Colors.red)),
+      new Info("Mon", "actual", actMonday,
+          charts.ColorUtil.fromDartColor(Colors.red)),
+      new Info("Mon", "actual", actMonday,
+          charts.ColorUtil.fromDartColor(Colors.red)),
       new Info("Tues", "actual", actTuesday,
           charts.ColorUtil.fromDartColor(Colors.red)),
-    ];
-    var wednesData = [
-      new Info("Wednesday", "expected", expWednesday,
-          charts.ColorUtil.fromDartColor(Colors.blue)),
-      new Info("Wednesday", "actual", actWednesday,
+      new Info("Wed", "actual", actWednesday,
           charts.ColorUtil.fromDartColor(Colors.red)),
-    ];
-    var thursData = [
-      new Info("Thursday", "expected", expThursday,
-          charts.ColorUtil.fromDartColor(Colors.blue)),
-      new Info("Thursday", "actual", actThursday,
+      new Info("Thurs", "actual", actThursday,
           charts.ColorUtil.fromDartColor(Colors.red)),
-    ];
-    var friData = [
-      new Info("Friday", "expected", expFriday,
-          charts.ColorUtil.fromDartColor(Colors.blue)),
-      new Info("Friday", "actual", actFriday,
+      new Info("Fri", "actual", actFriday,
           charts.ColorUtil.fromDartColor(Colors.red)),
-    ];
-    var saturData = [
-      new Info("Saturday", "expected", expSaturday,
-          charts.ColorUtil.fromDartColor(Colors.blue)),
-      new Info("Saturday", "actual", actSaturday,
+      new Info("Sat", "actual", actSaturday,
           charts.ColorUtil.fromDartColor(Colors.red)),
     ];
 
     seriesData.add(
       charts.Series(
-        domainFn: (Info info, _) => "Sun",
+        domainFn: (Info info, _) => info.title,
         measureFn: (Info info, _) => info.time,
-        id: "Sunday",
-        data: sunData,
-      ),
-    );
-
-    seriesData.add(
-      charts.Series(
-        domainFn: (Info info, _) => "Mon",
-        measureFn: (Info info, _) => info.time,
-        id: "Monday",
-        data: monData,
+        colorFn: (Info info, _) => info.color,
+        id: "Expected",
+        data: expData,
+        //labelAccessorFn: (Info info, _) => info.actual,
       ),
     );
 
@@ -223,45 +209,9 @@ class ProgressWidgetState extends State<ProgressWidget> {
         domainFn: (Info info, _) => info.title,
         measureFn: (Info info, _) => info.time,
         colorFn: (Info info, _) => info.color,
-        id: "Tues",
-        data: tuesData,
+        id: "Actual",
+        data: actData,
         //labelAccessorFn: (Info info, _) => info.actual,
-      ),
-    );
-
-    seriesData.add(
-      charts.Series(
-        domainFn: (Info info, _) => "Wed",
-        measureFn: (Info info, _) => info.time,
-        id: "Wednesday",
-        data: wednesData,
-      ),
-    );
-
-    seriesData.add(
-      charts.Series(
-        domainFn: (Info info, _) => "Thurs",
-        measureFn: (Info info, _) => info.time,
-        id: "Thursday",
-        data: thursData,
-      ),
-    );
-
-    seriesData.add(
-      charts.Series(
-        domainFn: (Info info, _) => "Fri",
-        measureFn: (Info info, _) => info.time,
-        id: "Friday",
-        data: friData,
-      ),
-    );
-
-    seriesData.add(
-      charts.Series(
-        domainFn: (Info info, _) => "Sat",
-        measureFn: (Info info, _) => info.time,
-        id: "Saturday",
-        data: saturData,
       ),
     );
   }
