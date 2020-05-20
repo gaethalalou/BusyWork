@@ -24,7 +24,7 @@ class _OverviewState extends State<OverviewWidget> {
   String fileName = "tasks.json";
   bool fileExists = false;
   List<dynamic> fileContent;
-  String title="Upcoming Tasks";
+  String title = "Upcoming Tasks";
   List<Task> allTasks = List<Task>();
   List<Task> sTasks = List<Task>();
   final TextEditingController eCtrl = new TextEditingController();
@@ -33,7 +33,7 @@ class _OverviewState extends State<OverviewWidget> {
   void initState() {
     super.initState();
     selectedDate = new DateFormat.yMMMd().format(new DateTime.now());
-    title=selectedDate.toString();
+    title = selectedDate.toString();
     _controller = CalendarController();
 
     getApplicationDocumentsDirectory().then((Directory directory) {
@@ -306,10 +306,26 @@ class _OverviewState extends State<OverviewWidget> {
                                       decoration: TextDecoration.lineThrough,
                                     )),
                             subtitle: element.completed == "false"
-                                ? Text("• Expected Time: " +  element.startTime +" - " + element.endTime + (element.actualStart != "TBD" ? "\n• Actual: " + element.actualStart: ""), 
-                                style: TextStyle(color: Colors.white),)
+                                ? Text(
+                                    "• Expected Time: " +
+                                        element.startTime +
+                                        " - " +
+                                        element.endTime +
+                                        (element.actualStart != "00:00"
+                                            ? "\n• Actual: " +
+                                                element.actualStart
+                                            : ""),
+                                    style: TextStyle(color: Colors.white),
+                                  )
                                 : Text(
-                                    "• Expected Time: " + element.startTime + " - " + element.endTime + (element.actualStart != "TBD" ? "\n• Actual: " + element.actualStart: ""),
+                                    "• Expected Time: " +
+                                        element.startTime +
+                                        " - " +
+                                        element.endTime +
+                                        (element.actualStart != "00:00"
+                                            ? "\n• Actual: " +
+                                                element.actualStart
+                                            : ""),
                                     style: TextStyle(
                                       decoration: TextDecoration.lineThrough,
                                     )),
@@ -457,7 +473,7 @@ class _OverviewState extends State<OverviewWidget> {
     setState(() {
       selectedDate = new DateFormat.yMMMd().format(day);
       sTasks = getTaskByDate(allTasks, sTasks, selectedDate);
-      title=selectedDate.toString();
+      title = selectedDate.toString();
     });
   }
 
