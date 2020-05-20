@@ -34,6 +34,8 @@ class NewActivityState extends State<NewActivityWidget> {
   String period1;
   String period2;
   String realWeekDay;
+  String locationCheck;
+  String descriptionCheck;
 
   File jsonFile;
   Directory dir;
@@ -43,6 +45,10 @@ class NewActivityState extends State<NewActivityWidget> {
 
   @override
   void initState() {
+    locationCheck = "";
+    descriptionCheck = "";
+    location = "Not set.";
+    description = "Not set.";
     noonCheck1(selectedTime1);
     noonCheck2(selectedTime2);
     setState(() {
@@ -175,10 +181,7 @@ class NewActivityState extends State<NewActivityWidget> {
                             height: 30.0,
                             child: TextFormField(
                               cursorColor: hGreen,
-                              validator: (input) => input.length < 1
-                                  ? 'Please insert location.'
-                                  : null,
-                              onSaved: (input) => location = input,
+                              onSaved: (input) => locationCheck = input,
                             ),
                           ),
                         ],
@@ -208,10 +211,7 @@ class NewActivityState extends State<NewActivityWidget> {
                             height: 30.0,
                             child: TextFormField(
                               cursorColor: hGreen,
-                              validator: (input) => input.length < 1
-                                  ? 'Please insert description.'
-                                  : null,
-                              onSaved: (input) => description = input,
+                              onSaved: (input) => descriptionCheck = input,
                             ),
                           ),
                         ],
@@ -404,12 +404,13 @@ class NewActivityState extends State<NewActivityWidget> {
   }
 
   void submit() {
-    if (titleKey.currentState.validate() &&
-        locationKey.currentState.validate() &&
-        descriptionKey.currentState.validate()) {
+    if (titleKey.currentState.validate()) {
       titleKey.currentState.save();
       locationKey.currentState.save();
       descriptionKey.currentState.save();
+      if (locationCheck != "") location = locationCheck;
+      if (descriptionCheck != "") description = descriptionCheck;
+
       check = true;
       int expectedMinutes = selectedTime2.difference(selectedTime1).inMinutes;
       final int hour = expectedMinutes ~/ 60;
@@ -418,6 +419,12 @@ class NewActivityState extends State<NewActivityWidget> {
       String expected =
           '${hour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}';
       weekDayMaker();
+      String startTimeB = timed.format(selectedTime1) + period1;
+      if (startTimeB[0] == '0') startTimeB = startTimeB.substring(1);
+
+      String endTimeB = timed.format(selectedTime2) + period2;
+      if (endTimeB[0] == '0') endTimeB = endTimeB.substring(1);
+
       Task sub = new Task(
         // id: dated.format(selectedDate) + title + timed.format(selectedTime1),
         id: uuid.v5(Uuid.NAMESPACE_OID,
@@ -427,8 +434,8 @@ class NewActivityState extends State<NewActivityWidget> {
         description: description,
         date: dated.format(selectedDate),
         weekDay: realWeekDay,
-        startTime: timed.format(selectedTime1) + period1,
-        endTime: timed.format(selectedTime2) + period1,
+        startTime: startTimeB,
+        endTime: endTimeB,
         routine: selectedRoutine.name,
         actualStart: "00:00",
         actualEnd: "00:00",

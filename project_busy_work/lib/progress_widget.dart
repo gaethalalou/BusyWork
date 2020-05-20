@@ -65,16 +65,19 @@ class ProgressWidgetState extends State<ProgressWidget> {
               Container(
                 margin: EdgeInsets.only(left: 10, right: 10),
                 height: 200.0,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white),
                 child: charts.BarChart(
                   seriesData,
                   animate: true,
                   barGroupingType: charts.BarGroupingType.grouped,
-                  behaviors: [new charts.SeriesLegend(
-                    entryTextStyle: charts.TextStyleSpec(
+                  behaviors: [
+                    new charts.SeriesLegend(
+                        entryTextStyle: charts.TextStyleSpec(
                       color: charts.ColorUtil.fromDartColor(Colors.black87),
-                      )
-                  )],
+                    ))
+                  ],
                   animationDuration: Duration(seconds: 1),
                 ),
               ),
@@ -162,18 +165,18 @@ class ProgressWidgetState extends State<ProgressWidget> {
       }
     }
     var expData = [
-      new Info("Sun", "expected", expSunday,
-          charts.ColorUtil.fromDartColor(lGreen)),
-      new Info("Mon", "expected", expMonday,
-          charts.ColorUtil.fromDartColor(lGreen)),
+      new Info(
+          "Sun", "expected", expSunday, charts.ColorUtil.fromDartColor(lGreen)),
+      new Info(
+          "Mon", "expected", expMonday, charts.ColorUtil.fromDartColor(lGreen)),
       new Info("Tues", "expected", expTuesday,
           charts.ColorUtil.fromDartColor(lGreen)),
       new Info("Wed", "expected", expWednesday,
           charts.ColorUtil.fromDartColor(lGreen)),
       new Info("Thurs", "expected", expThursday,
           charts.ColorUtil.fromDartColor(lGreen)),
-      new Info("Fri", "expected", expFriday,
-          charts.ColorUtil.fromDartColor(lGreen)),
+      new Info(
+          "Fri", "expected", expFriday, charts.ColorUtil.fromDartColor(lGreen)),
       new Info("Sat", "expected", expSaturday,
           charts.ColorUtil.fromDartColor(lGreen)),
     ];
@@ -205,7 +208,6 @@ class ProgressWidgetState extends State<ProgressWidget> {
         id: "Expected",
         data: expData,
         displayName: "Expected",
-        //labelAccessorFn: (Info info, _) => info.actual,
       ),
     );
 
@@ -217,7 +219,6 @@ class ProgressWidgetState extends State<ProgressWidget> {
         id: "Actual",
         data: actData,
         displayName: "Actual",
-        //labelAccessorFn: (Info info, _) => info.actual,
       ),
     );
   }
