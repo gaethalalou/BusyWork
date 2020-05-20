@@ -75,7 +75,7 @@ class LogoWidgetState extends State<LogoWidget> {
     final startupBool = prefs.getBool('startupBool');
     print("startupBool: " + startupBool.toString());
     if (allTasks.length == 0) {
-      await Future.delayed(Duration(seconds: 10));
+      await Future.delayed(Duration(seconds: 5));
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(

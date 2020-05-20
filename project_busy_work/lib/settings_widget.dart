@@ -113,7 +113,7 @@ class _SettingsState extends State<SettingsWidget> {
                               ],
                             ),
                       onPressed: () {
-
+                        _deleteJSON();
                       },
                       splashColor: Colors.grey[500],
                   ),
@@ -209,5 +209,45 @@ class _SettingsState extends State<SettingsWidget> {
         );
       },
     );
+  }
+
+  void _deleteJSON() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          content: new Text("Would you like to delete all of your tasks?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Accept"),
+              onPressed: () {
+                deleteTasks();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void deleteTasks(){
+    getApplicationDocumentsDirectory().then((Directory directory) {
+      dir = directory;
+      jsonFile = new File(dir.path + "/" + fileName);
+      fileExists = jsonFile.existsSync();
+      if (fileExists) {
+        jsonFile.deleteSync();
+      }
+    });
   }
 }
