@@ -82,6 +82,8 @@ class NewActivityState extends State<NewActivityWidget> {
     });
     firstTime = timed.format(selectedTime1) + period1;
     lastTime = timed.format(selectedTime2) + period2;
+    if (firstTime[0] == '0') firstTime = firstTime.substring(1);
+    if (lastTime[0] == '0') lastTime = lastTime.substring(1);
     dropdownMenuItems = buildDropdownMenuItems(routines);
     selectedRoutine = dropdownMenuItems[0].value;
     super.initState();
