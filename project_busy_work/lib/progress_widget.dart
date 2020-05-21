@@ -274,29 +274,42 @@ class ProgressWidgetState extends State<ProgressWidget> {
 
     if (minuteChecker == 0) weekText = "You are exactly on track!";
     if (minuteChecker > 0)
-      weekText =
-          "You saved " + minuteChecker.toString() + " minutes this week!";
+      weekText = "You've spent " +
+          minuteChecker.toString() +
+          " less minutes than expected this week!";
     if (minuteChecker < 0) {
       minuteChecker = minuteChecker * -1;
-      weekText = "You lost " + minuteChecker.toString() + " minutes this week!";
+      weekText = "You've spent " +
+          minuteChecker.toString() +
+          " more  minutes than expected this week!";
     }
   }
 
   void generateDataMonthly() {
-    int expSunday = 0;
-    int actSunday = 0;
-    int expMonday = 0;
-    int actMonday = 0;
-    int expTuesday = 0;
-    int actTuesday = 0;
-    int expWednesday = 0;
-    int actWednesday = 0;
-    int expThursday = 0;
-    int actThursday = 0;
-    int expFriday = 0;
-    int actFriday = 0;
-    int expSaturday = 0;
-    int actSaturday = 0;
+    int expJanuary = 0;
+    int actJanuary = 0;
+    int expFebruary = 0;
+    int actFebruary = 0;
+    int expMarch = 0;
+    int actMarch = 0;
+    int expApril = 0;
+    int actApril = 0;
+    int expMay = 0;
+    int actMay = 0;
+    int expJune = 0;
+    int actJune = 0;
+    int expJuly = 0;
+    int actJuly = 0;
+    int expAugust = 0;
+    int actAugust = 0;
+    int expSeptember = 0;
+    int actSeptember = 0;
+    int expOctober = 0;
+    int actOctober = 0;
+    int expNovember = 0;
+    int actNovember = 0;
+    int expDecember = 0;
+    int actDecember = 0;
     int totalExpMinutes = 0;
     int totalActMinutes = 0;
 
@@ -309,8 +322,7 @@ class ProgressWidgetState extends State<ProgressWidget> {
             dateSplitter[1].substring(0, dateSplitter[1].length - 2);
         String dateYear = dateSplitter[2];
         String realWeekDay = task.weekDay;
-        if (dateYear == DateTime.now().year.toString() &&
-            monthChecker(dateMonth)) {
+        if (dateYear == DateTime.now().year.toString()) {
           List<String> hm = task.expected.split(":");
           int hour = int.parse(hm[0]);
           int minute = int.parse(hm[1]);
@@ -323,79 +335,124 @@ class ProgressWidgetState extends State<ProgressWidget> {
           int actualMinutes = minute2;
           for (int i = 0; i < hour2; i++) actualMinutes = actualMinutes + 60;
 
-          if (realWeekDay == "Sunday") {
-            expSunday = expSunday + expectedMinutes;
-            actSunday = actSunday + actualMinutes;
+          if (dateMonth == "Jan") {
+            expJanuary = expJanuary + expectedMinutes;
+            actJanuary = actJanuary + actualMinutes;
           }
 
-          if (realWeekDay == "Monday") {
-            expMonday = expMonday + expectedMinutes;
-            actMonday = actMonday + actualMinutes;
+          if (dateMonth == "Feb") {
+            expFebruary = expFebruary + expectedMinutes;
+            actFebruary = actFebruary + actualMinutes;
           }
 
-          if (realWeekDay == "Tuesday") {
-            expTuesday = expTuesday + expectedMinutes;
-            actTuesday = actTuesday + actualMinutes;
+          if (dateMonth == "Mar") {
+            expMarch = expMarch + expectedMinutes;
+            actMarch = actMarch + actualMinutes;
           }
 
-          if (realWeekDay == "Wednesday") {
-            expWednesday = expWednesday + expectedMinutes;
-            actWednesday = actWednesday + actualMinutes;
+          if (dateMonth == "Apr") {
+            expApril = expApril + expectedMinutes;
+            actApril = actApril + actualMinutes;
           }
 
-          if (realWeekDay == "Thursday") {
-            expThursday = expThursday + expectedMinutes;
-            actThursday = actThursday + actualMinutes;
+          if (dateMonth == "May") {
+            expMay = expMay + expectedMinutes;
+            actMay = actMay + actualMinutes;
           }
 
-          if (realWeekDay == "Friday") {
-            expFriday = expFriday + expectedMinutes;
-            actFriday = actFriday + actualMinutes;
+          if (dateMonth == "Jun") {
+            expJune = expJune + expectedMinutes;
+            actJune = actJune + actualMinutes;
           }
 
-          if (realWeekDay == "Saturday") {
-            expFriday = expSaturday + expectedMinutes;
-            actSaturday = actSaturday + actualMinutes;
+          if (dateMonth == "Jul") {
+            expJuly = expJuly + expectedMinutes;
+            actJuly = actJuly + actualMinutes;
           }
 
-          totalExpMinutes = totalExpMinutes + expectedMinutes;
-          totalActMinutes = totalActMinutes + actualMinutes;
+          if (dateMonth == "Aug") {
+            expAugust = expAugust + expectedMinutes;
+            actAugust = actAugust + actualMinutes;
+          }
+
+          if (dateMonth == "Sep") {
+            expSeptember = expSeptember + expectedMinutes;
+            actSeptember = actSeptember + actualMinutes;
+          }
+
+          if (dateMonth == "Oct") {
+            expOctober = expOctober + expectedMinutes;
+            actOctober = actOctober + actualMinutes;
+          }
+
+          if (dateMonth == "Nov") {
+            expNovember = expNovember + expectedMinutes;
+            actNovember = actNovember + actualMinutes;
+          }
+
+          if (dateMonth == "Dec") {
+            expDecember = expDecember + expectedMinutes;
+            actDecember = actDecember + actualMinutes;
+          }
+
+          if (monthChecker(dateMonth)) {
+            totalExpMinutes = totalExpMinutes + expectedMinutes;
+            totalActMinutes = totalActMinutes + actualMinutes;
+          }
         }
       }
     }
     var expData = [
-      new Info(
-          "Sun", "expected", expSunday, charts.ColorUtil.fromDartColor(lGreen)),
-      new Info(
-          "Mon", "expected", expMonday, charts.ColorUtil.fromDartColor(lGreen)),
-      new Info("Tues", "expected", expTuesday,
+      new Info("Jan", "expected", expJanuary,
           charts.ColorUtil.fromDartColor(lGreen)),
-      new Info("Wed", "expected", expWednesday,
-          charts.ColorUtil.fromDartColor(lGreen)),
-      new Info("Thurs", "expected", expThursday,
+      new Info("Feb", "expected", expFebruary,
           charts.ColorUtil.fromDartColor(lGreen)),
       new Info(
-          "Fri", "expected", expFriday, charts.ColorUtil.fromDartColor(lGreen)),
-      new Info("Sat", "expected", expSaturday,
+          "Mar", "expected", expMarch, charts.ColorUtil.fromDartColor(lGreen)),
+      new Info(
+          "Apr", "expected", expApril, charts.ColorUtil.fromDartColor(lGreen)),
+      new Info(
+          "May", "expected", expMay, charts.ColorUtil.fromDartColor(lGreen)),
+      new Info(
+          "Jun", "expected", expJune, charts.ColorUtil.fromDartColor(lGreen)),
+      new Info(
+          "Jul", "expected", expJuly, charts.ColorUtil.fromDartColor(lGreen)),
+      new Info(
+          "Aug", "expected", expAugust, charts.ColorUtil.fromDartColor(lGreen)),
+      new Info("Sep", "expected", expSeptember,
+          charts.ColorUtil.fromDartColor(lGreen)),
+      new Info("Oct", "expected", expOctober,
+          charts.ColorUtil.fromDartColor(lGreen)),
+      new Info("Nov", "expected", expNovember,
+          charts.ColorUtil.fromDartColor(lGreen)),
+      new Info("Dec", "expected", expDecember,
           charts.ColorUtil.fromDartColor(lGreen)),
     ];
 
     var actData = [
-      new Info("Sun", "actual", actSunday,
+      new Info("Jan", "actual", actJanuary,
           charts.ColorUtil.fromDartColor(Colors.grey)),
-      new Info("Mon", "actual", actMonday,
+      new Info("Feb", "actual", actFebruary,
           charts.ColorUtil.fromDartColor(Colors.grey)),
-      new Info("Mon", "actual", actMonday,
+      new Info("Mar", "actual", actMarch,
           charts.ColorUtil.fromDartColor(Colors.grey)),
-      new Info("Tues", "actual", actTuesday,
+      new Info("Apr", "actual", actApril,
           charts.ColorUtil.fromDartColor(Colors.grey)),
-      new Info("Wed", "actual", actWednesday,
+      new Info(
+          "May", "actual", actMay, charts.ColorUtil.fromDartColor(Colors.grey)),
+      new Info("Jun", "actual", actJune,
           charts.ColorUtil.fromDartColor(Colors.grey)),
-      new Info("Thurs", "actual", actThursday,
+      new Info("Jul", "actual", actJuly,
           charts.ColorUtil.fromDartColor(Colors.grey)),
-      new Info("Fri", "actual", actFriday,
+      new Info("Aug", "actual", actAugust,
           charts.ColorUtil.fromDartColor(Colors.grey)),
-      new Info("Sat", "actual", actSaturday,
+      new Info("Sep", "actual", actSeptember,
+          charts.ColorUtil.fromDartColor(Colors.grey)),
+      new Info("Oct", "actual", actOctober,
+          charts.ColorUtil.fromDartColor(Colors.grey)),
+      new Info("Nov", "actual", actNovember,
+          charts.ColorUtil.fromDartColor(Colors.grey)),
+      new Info("Dec", "actual", actDecember,
           charts.ColorUtil.fromDartColor(Colors.grey)),
     ];
 
@@ -425,29 +482,31 @@ class ProgressWidgetState extends State<ProgressWidget> {
 
     if (minuteChecker == 0) monthText = "You are exactly on track!";
     if (minuteChecker > 0)
-      monthText =
-          "You saved " + minuteChecker.toString() + " minutes this month!";
+      monthText = "You've spent " +
+          minuteChecker.toString() +
+          " less minutes than expected this month!";
     if (minuteChecker < 0) {
       minuteChecker = minuteChecker * -1;
-      monthText =
-          "You lost " + minuteChecker.toString() + " minutes this month!";
+      monthText = "You've spent " +
+          minuteChecker.toString() +
+          " more minutes than expected this month!";
     }
   }
 
   bool monthChecker(String dateMonth) {
     int num = 0;
-    if (dateMonth == "January") num = 1;
-    if (dateMonth == "February") num = 2;
-    if (dateMonth == "March") num = 3;
-    if (dateMonth == "April") num = 4;
+    if (dateMonth == "Jan") num = 1;
+    if (dateMonth == "Feb") num = 2;
+    if (dateMonth == "Mar") num = 3;
+    if (dateMonth == "Apr") num = 4;
     if (dateMonth == "May") num = 5;
-    if (dateMonth == "June") num = 6;
-    if (dateMonth == "July") num = 7;
-    if (dateMonth == "August") num = 8;
-    if (dateMonth == "September") num = 9;
-    if (dateMonth == "August") num = 10;
-    if (dateMonth == "November") num = 11;
-    if (dateMonth == "December") num = 12;
+    if (dateMonth == "Jun") num = 6;
+    if (dateMonth == "Jul") num = 7;
+    if (dateMonth == "Aug") num = 8;
+    if (dateMonth == "Sep") num = 9;
+    if (dateMonth == "Aug") num = 10;
+    if (dateMonth == "Nov") num = 11;
+    if (dateMonth == "Dec") num = 12;
 
     if (DateTime.now().month == num) return true;
     return false;
