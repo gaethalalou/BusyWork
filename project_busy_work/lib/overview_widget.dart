@@ -168,13 +168,14 @@ class _OverviewState extends State<OverviewWidget> {
                     groupSeparatorBuilder: (dynamic date) => Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Center(
-                              child: Text(
+                              /*child: Text(
                             date,
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: lGreen),
-                          )),
+                          )*/
+                              ),
                         ),
                     itemBuilder: (c, element) {
                       return Dismissible(
@@ -307,23 +308,23 @@ class _OverviewState extends State<OverviewWidget> {
                                     )),
                             subtitle: element.completed == "false"
                                 ? Text(
-                                    "• Expected Time: " +
+                                    "• Set Time: " +
                                         element.startTime +
                                         " - " +
                                         element.endTime +
                                         (element.actualStart != "00:00"
-                                            ? "\n• Actual: " +
+                                            ? "\n• Time Spent: " +
                                                 element.actualStart
                                             : ""),
                                     style: TextStyle(color: Colors.white),
                                   )
                                 : Text(
-                                    "• Expected Time: " +
+                                    "• Set Time: " +
                                         element.startTime +
                                         " - " +
                                         element.endTime +
                                         (element.actualStart != "00:00"
-                                            ? "\n• Actual: " +
+                                            ? "\n• Time Spent: " +
                                                 element.actualStart
                                             : ""),
                                     style: TextStyle(

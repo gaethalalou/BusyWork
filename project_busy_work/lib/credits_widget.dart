@@ -11,7 +11,7 @@ class CreditsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Row(
               children: <Widget>[
