@@ -153,55 +153,63 @@ class ProgressWidgetState extends State<ProgressWidget> {
     int totalActMinutes = 0;
     for (var task in allTasks) {
       if (task.completed == "true") {
+        String checker = task.date;
+        List<String> dateSplitter = task.date.split(" ");
+        String dateMonth = dateSplitter[0];
+        String dateDay =
+            dateSplitter[1].substring(0, dateSplitter[1].length - 2);
+        String dateYear = dateSplitter[2];
         String realWeekDay = task.weekDay;
-        List<String> hm = task.expected.split(":");
-        int hour = int.parse(hm[0]);
-        int minute = int.parse(hm[1]);
-        int expectedMinutes = minute;
-        for (int i = 0; i < hour; i++) expectedMinutes = expectedMinutes + 60;
+        if (weekChecker(task.date)) {
+          List<String> hm = task.expected.split(":");
+          int hour = int.parse(hm[0]);
+          int minute = int.parse(hm[1]);
+          int expectedMinutes = minute;
+          for (int i = 0; i < hour; i++) expectedMinutes = expectedMinutes + 60;
 
-        List<String> hm2 = task.actualStart.split(":");
-        int hour2 = int.parse(hm2[0]);
-        int minute2 = int.parse(hm2[1]);
-        int actualMinutes = minute2;
-        for (int i = 0; i < hour2; i++) actualMinutes = actualMinutes + 60;
+          List<String> hm2 = task.actualStart.split(":");
+          int hour2 = int.parse(hm2[0]);
+          int minute2 = int.parse(hm2[1]);
+          int actualMinutes = minute2;
+          for (int i = 0; i < hour2; i++) actualMinutes = actualMinutes + 60;
 
-        if (realWeekDay == "Sunday") {
-          expSunday = expSunday + expectedMinutes;
-          actSunday = actSunday + actualMinutes;
+          if (realWeekDay == "Sunday") {
+            expSunday = expSunday + expectedMinutes;
+            actSunday = actSunday + actualMinutes;
+          }
+
+          if (realWeekDay == "Monday") {
+            expMonday = expMonday + expectedMinutes;
+            actMonday = actMonday + actualMinutes;
+          }
+
+          if (realWeekDay == "Tuesday") {
+            expTuesday = expTuesday + expectedMinutes;
+            actTuesday = actTuesday + actualMinutes;
+          }
+
+          if (realWeekDay == "Wednesday") {
+            expWednesday = expWednesday + expectedMinutes;
+            actWednesday = actWednesday + actualMinutes;
+          }
+
+          if (realWeekDay == "Thursday") {
+            expThursday = expThursday + expectedMinutes;
+            actThursday = actThursday + actualMinutes;
+          }
+
+          if (realWeekDay == "Friday") {
+            expFriday = expFriday + expectedMinutes;
+            actFriday = actFriday + actualMinutes;
+          }
+
+          if (realWeekDay == "Saturday") {
+            expFriday = expSaturday + expectedMinutes;
+            actSaturday = actSaturday + actualMinutes;
+          }
+          totalExpMinutes = totalExpMinutes + expectedMinutes;
+          totalActMinutes = totalActMinutes + actualMinutes;
         }
-
-        if (realWeekDay == "Monday") {
-          expMonday = expMonday + expectedMinutes;
-          actMonday = actMonday + actualMinutes;
-        }
-
-        if (realWeekDay == "Tuesday") {
-          expTuesday = expTuesday + expectedMinutes;
-          actTuesday = actTuesday + actualMinutes;
-        }
-
-        if (realWeekDay == "Wednesday") {
-          expWednesday = expWednesday + expectedMinutes;
-          actWednesday = actWednesday + actualMinutes;
-        }
-
-        if (realWeekDay == "Thursday") {
-          expThursday = expThursday + expectedMinutes;
-          actThursday = actThursday + actualMinutes;
-        }
-
-        if (realWeekDay == "Friday") {
-          expFriday = expFriday + expectedMinutes;
-          actFriday = actFriday + actualMinutes;
-        }
-
-        if (realWeekDay == "Saturday") {
-          expFriday = expSaturday + expectedMinutes;
-          actSaturday = actSaturday + actualMinutes;
-        }
-        totalExpMinutes = totalExpMinutes + expectedMinutes;
-        totalActMinutes = totalActMinutes + actualMinutes;
       }
     }
     var expData = [
@@ -300,9 +308,9 @@ class ProgressWidgetState extends State<ProgressWidget> {
         String dateDay =
             dateSplitter[1].substring(0, dateSplitter[1].length - 2);
         String dateYear = dateSplitter[2];
+        String realWeekDay = task.weekDay;
         if (dateYear == DateTime.now().year.toString() &&
             monthChecker(dateMonth)) {
-          String realWeekDay = task.weekDay;
           List<String> hm = task.expected.split(":");
           int hour = int.parse(hm[0]);
           int minute = int.parse(hm[1]);
@@ -443,6 +451,253 @@ class ProgressWidgetState extends State<ProgressWidget> {
 
     if (DateTime.now().month == num) return true;
     return false;
+  }
+
+  bool weekChecker(String taskDate) {
+    var today = DateTime.now();
+    List<String> acceptable = List<String>();
+    if (today.weekday == 7) {
+      //Sunday
+      DateTime day1 = new DateTime(today.year, today.month, today.day);
+      String day1Month = monthConvert(day1.month);
+      acceptable.add(
+          day1Month + " " + day1.day.toString() + ", " + day1.year.toString());
+      DateTime day2 = new DateTime(today.year, today.month, today.day + 1);
+      String day2Month = monthConvert(day2.month);
+      acceptable.add(
+          day2Month + " " + day2.day.toString() + ", " + day2.year.toString());
+      DateTime day3 = new DateTime(today.year, today.month, today.day + 2);
+      String day3Month = monthConvert(day3.month);
+      acceptable.add(
+          day3Month + " " + day3.day.toString() + ", " + day3.year.toString());
+      DateTime day4 = new DateTime(today.year, today.month, today.day + 3);
+      String day4Month = monthConvert(day4.month);
+      acceptable.add(
+          day4Month + " " + day4.day.toString() + ", " + day4.year.toString());
+      DateTime day5 = new DateTime(today.year, today.month, today.day + 4);
+      String day5Month = monthConvert(day5.month);
+      acceptable.add(
+          day5Month + " " + day5.day.toString() + ", " + day5.year.toString());
+      DateTime day6 = new DateTime(today.year, today.month, today.day + 5);
+      String day6Month = monthConvert(day6.month);
+      acceptable.add(
+          day6Month + " " + day6.day.toString() + ", " + day6.year.toString());
+      DateTime day7 = new DateTime(today.year, today.month, today.day + 6);
+      String day7Month = monthConvert(day7.month);
+      acceptable.add(
+          day7Month + " " + day7.day.toString() + ", " + day7.year.toString());
+    }
+
+    if (today.weekday == 1) {
+      //Monday
+      DateTime day1 = new DateTime(today.year, today.month, today.day);
+      String day1Month = monthConvert(day1.month);
+      acceptable.add(
+          day1Month + " " + day1.day.toString() + ", " + day1.year.toString());
+      DateTime day2 = new DateTime(today.year, today.month, today.day + 1);
+      String day2Month = monthConvert(day2.month);
+      acceptable.add(
+          day2Month + " " + day2.day.toString() + ", " + day2.year.toString());
+      DateTime day3 = new DateTime(today.year, today.month, today.day + 2);
+      String day3Month = monthConvert(day3.month);
+      acceptable.add(
+          day3Month + " " + day3.day.toString() + ", " + day3.year.toString());
+      DateTime day4 = new DateTime(today.year, today.month, today.day + 3);
+      String day4Month = monthConvert(day4.month);
+      acceptable.add(
+          day4Month + " " + day4.day.toString() + ", " + day4.year.toString());
+      DateTime day5 = new DateTime(today.year, today.month, today.day + 4);
+      String day5Month = monthConvert(day5.month);
+      acceptable.add(
+          day5Month + " " + day5.day.toString() + ", " + day5.year.toString());
+      DateTime day6 = new DateTime(today.year, today.month, today.day + 5);
+      String day6Month = monthConvert(day6.month);
+      acceptable.add(
+          day6Month + " " + day6.day.toString() + ", " + day6.year.toString());
+      DateTime day7 = new DateTime(today.year, today.month, today.day - 1);
+      String day7Month = monthConvert(day7.month);
+      acceptable.add(
+          day7Month + " " + day7.day.toString() + ", " + day7.year.toString());
+    }
+
+    if (today.weekday == 2) {
+      //Tuesday
+      DateTime day1 = new DateTime(today.year, today.month, today.day);
+      String day1Month = monthConvert(day1.month);
+      acceptable.add(
+          day1Month + " " + day1.day.toString() + ", " + day1.year.toString());
+      DateTime day2 = new DateTime(today.year, today.month, today.day + 1);
+      String day2Month = monthConvert(day2.month);
+      acceptable.add(
+          day2Month + " " + day2.day.toString() + ", " + day2.year.toString());
+      DateTime day3 = new DateTime(today.year, today.month, today.day + 2);
+      String day3Month = monthConvert(day3.month);
+      acceptable.add(
+          day3Month + " " + day3.day.toString() + ", " + day3.year.toString());
+      DateTime day4 = new DateTime(today.year, today.month, today.day + 3);
+      String day4Month = monthConvert(day4.month);
+      acceptable.add(
+          day4Month + " " + day4.day.toString() + ", " + day4.year.toString());
+      DateTime day5 = new DateTime(today.year, today.month, today.day + 4);
+      String day5Month = monthConvert(day5.month);
+      acceptable.add(
+          day5Month + " " + day5.day.toString() + ", " + day5.year.toString());
+      DateTime day6 = new DateTime(today.year, today.month, today.day - 2);
+      String day6Month = monthConvert(day6.month);
+      acceptable.add(
+          day6Month + " " + day6.day.toString() + ", " + day6.year.toString());
+      DateTime day7 = new DateTime(today.year, today.month, today.day - 1);
+      String day7Month = monthConvert(day7.month);
+      acceptable.add(
+          day7Month + " " + day7.day.toString() + ", " + day7.year.toString());
+    }
+
+    if (today.weekday == 3) {
+      //Wednesday
+      DateTime day1 = new DateTime(today.year, today.month, today.day);
+      String day1Month = monthConvert(day1.month);
+      acceptable.add(
+          day1Month + " " + day1.day.toString() + ", " + day1.year.toString());
+      DateTime day2 = new DateTime(today.year, today.month, today.day + 1);
+      String day2Month = monthConvert(day2.month);
+      acceptable.add(
+          day2Month + " " + day2.day.toString() + ", " + day2.year.toString());
+      DateTime day3 = new DateTime(today.year, today.month, today.day + 2);
+      String day3Month = monthConvert(day3.month);
+      acceptable.add(
+          day3Month + " " + day3.day.toString() + ", " + day3.year.toString());
+      DateTime day4 = new DateTime(today.year, today.month, today.day + 3);
+      String day4Month = monthConvert(day4.month);
+      acceptable.add(
+          day4Month + " " + day4.day.toString() + ", " + day4.year.toString());
+      DateTime day5 = new DateTime(today.year, today.month, today.day - 3);
+      String day5Month = monthConvert(day5.month);
+      acceptable.add(
+          day5Month + " " + day5.day.toString() + ", " + day5.year.toString());
+      DateTime day6 = new DateTime(today.year, today.month, today.day - 2);
+      String day6Month = monthConvert(day6.month);
+      acceptable.add(
+          day6Month + " " + day6.day.toString() + ", " + day6.year.toString());
+      DateTime day7 = new DateTime(today.year, today.month, today.day - 1);
+      String day7Month = monthConvert(day7.month);
+      acceptable.add(
+          day7Month + " " + day7.day.toString() + ", " + day7.year.toString());
+    }
+
+    if (today.weekday == 4) {
+      //Thursday
+      DateTime day1 = new DateTime(today.year, today.month, today.day);
+      String day1Month = monthConvert(day1.month);
+      acceptable.add(
+          day1Month + " " + day1.day.toString() + ", " + day1.year.toString());
+      DateTime day2 = new DateTime(today.year, today.month, today.day + 1);
+      String day2Month = monthConvert(day2.month);
+      acceptable.add(
+          day2Month + " " + day2.day.toString() + ", " + day2.year.toString());
+      DateTime day3 = new DateTime(today.year, today.month, today.day + 2);
+      String day3Month = monthConvert(day3.month);
+      acceptable.add(
+          day3Month + " " + day3.day.toString() + ", " + day3.year.toString());
+      DateTime day4 = new DateTime(today.year, today.month, today.day - 4);
+      String day4Month = monthConvert(day4.month);
+      acceptable.add(
+          day4Month + " " + day4.day.toString() + ", " + day4.year.toString());
+      DateTime day5 = new DateTime(today.year, today.month, today.day - 3);
+      String day5Month = monthConvert(day5.month);
+      acceptable.add(
+          day5Month + " " + day5.day.toString() + ", " + day5.year.toString());
+      DateTime day6 = new DateTime(today.year, today.month, today.day - 2);
+      String day6Month = monthConvert(day6.month);
+      acceptable.add(
+          day6Month + " " + day6.day.toString() + ", " + day6.year.toString());
+      DateTime day7 = new DateTime(today.year, today.month, today.day - 1);
+      String day7Month = monthConvert(day7.month);
+      acceptable.add(
+          day7Month + " " + day7.day.toString() + ", " + day7.year.toString());
+    }
+
+    if (today.weekday == 5) {
+      //Friday
+      DateTime day1 = new DateTime(today.year, today.month, today.day);
+      String day1Month = monthConvert(day1.month);
+      acceptable.add(
+          day1Month + " " + day1.day.toString() + ", " + day1.year.toString());
+      DateTime day2 = new DateTime(today.year, today.month, today.day + 1);
+      String day2Month = monthConvert(day2.month);
+      acceptable.add(
+          day2Month + " " + day2.day.toString() + ", " + day2.year.toString());
+      DateTime day3 = new DateTime(today.year, today.month, today.day - 5);
+      String day3Month = monthConvert(day3.month);
+      acceptable.add(
+          day3Month + " " + day3.day.toString() + ", " + day3.year.toString());
+      DateTime day4 = new DateTime(today.year, today.month, today.day - 4);
+      String day4Month = monthConvert(day4.month);
+      acceptable.add(
+          day4Month + " " + day4.day.toString() + ", " + day4.year.toString());
+      DateTime day5 = new DateTime(today.year, today.month, today.day - 3);
+      String day5Month = monthConvert(day5.month);
+      acceptable.add(
+          day5Month + " " + day5.day.toString() + ", " + day5.year.toString());
+      DateTime day6 = new DateTime(today.year, today.month, today.day - 2);
+      String day6Month = monthConvert(day6.month);
+      acceptable.add(
+          day6Month + " " + day6.day.toString() + ", " + day6.year.toString());
+      DateTime day7 = new DateTime(today.year, today.month, today.day - 1);
+      String day7Month = monthConvert(day7.month);
+      acceptable.add(
+          day7Month + " " + day7.day.toString() + ", " + day7.year.toString());
+    }
+
+    if (today.weekday == 6) {
+      //Saturday
+      DateTime day1 = new DateTime(today.year, today.month, today.day);
+      String day1Month = monthConvert(day1.month);
+      acceptable.add(
+          day1Month + " " + day1.day.toString() + ", " + day1.year.toString());
+      DateTime day2 = new DateTime(today.year, today.month, today.day - 6);
+      String day2Month = monthConvert(day2.month);
+      acceptable.add(
+          day2Month + " " + day2.day.toString() + ", " + day2.year.toString());
+      DateTime day3 = new DateTime(today.year, today.month, today.day - 5);
+      String day3Month = monthConvert(day3.month);
+      acceptable.add(
+          day3Month + " " + day3.day.toString() + ", " + day3.year.toString());
+      DateTime day4 = new DateTime(today.year, today.month, today.day - 4);
+      String day4Month = monthConvert(day4.month);
+      acceptable.add(
+          day4Month + " " + day4.day.toString() + ", " + day4.year.toString());
+      DateTime day5 = new DateTime(today.year, today.month, today.day - 3);
+      String day5Month = monthConvert(day5.month);
+      acceptable.add(
+          day5Month + " " + day5.day.toString() + ", " + day5.year.toString());
+      DateTime day6 = new DateTime(today.year, today.month, today.day - 2);
+      String day6Month = monthConvert(day6.month);
+      acceptable.add(
+          day6Month + " " + day6.day.toString() + ", " + day6.year.toString());
+      DateTime day7 = new DateTime(today.year, today.month, today.day - 1);
+      String day7Month = monthConvert(day7.month);
+      acceptable.add(
+          day7Month + " " + day7.day.toString() + ", " + day7.year.toString());
+    }
+
+    if (acceptable.contains(taskDate)) return true;
+    return false;
+  }
+
+  String monthConvert(int month) {
+    if (month == 1) return "January";
+    if (month == 2) return "February";
+    if (month == 3) return "March";
+    if (month == 4) return "April";
+    if (month == 5) return "May";
+    if (month == 6) return "June";
+    if (month == 7) return "July";
+    if (month == 8) return "August";
+    if (month == 9) return "September";
+    if (month == 10) return "October";
+    if (month == 11) return "November";
+    if (month == 12) return "December";
+    return null;
   }
 }
 
