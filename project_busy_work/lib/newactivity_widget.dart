@@ -27,7 +27,7 @@ class NewActivityState extends State<NewActivityWidget> {
   DateTime selectedTime1 = DateTime.now();
   DateTime selectedTime2 = DateTime.now().add(Duration(minutes: 30));
   final DateFormat dated = DateFormat.yMMMd();
-  final DateFormat timed = DateFormat('HH : mm');
+  final DateFormat timed = DateFormat('HH:mm');
   List<Routines> routines = Routines.getRoutines();
   List<DropdownMenuItem<Routines>> dropdownMenuItems;
   Routines selectedRoutine;
@@ -36,6 +36,10 @@ class NewActivityState extends State<NewActivityWidget> {
   String realWeekDay;
   String locationCheck;
   String descriptionCheck;
+  String startTimeB;
+  String endTimeB;
+  String firstTime;
+  String lastTime;
 
   File jsonFile;
   Directory dir;
@@ -76,6 +80,8 @@ class NewActivityState extends State<NewActivityWidget> {
             DateTime.now().day, 12, selectedTime2.minute);
       }
     });
+    firstTime = timed.format(selectedTime1) + period1;
+    lastTime = timed.format(selectedTime2) + period2;
     dropdownMenuItems = buildDropdownMenuItems(routines);
     selectedRoutine = dropdownMenuItems[0].value;
     super.initState();
@@ -265,7 +271,7 @@ class NewActivityState extends State<NewActivityWidget> {
                 Text('Time: ', style: TextStyle(fontSize: 18)),
                 Column(
                   children: <Widget>[
-                    Text(timed.format(selectedTime1) + period1),
+                    Text(firstTime),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(18.0)),
@@ -296,6 +302,11 @@ class NewActivityState extends State<NewActivityWidget> {
                                 12,
                                 selectedTime1.minute);
                           }
+                          startTimeB =
+                              timed.format(this.selectedTime1) + period1;
+                          if (startTimeB[0] == '0')
+                            startTimeB = startTimeB.substring(1);
+                          firstTime = startTimeB;
                         });
                       },
                     ),
@@ -303,7 +314,7 @@ class NewActivityState extends State<NewActivityWidget> {
                 ),
                 Column(
                   children: <Widget>[
-                    Text(timed.format(selectedTime2) + period2),
+                    Text(lastTime),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(18.0)),
@@ -334,6 +345,10 @@ class NewActivityState extends State<NewActivityWidget> {
                                 12,
                                 selectedTime2.minute);
                           }
+                          endTimeB = timed.format(this.selectedTime2) + period2;
+                          if (endTimeB[0] == '0')
+                            endTimeB = endTimeB.substring(1);
+                          lastTime = endTimeB;
                         });
                       },
                     ),
@@ -419,10 +434,10 @@ class NewActivityState extends State<NewActivityWidget> {
       String expected =
           '${hour.toString().padLeft(2, "0")}:${minutes.toString().padLeft(2, "0")}';
       weekDayMaker();
-      String startTimeB = timed.format(selectedTime1) + period1;
+      startTimeB = timed.format(selectedTime1) + period1;
       if (startTimeB[0] == '0') startTimeB = startTimeB.substring(1);
 
-      String endTimeB = timed.format(selectedTime2) + period2;
+      endTimeB = timed.format(selectedTime2) + period2;
       if (endTimeB[0] == '0') endTimeB = endTimeB.substring(1);
 
       Task sub = new Task(
