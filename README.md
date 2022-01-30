@@ -1,7 +1,7 @@
 # BusyWork
 
 ## Intro Screen
-<img src="https://user-images.githubusercontent.com/59658592/85645879-c6129680-b64f-11ea-96c8-2b47eb509ef2.png " width="120">
+<img src="https://user-images.githubusercontent.com/59658592/85645879-c6129680-b64f-11ea-96c8-2b47eb509ef2.png " width="250">
 
 ![intro2](https://user-images.githubusercontent.com/59658592/85645878-c57a0000-b64f-11ea-8ac7-716529d9eec1.png)
 ![intro3](https://user-images.githubusercontent.com/59658592/85645877-c57a0000-b64f-11ea-8492-cab6190ffd54.png)
