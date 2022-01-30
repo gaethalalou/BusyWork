@@ -10,6 +10,8 @@
 <img src="https://user-images.githubusercontent.com/59658592/85645885-c6ab2d00-b64f-11ea-9f27-8d8a5cec9291.png " width="250">
 
 Swipe to get the next week days!
+<br />
+
 <img src="https://user-images.githubusercontent.com/59658592/85645870-c3b03c80-b64f-11ea-99b8-f5b00fe410bf.png" width="250">
 
 ## New Activity Form
