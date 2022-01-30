@@ -17,14 +17,19 @@ Swipe to get the next week days!
 
 ## Progress
 Time tracker 
+<br />
 <img src="https://user-images.githubusercontent.com/59658592/85645875-c4e16980-b64f-11ea-92ec-713a3c89ec00.png " width="250">
 <img src="https://user-images.githubusercontent.com/59658592/85645872-c4e16980-b64f-11ea-9cfd-5d76ceaff543.png" width="250">
 
 ## Graphs!
 Graphs to compare expected and actual time
+<br />
+
 <img src="https://user-images.githubusercontent.com/59658592/85645880-c6129680-b64f-11ea-88a6-7afe2f58eb17.png " width="250">
 <img src="https://user-images.githubusercontent.com/59658592/85645883-c6ab2d00-b64f-11ea-9011-fa641a23eeff.png " width="250">
 
 ## Settings
 Importing and exporting csv, and json format of the logged tasks!
+<br />
+
 <img src="https://user-images.githubusercontent.com/59658592/85645887-c743c380-b64f-11ea-81c0-65d616e2fa50.png " width="250">
